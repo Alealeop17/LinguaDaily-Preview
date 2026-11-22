@@ -1,11 +1,5 @@
 <!doctype html>
-<html lang="ru"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow,noarchive">
-<meta name="theme-color" content="#F7F8F5">
-<title>Lingua Daily — Перевод и письмо</title>
-<style>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#F7F8F5"><title>Lingua Daily — До автоматизма</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#233c2d;background:#f7f8f5;font-size:16px;color-scheme:light}
 *{box-sizing:border-box}body{margin:0;min-width:280px}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
 .shell{max-width:570px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(35px + env(safe-area-inset-bottom))}
@@ -29,10 +23,14 @@ h1{font-weight:815;font-size:clamp(27px,7vw,37px);line-height:1.17;letter-spacin
 .small-note{font-size:12px;line-height:1.45;color:#859188;margin:13px 1px 0}
 @media(max-width:345px){.shell{padding-left:12px;padding-right:12px}.card{padding:17px 13px}.btn{font-size:13px}.play{font-size:16px}.formrow{font-size:13px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
-</head>
-<body><div class="shell"><header><div class="brand">Lingua <em>Daily</em></div><div class="caption">Практика речи и письма</div></header><nav class="langs" aria-label="Выбери язык"><button type="button" id="lang-es">Испанский</button><button type="button" id="lang-en">Английский</button></nav><main id="app"></main><div id="status" class="small-note" role="status"></div></div>
-<script>'use strict';
+
+.mastery{display:grid;grid-template-columns:repeat(25,minmax(0,1fr));gap:3px;margin:-4px 0 11px;align-items:center}
+.mastery span{height:6px;background:#dce3dd;border-radius:3px;display:block;min-width:0}
+.mastery span.green{background:#3a9a64}.mastery span.red{background:#d95651}
+.mastery span.current{outline:1px solid #94ada0;outline-offset:1px}
+.mastery-stat{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#68776b;margin-bottom:23px;font-weight:720}
+.retry-note{font-size:12px;color:#ae5148;font-weight:760;text-align:center;margin:12px 0 0}
+</style></head><body><div class="shell"><header><div class="brand">Lingua <em>Daily</em></div><div class="caption">Практика речи и письма</div></header><nav class="langs"><button type="button" id="lang-es">Испанский</button><button type="button" id="lang-en">Английский</button></nav><main id="app"></main><div id="status" class="small-note" role="status"></div></div><script>'use strict';
 const content={
 es:{
  word:'Querer',locale:'es-ES',
@@ -128,87 +126,153 @@ en:{
 }
 };
 
-const STORE='lingua-daily-iphone-preview-v7';
-content.es.tasks.unshift(['Я хочу учиться.','Quiero aprender.','Quiero + infinitivo.']);
+
+
+const STORE='lingua-daily-iphone-preview-v8';
+const PREVIOUS='lingua-daily-iphone-preview-v7';
+const MAX=100;
+content.es.tasks.unshift(['Я хочу учиться.','Quiero aprender.','Quiero + инфинитив.']);
 content.en.tasks.unshift(['Я хочу учиться.','I want to learn.','I want to + verb.']);
-const fresh=()=>({i:0,draft:'',checked:false,results:[]});
-const valid=(s,l)=>!!s&&typeof s==='object'&&!Array.isArray(s)&&Number.isInteger(s.i)&&s.i>=0&&s.i<=content[l].tasks.length&&typeof s.draft==='string'&&s.draft.length<=500&&typeof s.checked==='boolean'&&Array.isArray(s.results)&&s.results.length===s.i&&s.results.every(r=>r&&typeof r.answer==='string'&&typeof r.ok==='boolean');
+const fresh=()=>({slots:[],queue:[],cursor:0,turns:0,errors:0,mistakes:[],active:null,draft:'',checked:false,last:null});
+const valid=(s,l)=>{
+ const len=content[l].tasks.length;
+ if(!s||typeof s!=='object'||!Array.isArray(s.slots)||s.slots.length>MAX||!Array.isArray(s.queue)||!Array.isArray(s.mistakes))return false;
+ if(!Number.isInteger(s.cursor)||s.cursor<0||!Number.isInteger(s.turns)||s.turns<0||!Number.isInteger(s.errors)||s.errors<0||typeof s.draft!=='string'||s.draft.length>500||typeof s.checked!=='boolean')return false;
+ if(!s.slots.every(x=>x&&Number.isInteger(x.task)&&x.task>=0&&x.task<len&&['green','red'].includes(x.status)))return false;
+ if(!s.queue.every(q=>q&&Number.isInteger(q.slot)&&q.slot>=0&&q.slot<s.slots.length&&q.task===s.slots[q.slot].task&&s.slots[q.slot].status==='red'&&Number.isInteger(q.due)))return false;
+ if(s.active!==null&&(!s.active||!Number.isInteger(s.active.task)||s.active.task<0||s.active.task>=len||typeof s.active.review!=='boolean'||(!s.active.review&&s.slots.length>=MAX)||s.active.review&&(!Number.isInteger(s.active.slot)||s.active.slot<0||s.active.slot>=s.slots.length)))return false;
+ if(s.checked&&(!s.active||!s.last||typeof s.last.ok!=='boolean'))return false;
+ return true;
+};
+function migrateOne(old,l){
+ const out=fresh(),answers=Array.isArray(old?.results)?old.results:[];
+ answers.slice(0,content[l].tasks.length).forEach((r,i)=>{
+  const ok=!!r.ok;out.slots.push({task:i,status:ok?'green':'red'});
+  if(!ok){out.errors++;out.mistakes[i]=(out.mistakes[i]||0)+1;out.queue.push({slot:i,task:i,due:answers.length+1});}
+ });
+ out.turns=answers.length;out.cursor=answers.length;
+ if(typeof old?.draft==='string')out.draft=old.draft.slice(0,500);
+ return out;
+}
 let saved=null;
 try{const t=JSON.parse(localStorage.getItem(STORE)||'null');if(t&&['es','en'].includes(t.lang)&&valid(t.es,'es')&&valid(t.en,'en'))saved=t;}catch(e){}
+if(!saved){try{const old=JSON.parse(localStorage.getItem(PREVIOUS)||'null');if(old&&old.es&&old.en&&['es','en'].includes(old.lang))saved={lang:old.lang,es:migrateOne(old.es,'es'),en:migrateOne(old.en,'en')};}catch(e){}}
 if(!saved)saved={lang:'es',es:fresh(),en:fresh()};
-let lang=saved.lang,showPrompt=false,showForms=false,showRule=false,audioText='',audioLocale='';
-const root=document.getElementById('app');
-const $=id=>document.getElementById(id);
+let lang=saved.lang,showPrompt=false,showForms=false,showRule=false;
+const root=document.getElementById('app'),$=id=>document.getElementById(id);
 const data=()=>content[lang],state=()=>saved[lang];
-const store=()=>{saved.lang=lang;try{localStorage.setItem(STORE,JSON.stringify(saved))}catch(e){}};
-function make(tag,cls,txt){let x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
-function button(text,fn,cls=''){const x=make('button','btn '+cls,text);x.type='button';x.addEventListener('click',fn);return x}
+function store(){saved.lang=lang;try{localStorage.setItem(STORE,JSON.stringify(saved))}catch(e){$('status').textContent='Прогресс не удалось сохранить. Проверь настройки Safari.'}}
+function make(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x;}
+function button(txt,fn,cls=''){const x=make('button','btn '+cls,txt);x.type='button';x.addEventListener('click',fn);return x;}
 function cutAudio(){try{window.speechSynthesis?.cancel()}catch(e){}}
-function voiceFor(locale){try{const vs=window.speechSynthesis.getVoices();return vs.find(v=>v.lang?.toLowerCase()===locale.toLowerCase())||vs.find(v=>v.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null}catch(e){return null}}
-function speak(txt,locale,rate){cutAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве нет доступной озвучки.';return}
- try{const u=new SpeechSynthesisUtterance(txt);u.lang=locale;u.rate=rate;const v=voiceFor(locale);if(v)u.voice=v;window.speechSynthesis.speak(u);audioText=txt;audioLocale=locale;}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
-function russianPrompt(){const task=data().tasks[state().i];if(!task)return;
- const phrase=task[0]+(task[3]?' '+task[3].charAt(0).toUpperCase()+task[3].slice(1)+'.':'');
- speak(phrase,'ru-RU',0.68);}
+function voiceFor(locale){try{const v=window.speechSynthesis.getVoices();return v.find(x=>x.lang?.toLowerCase()===locale.toLowerCase())||v.find(x=>x.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null}catch(e){return null}}
+function speak(text,locale,rate){cutAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве озвучка недоступна.';return}
+ try{const u=new SpeechSynthesisUtterance(text);u.lang=locale;u.rate=rate;const v=voiceFor(locale);if(v)u.voice=v;window.speechSynthesis.speak(u);}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
 function normal(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLowerCase();}
-function assess(value,model,l,alternatives=[]){const a=normal(value),b=normal(model);
+function assess(value,model,l,alternatives=[]){
+ const a=normal(value),b=normal(model);
  if(!a)return {ok:false,why:'Напиши перевод полностью.'};
  if(l==='en'&&model.startsWith('I ')&&!value.trim().startsWith('I '))return {ok:false,why:'Местоимение I нужно писать с заглавной буквы.'};
  if(l==='en'&&model.includes('English')&&!value.includes('English'))return {ok:false,why:'Название языка English пишется с заглавной буквы.'};
  const models=[model,...(Array.isArray(alternatives)?alternatives:[])];
  const subj=/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i;
- if(models.some(x=>normal(x)===a||(l==='es'&&normal(x.replace(subj,''))===a)))
-   return {ok:true,why:'Написано правильно.'};
- if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударение или букву ñ.'};
+ if(models.some(x=>normal(x)===a||(l==='es'&&normal(x.replace(subj,''))===a)))return {ok:true,why:'Правильно.'};
+ if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударения или букву ñ.'};
  let i=0,aa=[...a],bb=[...b];while(i<aa.length&&i<bb.length&&aa[i]===bb[i])i++;
- return {ok:false,why:'Ответ отличается от образца. Проверь написание примерно с символа '+(i+1)+'.'};
+ return {ok:false,why:'Проверь написание примерно с символа '+(i+1)+'.'};
 }
-function check(){const s=state(),task=data().tasks[s.i],inp=$('answer');if(inp)s.draft=inp.value.slice(0,500);if(!s.draft.trim()){$('status').textContent='Напиши перевод в поле ответа.';return}
- s.checked=true;store();render();speak(assess(s.draft,task[1],lang,task[4]).ok?s.draft:task[1],data().locale,lang==='es'?0.64:0.68);}
-function rewrite(){state().checked=false;store();render();$('answer')?.focus()}
-function next(){const s=state(),d=data();if(!s.checked)return;const r=assess(s.draft,d.tasks[s.i][1],lang,d.tasks[s.i][4]);s.results.push({answer:s.draft,ok:r.ok});s.i++;s.draft='';s.checked=false;showRule=false;showPrompt=false;cutAudio();store();render();}
-function restart(){cutAudio();saved[lang]=fresh();showForms=false;showRule=false;showPrompt=false;store();render()}
-function formHelp(){showForms=!showForms;cutAudio();render()}
-function progress(count,max){const top=make('div','topline');top.append(make('span','','Перевод с русского'),make('span','',Math.min(count+1,max)+' / '+max));root.append(top);
- const meter=make('div','meter'),bar=make('div');bar.style.width=(Math.min(count,max)/max*100)+'%';meter.append(bar);root.append(meter);}
+function ensureActive(){
+ const s=state();if(s.active)return;
+ if(s.slots.length===MAX&&!s.queue.length)return;
+ const due=s.queue.filter(q=>q.due<=s.turns).sort((a,b)=>a.due-b.due)[0];
+ const forced=s.slots.length>=MAX ? [...s.queue].sort((a,b)=>a.due-b.due)[0] : null;
+ const retry=due||forced;
+ if(retry)s.active={task:retry.task,slot:retry.slot,review:true};
+ else if(s.slots.length<MAX){s.active={task:s.cursor%data().tasks.length,slot:-1,review:false};s.cursor++;}
+ else throw Error('Unresolved exercise progress');
+ store();
+}
+function currentTask(){ensureActive();const s=state();return s.active?data().tasks[s.active.task]:null;}
+function russianPrompt(){const task=currentTask();if(!task)return;const phrase=task[0]+(task[3]?' '+task[3][0].toUpperCase()+task[3].slice(1)+'.':'');speak(phrase,'ru-RU',0.68);}
+function countGreen(s){return s.slots.filter(x=>x.status==='green').length}
+function check(){
+ const s=state(),task=currentTask();if(s.checked||!task)return;
+ const inp=$('answer');if(inp)s.draft=inp.value.slice(0,500);
+ if(!s.draft.trim()){$('status').textContent='Напиши перевод в поле ответа.';return;}
+ const r=assess(s.draft,task[1],lang,task[4]);
+ s.turns++;
+ const act=s.active;let slot=act.slot;
+ if(!act.review){slot=s.slots.length;s.slots.push({task:act.task,status:r.ok?'green':'red'});}
+ else {if(!s.slots[slot]||s.slots[slot].task!==act.task)throw Error('Retry slot mismatch');s.slots[slot].status=r.ok?'green':'red';}
+ if(r.ok){s.queue=s.queue.filter(q=>q.slot!==slot);}
+ else{
+  s.errors++;s.mistakes[act.task]=(s.mistakes[act.task]||0)+1;
+  const old=s.queue.find(q=>q.slot===slot);
+  if(old)old.due=s.turns+3;
+  else s.queue.push({slot,task:act.task,due:s.turns+3});
+ }
+ s.last={ok:r.ok,wasReview:act.review,slot};s.checked=true;
+ store();render();
+ speak(r.ok?s.draft:task[1],data().locale,lang==='es'?0.64:0.68);
+}
+function next(){
+ const s=state();if(!s.checked)return;
+ cutAudio();s.draft='';s.checked=false;s.last=null;s.active=null;
+ showRule=false;showPrompt=false;store();ensureActive();render();
+}
+function reset(){cutAudio();saved[lang]=fresh();showForms=false;showRule=false;showPrompt=false;store();ensureActive();render();}
+function progress(s){
+ const green=countGreen(s),red=s.slots.length-green;
+ const meta=make('div','topline');meta.append(make('span','','До автоматизма'),make('span','',green+' / '+MAX));root.append(meta);
+ const grid=make('div','mastery');grid.setAttribute('role','progressbar');grid.setAttribute('aria-label','Выучено ответов');grid.setAttribute('aria-valuemin','0');grid.setAttribute('aria-valuemax',String(MAX));grid.setAttribute('aria-valuenow',String(green));
+ for(let i=0;i<MAX;i++){const item=make('span',s.slots[i]?.status||'empty');grid.append(item);}
+ root.append(grid);
+ const note=make('div','mastery-stat');note.append(make('span','','Зелёных: '+green),make('span','','Красных: '+red+' · Ошибок: '+s.errors));root.append(note);
+}
 function render(){
  for(const k of ['es','en'])$('lang-'+k).classList.toggle('selected',lang===k);
- root.replaceChildren();$('status').textContent='';const d=data(),s=state(),tasks=d.tasks;
- if(s.i===tasks.length){progress(tasks.length,tasks.length);root.append(make('h1','','Тренировка завершена'));
- const correct=s.results.filter(x=>x.ok).length;root.append(make('div','score',correct+' / '+tasks.length),make('p','instruction','Столько ответов совпало с образцом. Можно снова пройти тренировку.'));
- root.append(button('Пройти ещё раз',restart,'primary'));return;}
- progress(s.i,tasks.length);
+ root.replaceChildren();$('status').textContent='';
+ const s=state(),d=data();ensureActive();progress(s);
+ if(s.slots.length===MAX&&countGreen(s)===MAX){
+  root.append(make('h1','','Все сто зелёные!'),make('p','instruction','Ты справилась с тренировкой. Все ошибочные предложения были повторены и исправлены.'));
+  root.append(button('Начать новую тренировку',reset,'primary'));return;
+ }
+ const task=currentTask(),act=s.active;
  root.append(make('h1','','Переведи на '+(lang==='es'?'испанский':'английский')));
- root.append(make('p','instruction','Послушай русскую фразу, скажи перевод вслух и напиши его самостоятельно.'));
- const card=make('div','card');
- const play=make('button','play');play.type='button';play.append(make('span','sound','◖))'),make('span','','Слушать задание на русском'));
+ root.append(make('p','instruction',act.review?'Повтор ошибки. Вспомни предложение и напиши его правильно.':'Слушай русскую фразу, скажи перевод и напиши его полностью.'));
+ const card=make('div','card'),play=make('button','play');
+ play.type='button';play.append(make('span','sound','◖))'),make('span','','Слушать задание на русском'));
  play.addEventListener('click',russianPrompt);card.append(play);
- card.append(make('p','prompt-hint','Нажми, чтобы услышать фразу. Можно слушать повторно.'));
- if(showPrompt)card.append(make('p','prompt-reveal',tasks[s.i][0]+(tasks[s.i][3]?' — '+tasks[s.i][3]:'')));
- const view=button(showPrompt?'Скрыть текст задания':'Показать текст задания',()=>{showPrompt=!showPrompt;render()},'lightlink');
- view.className='lightlink';card.append(view);
- const lbl=make('label','input-label','Твой перевод');lbl.htmlFor='answer';card.append(lbl);
+ card.append(make('p','prompt-hint','Нажми, чтобы услышать фразу ещё раз.'));
+ if(showPrompt)card.append(make('p','prompt-reveal',task[0]+(task[3]?' — '+task[3]:'')));
+ const show=button(showPrompt?'Скрыть текст задания':'Показать текст задания',()=>{showPrompt=!showPrompt;render()},'lightlink');show.className='lightlink';card.append(show);
+ const label=make('label','input-label','Твой перевод');label.htmlFor='answer';card.append(label);
  const input=make('input','answer');input.id='answer';input.type='text';input.lang=lang;input.autocomplete='off';input.spellcheck=false;input.setAttribute('autocapitalize','none');input.value=s.draft;input.readOnly=s.checked;
  input.addEventListener('input',()=>{s.draft=input.value.slice(0,500);store()});
  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?next():check()}});
  card.append(input);
- if(s.checked){const ans=tasks[s.i][1],r=assess(s.draft,ans,lang,tasks[s.i][4]);const note=make('div','feedback'+(r.ok?' good':''));note.append(make('strong','',r.ok?'Правильно!':'Сравни с правильным вариантом'),make('p','',r.why),make('div','foreign',ans));note.querySelector?.('.foreign')?.setAttribute('lang',lang);
- const playAns=button('▶ Слушать правильный ответ',()=>speak(ans,d.locale,lang==='es'?0.64:0.68));playAns.className='lightlink';note.append(playAns);
- const small=button(showRule?'Скрыть объяснение':'Почему так?',()=>{showRule=!showRule;render()});small.className='lightlink';note.append(small);
- if(showRule)note.append(make('div','rule',tasks[s.i][2]));card.append(note);}
+ if(s.checked){
+  const r=assess(s.draft,task[1],lang,task[4]),note=make('div','feedback'+(r.ok?' good':''));
+  note.append(make('strong','',r.ok?'Правильно! Полоска стала зелёной.':'Ошибка записана. Полоска красная.'),make('p','',r.why),make('div','foreign',task[1]));
+  if(!r.ok)note.append(make('p','retry-note','Это предложение вернётся через несколько заданий.'));
+  const answerButton=button('▶ Слушать правильный вариант',()=>speak(task[1],d.locale,lang==='es'?0.64:0.68));answerButton.className='lightlink';note.append(answerButton);
+  const ruleButton=button(showRule?'Скрыть объяснение':'Почему так?',()=>{showRule=!showRule;render()});ruleButton.className='lightlink';note.append(ruleButton);
+  if(showRule)note.append(make('div','rule',task[2]));
+  card.append(note);
+ }
  root.append(card);
- const acts=make('div','controls');
- if(s.checked){acts.append(button('Исправить',rewrite),button('Следующее →',next,'primary'))}else acts.append(button('Проверить',check,'primary'));
- root.append(acts);
- const ref=button(showForms?'Скрыть формы':'? Формы глагола',formHelp);ref.className='lightlink';root.append(ref);
- if(showForms){const box=make('div','formref');box.append(make('h2','',d.word+' — все формы'));const rows=make('div','formrows');
-  d.forms.forEach(([foreign,ru])=>{const f=make('button','formrow',foreign);f.type='button';f.lang=lang;f.setAttribute('title',ru);f.addEventListener('click',()=>speak(foreign,d.locale,lang==='es'?0.64:0.68));rows.append(f);});
-  box.append(rows,make('p','small-note','Нажми на любую форму, чтобы услышать произношение. Перевод доступен в подсказке к кнопке.'));root.append(box);}
- root.append(make('p','small-note','Проверяем написание. Допустимые варианты рода в испанском тоже засчитываются.'));
+ const controls=make('div','controls');if(s.checked)controls.append(button('Следующее предложение →',next,'primary'));else controls.append(button('Проверить',check,'primary'));
+ root.append(controls);
+ const help=button(showForms?'Скрыть формы':'? Формы глагола',()=>{showForms=!showForms;cutAudio();render()},'lightlink');help.className='lightlink';root.append(help);
+ if(showForms){
+  const box=make('div','formref');box.append(make('h2','',d.word+' — все формы'));
+  const rows=make('div','formrows');d.forms.forEach(([foreign,ru])=>{const el=make('button','formrow',foreign);el.type='button';el.lang=lang;el.setAttribute('title',ru);el.addEventListener('click',()=>speak(foreign,d.locale,lang==='es'?0.64:0.68));rows.append(el);});
+  box.append(rows);root.append(box);
+ }
+ root.append(make('p','small-note','Опечатки тоже считаются ошибками. Проблемные фразы будут повторяться, пока все сто полосок не станут зелёными.'));
 }
-for(const k of ['es','en'])$('lang-'+k).addEventListener('click',()=>{if(lang===k)return;cutAudio();lang=k;showForms=false;showPrompt=false;showRule=false;store();render();});
+for(const k of ['es','en'])$('lang-'+k).addEventListener('click',()=>{if(lang===k)return;cutAudio();lang=k;showPrompt=false;showForms=false;showRule=false;store();ensureActive();render();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cutAudio()});window.addEventListener('pagehide',cutAudio);
-window.LinguaPreviewQA={content,assess,state:()=>saved};
-store();render();
-</script>
-</body></html>
+window.LinguaPreviewQA={content,assess,state:()=>saved,ensureActive,check,next,countGreen,reset,MAX};
+ensureActive();store();render();
+</script></body></html>
