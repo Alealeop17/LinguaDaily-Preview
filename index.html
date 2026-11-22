@@ -29,6 +29,12 @@ label{font-size:13px;color:#5a705f;font-weight:740;display:block;margin-bottom:8
 .score{font-size:55px;font-weight:870;color:#216749;letter-spacing:-1px;margin:15px 0}
 @media(max-width:350px){.shell{padding-left:12px;padding-right:12px}.stage,.question-card{padding:15px}.table-row{padding:10px}.action{font-size:13px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.explanation{margin:15px 0 0;padding:12px 13px;border:1px solid #d9e5d9;background:#fff;border-radius:13px;color:#456453;font-size:14px;line-height:1.55}
+.explanation strong{display:block;font-size:13px;margin-bottom:6px;color:#24543c}
+.explanation p{margin:0 0 6px}.explanation p:last-child{margin-bottom:0}
+.action.practice-link{display:block;background:transparent;border:0;box-shadow:none;color:#5c7664;text-align:center;margin:11px auto 0;min-height:34px;font-size:13px;font-weight:650;padding:4px 12px}
+.stage{min-height:260px}.phrase{font-size:clamp(29px,7.8vw,39px);min-height:180px;display:flex;align-items:center;justify-content:center;text-align:center}
+.table-ru,.translation{display:none!important}
 </style>
 </head>
 <body>
@@ -56,7 +62,16 @@ const DATA={
    ['¿Quieres estudiar conmigo?','Ты хочешь позаниматься со мной?','Вопрос с quieres; conmigo — со мной.'],
    ['Quiero comprar un libro.','Я хочу купить книгу.','Comprar — покупать.'],
    ['Quiero aprender español porque vivo en España.','Я хочу учить испанский, потому что живу в Испании.','Porque — потому что.'],
-   ['Quiero aprender español para trabajar aquí.','Я хочу выучить испанский, чтобы работать здесь.','Para + глагол показывает цель.']
+   ['Quiero aprender español para trabajar aquí.','Я хочу выучить испанский, чтобы работать здесь.','Para + глагол показывает цель.'],
+   ['Quiero estudiar español todos los días.','Я хочу заниматься испанским каждый день.','Todos los días — каждый день.'],
+   ['Él quiere visitar este país.','Он хочет посетить эту страну.','Él quiere — он хочет.'],
+   ['Ellos quieren hablar español mejor.','Они хотят лучше говорить по-испански.','Ellos quieren — они хотят.'],
+   ['No quiero comprar este libro porque es muy caro.','Я не хочу покупать эту книгу, потому что она очень дорогая.','Caro — дорогой; libro — мужского рода.'],
+   ['¿Dónde quieres trabajar?','Где ты хочешь работать?','Dónde — где.'],
+   ['Quiero explicar estas palabras.','Я хочу объяснить эти слова.','Estas palabras — эти слова.'],
+   ['Ella quiere aprender español para trabajar en Valencia.','Она хочет учить испанский, чтобы работать в Валенсии.','Para trabajar — чтобы работать.'],
+   ['¿Quieres venir conmigo mañana?','Ты хочешь пойти со мной завтра?','Venir — приходить; conmigo — со мной.'],
+   ['Me gustaría aprender español.','Мне бы хотелось учить испанский.','Me gustaría — вежливая форма желания.'],
   ],
   tasks:[
    ['Я хочу учить испанский.','Quiero aprender español.','Quiero + aprender + español.'],
@@ -85,7 +100,16 @@ const DATA={
    ['Do you want to study with me?','Ты хочешь позаниматься со мной?','Вопрос начинается с Do.'],
    ['I want to buy a book.','Я хочу купить книгу.','Buy — покупать.'],
    ['I want to learn English because I live in Spain.','Я хочу учить английский, потому что живу в Испании.','Because — потому что.'],
-   ['I want to learn English to work here.','Я хочу выучить английский, чтобы работать здесь.','To work — чтобы работать.']
+   ['I want to learn English to work here.','Я хочу выучить английский, чтобы работать здесь.','To work — чтобы работать.'],
+   ['I want to study English every day.','Я хочу заниматься английским каждый день.','Every day — каждый день.'],
+   ['He wants to visit this country.','Он хочет посетить эту страну.','He wants — он хочет.'],
+   ['They want to speak English better.','Они хотят лучше говорить по-английски.','They want — они хотят.'],
+   ["I don't want to buy this book because it is expensive.",'Я не хочу покупать эту книгу, потому что она дорогая.','Because — потому что.'],
+   ['Where do you want to work?','Где ты хочешь работать?','Where — где.'],
+   ['I want to explain these words.','Я хочу объяснить эти слова.','These words — эти слова.'],
+   ['She wants to learn English to work in Valencia.','Она хочет учить английский, чтобы работать в Валенсии.','She wants — она хочет.'],
+   ['Do you want to come with me tomorrow?','Ты хочешь пойти со мной завтра?','With me — со мной.'],
+   ["I'd like to learn English.",'Мне бы хотелось учить английский.','I’d like — вежливая форма желания.'],
   ],
   tasks:[
    ['Я хочу учить английский.','I want to learn English.','Want to learn — хочу учить.'],
@@ -101,7 +125,7 @@ const DATA={
   ]
  }
 };
-const KEY='lingua-daily-iphone-preview-v3';
+const KEY='lingua-daily-iphone-preview-v4';
 const $=id=>document.getElementById(id);
 const fresh=()=>({position:0,mode:'lesson',task:0,typed:'',checked:false,results:[]});
 function valid(s,l){return !!s&&typeof s==='object'&&!Array.isArray(s)&&s.mode==='lesson'||false;}
@@ -109,7 +133,7 @@ function safe(s,l){const d=DATA[l];return !!s&&typeof s==='object'&&!Array.isArr
 let saved;
 try{const v=JSON.parse(localStorage.getItem(KEY)||'null');saved=v&&['es','en'].includes(v.language)&&safe(v.es,'es')&&safe(v.en,'en')?v:null;}catch(e){}
 if(!saved)saved={language:'es',es:fresh(),en:fresh()};
-let lang=saved.language,playing=false,token=0,delay=null,message='';
+let lang=saved.language,playing=false,token=0,delay=null,message='',explanationOpen=false;
 const app=$('app');const current=()=>DATA[lang],state=()=>saved[lang];
 function persist(){saved.language=lang;try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){message='В этом режиме браузер не сохранил прогресс.';}}
 function el(tag,cls,content){const x=document.createElement(tag);if(cls)x.className=cls;if(content!==undefined)x.textContent=content;return x;}
@@ -127,13 +151,13 @@ try{
 const utter=new SpeechSynthesisUtterance(langText);
 utter.lang=d.locale;const voice=voiceFor(d.locale);if(voice)utter.voice=voice;
 utter.rate=lang==='es'?0.74:0.78;utter.pitch=1;
-utter.onend=()=>{if(t!==token||!playing)return;delay=setTimeout(()=>{delay=null;if(t!==token||!playing)return;s.position++;persist();nextSpoken(t);},1500);};
+utter.onend=()=>{if(t!==token||!playing)return;delay=setTimeout(()=>{delay=null;if(t!==token||!playing)return;s.position++;explanationOpen=false;persist();nextSpoken(t);},1500);};
 utter.onerror=()=>{if(t!==token)return;stop();message='Голосовое воспроизведение остановилось. Попробуй снова.';render();};
 window.speechSynthesis.speak(utter);
 }catch(e){stop();message='Не удалось воспроизвести фразу.';render();}
 }
-function toggle(){if(playing){stop();render();return;}const s=state(),d=current();if(s.position>=total(d))s.position=0;message='';persist();stop();playing=true;nextSpoken(token);}
-function practice(){stop();state().mode='practice';state().typed='';state().checked=false;message='';persist();render();}
+function toggle(){if(playing){stop();render();return;}explanationOpen=false;const s=state(),d=current();if(s.position>=total(d))s.position=0;message='';persist();stop();playing=true;nextSpoken(token);}
+function practice(){stop();explanationOpen=false;state().mode='practice';state().typed='';state().checked=false;message='';persist();render();}
 function normalize(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/^[¿¡]/,'').replace(/[.!?]+$/,'').toLowerCase();}
 function assess(v,expected){if(!String(v).trim())return {match:false,info:'Напиши весь перевод.'};if(normalize(v)===normalize(expected))return {match:true,info:'Написано правильно.'};
 const a=normalize(v),b=normalize(expected);
@@ -144,31 +168,39 @@ return {match:false,info:'Ответ отличается от образца. �
 function check(){const s=state();const v=$('answer')?.value||s.typed;s.typed=v.slice(0,500);if(!s.typed.trim()){message='Напиши перевод, потом проверь.';render();return;}s.checked=true;message='';persist();render();}
 function retry(){state().checked=false;persist();render();$('answer')?.focus();}
 function nextTask(){const s=state(),d=current();if(!s.checked||s.task>=d.tasks.length)return;const expected=d.tasks[s.task][1],result=assess(s.typed,expected);s.results.push({value:s.typed,match:result.match});s.task++;s.typed='';s.checked=false;persist();render();$('answer')?.focus();}
-function restart(){stop();saved[lang]=fresh();persist();render();}
+function restart(){stop();explanationOpen=false;saved[lang]=fresh();persist();render();}
 function header(stage,n,max){const meta=el('div','lesson-top');meta.append(el('span','',stage),el('span','',n+' / '+max));app.append(meta);const meter=el('div','meter'),bar=el('div');bar.style.width=Math.round(n/max*100)+'%';meter.append(bar);app.append(meter);}
 function lessonScreen(d,s){const size=total(d),position=s.position;
-header('Слушаем и запоминаем',Math.min(size,position+1),size);
-app.append(el('h1','',d.verb+' — '+d.meaning));
+header('Урок 1',Math.min(size,position+1),size);
+app.append(el('h1','',d.verb));
 const stage=el('div','stage');
 if(position<d.forms.length){
-stage.append(el('p','stage-kicker','Формы глагола'));
+stage.append(el('p','stage-kicker',lang==='es'?'Conjugación':'Conjugation'));
 const rows=el('div','table');
 d.forms.forEach((pair,i)=>{const row=el('div','table-row'+(i===position?' active':''));
-const w=el('span','table-word',pair[0]);w.lang=lang;row.append(w,el('span','table-ru',pair[1]));rows.append(row);});
+const w=el('span','table-word',pair[0]);w.lang=lang;row.append(w);rows.append(row);});
 stage.append(rows);
 }else{
 const idx=Math.min(position-d.forms.length,d.examples.length-1),pair=d.examples[idx];
-stage.append(el('p','stage-kicker','Предложение '+(idx+1)+' из '+d.examples.length));
-const foreign=el('div','phrase',pair[0]);foreign.lang=lang;stage.append(foreign,el('p','translation',pair[1]));
+stage.append(el('p','stage-kicker',lang==='es'?'Frases · '+(idx+1):'Sentences · '+(idx+1)));
+const foreign=el('div','phrase',pair[0]);foreign.lang=lang;stage.append(foreign);
 }
 app.append(stage);
-const rule=position<d.forms.length?'Посмотри, как меняется глагол для «я», «ты», «он» и «мы».':d.examples[Math.min(position-d.forms.length,d.examples.length-1)][2];
-app.append(el('p','rule',rule));
+if(explanationOpen){const explanation=el('div','explanation');explanation.setAttribute('role','region');
+ if(position<d.forms.length){
+  explanation.append(el('strong','','Формы глагола'),el('p','',d.forms.map(p=>p[0]+' — '+p[1]).join('; ')+'.'));
+  explanation.append(el('p','','После этой формы другой глагол остаётся в начальной форме. Например: '+(lang==='es'?'quiero aprender':'want to learn')+'.'));
+ }else{
+  const ex=d.examples[Math.min(position-d.forms.length,d.examples.length-1)];
+  explanation.append(el('strong','','Перевод'),el('p','',ex[1]),el('p','',ex[2]));
+ }
+ app.append(explanation);
+}
 const actions=el('div','actions');
-actions.append(btn(playing?'Пауза':position>=size?'Слушать снова':position>0?'Продолжить':'▶ Слушать',toggle,'primary'),btn('К упражнениям',practice,''));
+actions.append(btn(playing?'⏸ Пауза':position>=size?'▶ Повторить':'▶ Слушать',toggle,'primary'),btn(explanationOpen?'Скрыть пояснение':'? Пояснение',()=>{stop();explanationOpen=!explanationOpen;render();},''));
 app.append(actions);
-if(position>=size){app.append(el('p','notice','Примеры закончились. Можно перейти к письменной практике или прослушать ещё раз.'));}
-else app.append(el('p','muted','Произносится только изучаемый язык. Примеры сменяются сами, без кнопки «Далее».'));
+app.append(btn('Перейти к практике →',practice,'practice-link'));
+
 }
 function practiceScreen(d,s){const n=d.tasks.length;
 if(s.task>=n){header('Результат',n,n);const match=s.results.filter(x=>x.match).length;
@@ -188,7 +220,7 @@ const actions=el('div','actions');if(s.checked){actions.append(btn('Исправ
 app.append(el('p','muted','В этой пробе проверяется точное написание. Несколько правильных вариантов перевода пока не поддерживаются.'));
 }
 function render(){const d=current(),s=state();for(const k of ['es','en'])$('tab-'+k).classList.toggle('selected',k===lang);app.replaceChildren();s.mode==='lesson'?lessonScreen(d,s):practiceScreen(d,s);const note=$('notice');note.textContent=message;}
-for(const k of ['es','en'])$('tab-'+k).addEventListener('click',()=>{if(lang===k)return;stop();lang=k;message='';persist();render();});
+for(const k of ['es','en'])$('tab-'+k).addEventListener('click',()=>{if(lang===k)return;stop();lang=k;explanationOpen=false;message='';persist();render();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){stop();render();}});
 window.addEventListener('pagehide',stop);
 window.LinguaPreviewQA={assess,data:()=>DATA,state:()=>saved};
