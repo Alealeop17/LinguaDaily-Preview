@@ -140,7 +140,7 @@ const valid=(s,l)=>{
  if(!Number.isInteger(s.cursor)||s.cursor<0||!Number.isInteger(s.turns)||s.turns<0||!Number.isInteger(s.errors)||s.errors<0||typeof s.draft!=='string'||s.draft.length>500||typeof s.checked!=='boolean')return false;
  if(!s.slots.every(x=>x&&Number.isInteger(x.task)&&x.task>=0&&x.task<len&&['green','red'].includes(x.status)))return false;
  if(!s.queue.every(q=>q&&Number.isInteger(q.slot)&&q.slot>=0&&q.slot<s.slots.length&&q.task===s.slots[q.slot].task&&s.slots[q.slot].status==='red'&&Number.isInteger(q.due)))return false;
- if(s.active!==null&&(!s.active||!Number.isInteger(s.active.task)||s.active.task<0||s.active.task>=len||typeof s.active.review!=='boolean'||(!s.active.review&&s.slots.length>=MAX)||s.active.review&&(!Number.isInteger(s.active.slot)||s.active.slot<0||s.active.slot>=s.slots.length)))return false;
+ if(s.active!==null&&(!s.active||!Number.isInteger(s.active.task)||s.active.task<0||s.active.task>=len||typeof s.active.review!=='boolean'||(!s.active.review&&s.slots.length>=MAX&&!s.checked)||s.active.review&&(!Number.isInteger(s.active.slot)||s.active.slot<0||s.active.slot>=s.slots.length)))return false;
  if(s.checked&&(!s.active||!s.last||typeof s.last.ok!=='boolean'))return false;
  return true;
 };
