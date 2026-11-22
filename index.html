@@ -148,7 +148,7 @@ function voiceFor(locale){try{const vs=window.speechSynthesis.getVoices();return
 function speak(txt,locale,rate){cutAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве нет доступной озвучки.';return}
  try{const u=new SpeechSynthesisUtterance(txt);u.lang=locale;u.rate=rate;const v=voiceFor(locale);if(v)u.voice=v;window.speechSynthesis.speak(u);audioText=txt;audioLocale=locale;}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
 function russianPrompt(){const task=data().tasks[state().i];if(!task)return;
- const phrase=task[0]+(task[3]?' '+task[3]+'.':'');
+ const phrase=task[0]+(task[3]?' '+task[3].charAt(0).toUpperCase()+task[3].slice(1)+'.':'');
  speak(phrase,'ru-RU',0.68);}
 function normal(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLowerCase();}
 function assess(value,model,l,alternatives=[]){const a=normal(value),b=normal(model);
