@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#F5F5F1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="description" content="Отдельная пробная страница Lingua Daily: говорящие уроки и письменная практика английского и испанского.">
+<title>Lingua Daily · Пробный урок</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#20262c;background:#f5f5f1;font-size:16px}
+*{box-sizing:border-box}body{margin:0;padding:0;min-width:280px}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+.shell{max-width:640px;margin:0 auto;padding:env(safe-area-inset-top) 18px calc(18px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:23px 0 16px}
+.logo{display:flex;align-items:center;gap:10px}.mark{font-size:24px;font-weight:850;color:#163d3d}.mark span{color:#d9a248}.wordmark{font-weight:800;letter-spacing:-.3px}.subtitle{font-size:12px;color:#747c7f;margin-top:2px}
+.preview-tag{font-size:11px;background:#e8e9e1;border:1px solid #d6dacd;padding:7px 9px;border-radius:20px;white-space:nowrap}
+.hero{padding:20px 0 12px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;color:#497f71;text-transform:uppercase;margin:0 0 10px}.hero h1{font-size:clamp(26px,8vw,38px);line-height:1.07;letter-spacing:-1.4px;margin:0 0 12px}.hero p{line-height:1.48;color:#586265;margin:0 0 18px}
+.lang-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 17px}.lang-tabs button{border:1px solid #d4d9d5;border-radius:13px;background:#fff;padding:12px 9px;font-weight:750}.lang-tabs .active{border:2px solid #1d5f51;color:#164c42;background:#e8f5ed}
+.panel{border-radius:21px;background:#fff;border:1px solid #e2e4df;box-shadow:0 8px 25px rgba(17,36,29,.04);padding:18px;margin-bottom:14px}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;color:#556260;font-size:12px;font-weight:700}.meta .step{background:#edf2ee;padding:6px 9px;border-radius:13px}
+.progress{height:6px;border-radius:20px;background:#eceeea;overflow:hidden;margin-bottom:16px}.progress>div{height:100%;background:#2c7c68;transition:width .25s}
+.screen{background:linear-gradient(130deg,#e8f5ef,#e8f0f7);border-radius:18px;min-height:224px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 12px;text-align:center;gap:10px}
+.screen h2{font-size:21px;letter-spacing:-.5px;margin:0 0 5px}.cue{width:100%;padding:9px 12px;border-radius:12px;background:#fff;box-shadow:0 2px 9px #173b2b11;opacity:0;transform:translateY(9px);transition:opacity .35s,transform .35s}.cue.visible{opacity:1;transform:translateY(0)}.cue b{font-size:21px;color:#16493f;display:block}.cue small{display:block;margin-top:3px;color:#606e70;font-size:13px}.textcap{font-size:11px;color:#687575;margin:15px 0 5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.lecture-narration{line-height:1.55;margin:0;color:#4c575a;font-size:15px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.btn{border:1px solid #d1d8d2;border-radius:12px;background:#fff;color:#22342f;padding:12px 14px;font-weight:700;flex:1;min-height:45px}.btn.primary{background:#195647;color:#fff;border-color:#195647;flex:1.5}.btn.small{flex:0 1 auto}.btn:focus-visible,input:focus-visible{outline:3px solid #b09a42;outline-offset:3px}
+.question{font-size:23px;line-height:1.24;font-weight:800;letter-spacing:-.6px;margin:8px 0 16px}.prompt{font-size:12px;color:#62716b;font-weight:800;text-transform:uppercase;margin-top:16px;display:block}input.answer{border:2px solid #cdd8d0;border-radius:13px;width:100%;padding:15px 13px;margin-top:8px;font-size:18px;background:#fff}input.answer:focus{border-color:#216852;outline:0;box-shadow:0 0 0 3px #dfede5}
+.feedback{margin:12px 0 0;padding:12px 14px;border-radius:13px;font-size:15px;line-height:1.4}.feedback.correct{background:#e8f3e9;color:#145a39}.feedback.wrong{background:#fff2e4;color:#653b13}.feedback strong{display:block;font-weight:800;margin-bottom:4px}.feedback code{font-family:inherit;font-weight:750;color:#1f3b37}
+.note{font-size:13px;color:#64716e;line-height:1.46}.bottom{border-top:1px solid #e0e3db;margin-top:18px;padding-top:14px;color:#68716f;font-size:12px;line-height:1.5}.status{background:#eff0e9;padding:11px 13px;border-radius:11px;margin:0 0 13px;font-size:12px;line-height:1.4}.hide{display:none!important}.result-value{font-size:44px;color:#205d4e;font-weight:900;margin:0}.result-title{font-size:24px;letter-spacing:-.6px;margin:0 0 12px}
+@media(max-width:350px){.shell{padding-left:11px;padding-right:11px}.panel{padding:13px}.screen{min-height:205px}.btn{padding:10px 8px;font-size:13px}.preview-tag{font-size:10px}.wordmark{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="top"><div class="logo"><div class="mark">L<span>.</span></div><div><div class="wordmark">Lingua Daily</div><div class="subtitle">Твой пробный урок</div></div></div><span class="preview-tag">ТЕСТОВАЯ СТРАНИЦА</span></header>
+ <section class="hero"><p class="eyebrow">Попробуй прямо сейчас</p><h1>Смотри, слушай<br>и пиши сама</h1><p>Анимированное объяснение и пять упражнений с полным написанием слов. Можно переключать языки.</p></section>
+ <nav class="lang-tabs" aria-label="Выбери язык"><button type="button" id="tab-es" data-lang="es">🇪🇸 Испанский</button><button type="button" id="tab-en" data-lang="en">🇬🇧 Английский</button></nav>
+ <p class="status" id="saveStatus" role="status">Это отдельный пробный урок. Твой действующий сайт и карточки не затрагиваются.</p>
+ <main class="panel" id="app" aria-live="polite"></main>
+ <footer class="bottom">Пробная страница содержит два вводных урока. Озвучка использует голос браузера и может отличаться на разных устройствах. Прогресс этой пробы хранится отдельно, когда браузер это позволяет. Живой ИИ-проверки здесь нет.</footer>
+</div>
+<script>
+/* Content is sourced directly from the v60 staged teaching module. */
+/* Lingua Daily v60 — original illustrated, narrated mini lessons; no remote audio/API. */
+(function(root,factory){'use strict';const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.LinguaAnimatedLessonV60=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+ 'use strict';
+ const content={
+ es:{title:'Я хочу: от слова к предложению',locale:'es-ES',scenes:[
+  {title:'Начнём со слова',narration:'В испанском языке, чтобы сказать «я хочу», мы используем форму «кьеро». Послушай, как звучит слово, и посмотри на его написание.',cues:[['Quiero','Я хочу'],['querer','хотеть, начальная форма']] ,example:'Quiero.'},
+  {title:'Добавим действие',narration:'После «кьеро» ставим глагол в начальной форме. «Апрендер» означает «учиться» или «изучать». Получается «кьеро апрендер»: я хочу учиться.',cues:[['Quiero','я хочу'],['aprender','учиться'],['Quiero aprender.','Я хочу учиться.']],example:'Quiero aprender.'},
+  {title:'Теперь полная мысль',narration:'Добавим, какой язык мы хотим учить. «Эспаньоль» — испанский. Заметь букву энье, и обязательно сохрани её при написании.',cues:[['Quiero aprender español.','Я хочу учить испанский'],['ñ','В слове español есть особая буква ñ']],example:'Quiero aprender español.'},
+  {title:'Поменяем глагол',narration:'Вместо «апрендер» поставим «компрар»: покупать. Основа предложения осталась прежней. Это помогает строить десятки своих фраз.',cues:[['Quiero comprar.','Я хочу купить'],['Quiero aprender.','Я хочу учиться']],example:'Quiero comprar.'}
+ ],tasks:[
+  ['es1','Напиши по-испански: «я хочу»','quiero','Обрати внимание на сочетание ie.'],
+  ['es2','Напиши по-испански: «учиться»','aprender','Проверь все буквы и окончание -er.'],
+  ['es3','Напиши по-испански: «купить»','comprar','Окончание -ar сохраняется.'],
+  ['es4','Напиши по-испански: «испанский»','español','ñ — отдельная буква, её нельзя заменять на n.'],
+  ['es5','Переведи целиком: «Я хочу учить испанский».','Quiero aprender español.','Quiero + инфинитив + español.']
+ ]},
+ en:{title:'I want: от слова к предложению',locale:'en-GB',scenes:[
+  {title:'Начнём со слова',narration:'В английском языке «я хочу» — это «ай уонт». Посмотри на написание и послушай произношение.',cues:[['I want','Я хочу'],['want','хотеть']],example:'I want.'},
+  {title:'Добавим действие',narration:'Чтобы сказать «я хочу учиться», добавим «ту лёрн». В этой конструкции после want используется частица to.',cues:[['I want','я хочу'],['to learn','учиться'],['I want to learn.','Я хочу учиться.']],example:'I want to learn.'},
+  {title:'Полное предложение',narration:'Теперь уточним, какой язык мы хотим учить. В английском языке название языка English пишется с большой буквы.',cues:[['I want to learn English.','Я хочу учить английский'],['English','Название языка с большой буквы']],example:'I want to learn English.'},
+  {title:'Поменяем действие',narration:'Заменим learn на buy — покупать. Получается «ай уонт ту бай»: я хочу купить. Запоминай целую конструкцию и меняй одно слово.',cues:[['I want to buy.','Я хочу купить'],['I want to learn.','Я хочу учиться']],example:'I want to buy.'}
+ ],tasks:[
+  ['en1','Напиши по-английски: «хочу»','want','Не пропускай букву a.'],
+  ['en2','Напиши по-английски: «учиться»','learn','Проверь сочетание ea.'],
+  ['en3','Напиши по-английски: «покупать»','buy','В слове три буквы.'],
+  ['en4','Напиши по-английски: «английский язык»','English','Название языка пишется с большой буквы.'],
+  ['en5','Переведи целиком: «Я хочу учить английский».','I want to learn English.','Не забудь to после want.']
+ ]}
+ };
+ for(const lang of ['en','es']){
+  Object.freeze(content[lang].scenes);Object.freeze(content[lang].tasks);Object.freeze(content[lang]);
+ }
+ const hasOwn=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+ function lesson(lang){return hasOwn(content,lang)?content[lang]:null;}
+ function clean(s){return String(s||'').normalize('NFC').trim().toLocaleLowerCase('en').replace(/[.!?¡¿]+$/g,'').replace(/\s+/g,' ');}
+ function assess(value,expected){if(!String(value||'').trim())return {valid:false,correct:false,issue:'Напиши ответ полностью.'};
+  const a=clean(value),b=clean(expected);
+  if(expected.includes('English')&&!String(value).includes('English'))return {valid:true,correct:false,issue:'Название языка English пишется с большой буквы.'};
+  if(expected.startsWith('I ')&&!String(value).trim().startsWith('I '))return {valid:true,correct:false,issue:'Местоимение I всегда пишется с большой буквы.'};
+  if(a===b)return {valid:true,correct:true,issue:'Написано правильно.'};
+  if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {valid:true,correct:false,issue:'Проверь буквы с диакритикой: ударение и ñ важны.'};
+  const ac=Array.from(a),bc=Array.from(b);let pos=0;while(pos<Math.min(ac.length,bc.length)&&ac[pos]===bc[pos])pos++;
+  return {valid:true,correct:false,issue:`Есть ошибка в написании (проверь с позиции ${pos+1}).`};
+ }
+ const fresh=()=>({scene:0,task:0,input:'',checked:false,results:[]});
+ function valid(s,lang){const l=lesson(lang);return !!l&&!!s&&typeof s==='object'&&!Array.isArray(s)&&Number.isInteger(s.scene)&&s.scene>=0&&s.scene<=l.scenes.length&&
+  Number.isInteger(s.task)&&s.task>=0&&s.task<=l.tasks.length&&typeof s.input==='string'&&s.input.length<=150&&typeof s.checked==='boolean'&&Array.isArray(s.results)&&s.results.length===s.task&&
+  s.results.every((r,i)=>r&&r.id===l.tasks[i][0]&&typeof r.value==='string'&&r.value.length<=150&&typeof r.correct==='boolean')&&
+  (!s.checked||s.scene===l.scenes.length&&s.task<l.tasks.length);
+ }
+ function score(s){return s.results.filter(r=>r.correct).length;}
+ return Object.freeze({lesson,clean,assess,fresh,valid,score});
+});
+
+</script>
+<script>
+(()=>{'use strict';
+const lib=window.LinguaAnimatedLessonV60, STORAGE='lingua-daily-ios-preview-v1';
+const app=document.getElementById('app');let language='es';
+const status=document.getElementById('saveStatus');
+let timerIds=[],audioToken=0,playing=false,spoken=false;
+const fresh=()=>({es:lib.fresh(),en:lib.fresh(),language:'es'});
+function storageRead(){try{const obj=JSON.parse(localStorage.getItem(STORAGE)||'null');if(obj&&lib.valid(obj.es,'es')&&lib.valid(obj.en,'en')&&['es','en'].includes(obj.language))return obj;}catch{}return fresh();}
+let all=storageRead();language=all.language;
+function save(){all.language=language;try{localStorage.setItem(STORAGE,JSON.stringify(all));status.textContent='Пробный прогресс сохраняется в этом браузере. На твоём основном сайте ничего не изменилось.';}catch{status.textContent='Этот способ открытия не позволяет сохранить прогресс. Пока страница открыта, занятие продолжится.';}}
+function state(){return all[language];}
+function lesson(){return lib.lesson(language);}
+function clearVoice(){audioToken++;playing=false;for(const t of timerIds)clearTimeout(t);timerIds=[];try{speechSynthesis.cancel();}catch{}}
+function queue(fn,ms){const t=setTimeout(fn,ms);timerIds.push(t);}
+function el(tag,className,text){const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=text;return n;}
+function button(title,fn,kind=''){const b=el('button','btn '+kind,title);b.type='button';b.addEventListener('click',fn);return b;}
+function layout(stage,total,label){const meta=el('div','meta'),where=el('span','',label),step=el('span','step',stage);meta.append(where,step);app.append(meta);const line=el('div','progress'),fill=el('div');fill.style.width=(Math.min(100,100*Number(stage.match(/^\d+/)?.[0]||0)/total))+'%';line.append(fill);app.append(line);}
+function showCues(){document.querySelectorAll('.cue').forEach(x=>x.classList.add('visible'));}
+function speak(text,locale,token,next){if(token!==audioToken||!playing)return;
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){playing=false;showCues();renderButtons();status.textContent='В этом браузере нет доступной озвучки. Объяснение можно читать и листать.';return;}
+  try{const u=new SpeechSynthesisUtterance(text);u.lang=locale;u.rate=locale==='ru-RU'?0.94:0.82;u.onend=()=>{if(token===audioToken&&playing)next();};u.onerror=()=>{if(token===audioToken){clearVoice();showCues();renderButtons();status.textContent='Озвучка недоступна. Текст можно читать и листать вручную.';}};speechSynthesis.speak(u);}catch{clearVoice();showCues();renderButtons();}
+}
+function play(){clearVoice();playing=true;const token=audioToken,l=lesson(),s=state();if(s.scene>=l.scenes.length)return;
+  render();const scene=l.scenes[s.scene];document.querySelectorAll('.cue').forEach(x=>x.classList.remove('visible'));
+  document.querySelectorAll('.cue').forEach((e,i)=>queue(()=>{if(token===audioToken&&playing)e.classList.add('visible');},400+i*880));
+  speak(scene.narration,'ru-RU',token,()=>{showCues();speak(scene.example,l.locale,token,()=>{if(token===audioToken){playing=false;renderButtons();}});});
+}
+function next(delta){clearVoice();const s=state();s.scene=Math.max(0,Math.min(lesson().scenes.length,s.scene+delta));save();render();}
+function check(){const s=state(),task=lesson().tasks[s.task];if(!task)return;const input=document.getElementById('answer');s.input=input?input.value:s.input;
+ const result=lib.assess(s.input,task[2]);if(!result.valid){document.getElementById('result')?.replaceChildren(el('span','',result.issue));return;}s.checked=true;save();render();}
+function advance(){const s=state(),task=lesson().tasks[s.task];if(!task)return;const result=lib.assess(s.input,task[2]);s.results.push({id:task[0],value:s.input,correct:result.correct});s.task++;s.input='';s.checked=false;save();render();}
+function retry(){const s=state();s.checked=false;save();render();document.getElementById('answer')?.focus();}
+function reset(){clearVoice();all[language]=lib.fresh();save();render();}
+function renderButtons(){const box=document.getElementById('buttons');if(!box||state().scene>=lesson().scenes.length)return;box.replaceChildren(
+  button(playing?'⏸ Пауза':'▶ Слушать',()=>{if(playing){clearVoice();showCues();render();}else play();},playing?'':'primary'),
+  button('Показать',showCues),
+  button('Назад',()=>next(-1),'small'),
+  button(state().scene===lesson().scenes.length-1?'К заданиям →':'Дальше →',()=>next(1),'primary')
+ );}
+function render(){const l=lesson(),s=state();document.getElementById('tab-es').classList.toggle('active',language==='es');document.getElementById('tab-en').classList.toggle('active',language==='en');
+  app.replaceChildren();
+  if(s.scene<l.scenes.length){const scene=l.scenes[s.scene];layout(`${s.scene+1} из ${l.scenes.length}`,l.scenes.length,'Видеоурок · '+(language==='es'?'Испанский':'Английский'));
+    const screen=el('div','screen');screen.append(el('h2','',scene.title));scene.cues.forEach(([original,ru],i)=>{const cue=el('div','cue '+(playing?'':'visible')),word=el('b','',original),gloss=el('small','',ru);word.lang=language;cue.append(word,gloss);screen.append(cue);});app.append(screen);
+    app.append(el('div','textcap','Объяснение преподавателя'),el('p','lecture-narration',scene.narration));
+    const buttons=el('div','controls');buttons.id='buttons';app.append(buttons);renderButtons();
+    app.append(el('p','note','Текст появляется постепенно. Голос зависит от возможностей устройства.'));
+  }else if(s.task<l.tasks.length){const task=l.tasks[s.task],result=s.checked?lib.assess(s.input,task[2]):null;layout(`${s.task+1} из ${l.tasks.length}`,l.tasks.length,'Письменная практика · '+(language==='es'?'Испанский':'Английский'));
+    app.append(el('p','question',task[1]));const label=el('label','prompt','Напиши ответ целиком');label.htmlFor='answer';app.append(label);
+    const input=el('input','answer');input.id='answer';input.type='text';input.autocomplete='off';input.spellcheck=false;input.setAttribute('autocapitalize','none');input.lang=language;input.value=s.input;input.readOnly=s.checked;input.addEventListener('input',()=>{s.input=input.value.slice(0,150);save();});input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(!s.checked)check();else advance();}});app.append(input);
+    const output=el('div','');output.id='result';if(result){const feedback=el('div','feedback '+(result.correct?'correct':'wrong'));feedback.append(el('strong','',result.correct?'Правильно!':'Есть ошибка в написании'),el('div','',result.issue),el('div','',`Образец: ${task[2]}`),el('div','note',task[3]));output.append(feedback);}app.append(output);
+    const buttons=el('div','controls');if(s.checked){buttons.append(button('Переписать',retry),button('Следующее →',advance,'primary'));}else{buttons.append(button('← К лекции',()=>next(-1)),button('Проверить',check,'primary'));}app.append(buttons);
+    app.append(el('p','note','Проверь каждую букву. Для предложений допускаются только различия в необязательной конечной пунктуации и обычном регистре.'));
+  }else{const good=lib.score(s),count=l.tasks.length;layout(`${count} из ${count}`,count,'Результаты урока');app.append(el('p','eyebrow','Ты закончила тренировку'),el('h2','result-title','Результат письменной практики'),el('p','result-value',`${good} / ${count}`),el('p','note','Здесь проверяется точное написание по образцу. Полноценной проверки других правильных переводов пока нет.'));
+    const buttons=el('div','controls');buttons.append(button('Посмотреть урок',()=>{clearVoice();s.scene=0;save();render();}),button('Пройти заново',reset,'primary'));app.append(buttons);
+  }
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.lang===language)return;clearVoice();language=b.dataset.lang;save();render();}));
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clearVoice();});window.addEventListener('pagehide',clearVoice);save();render();
+})();
+</script>
+</body>
+</html>
