@@ -41,14 +41,14 @@ es:{
  ['Tú quieres','Ты хочешь'],
  ['Él quiere','Он хочет'],
  ['Ella quiere','Она хочет'],
- ['Usted quiere','Вы хотите (вежливо, один человек)'],
- ['Nosotros queremos','Мы хотим (мужчины или смешанная группа)'],
- ['Nosotras queremos','Мы хотим (женщины)'],
- ['Vosotros queréis','Вы хотите (Испания, неформально, мужчины или смешанная группа)'],
- ['Vosotras queréis','Вы хотите (Испания, неформально, женщины)'],
- ['Ellos quieren','Они хотят (мужчины или смешанная группа)'],
- ['Ellas quieren','Они хотят (женщины)'],
- ['Ustedes quieren','Вы хотите (несколько человек; в Испании вежливо, в Латинской Америке обычно)']
+ ['Usted quiere','Вы хотите · вежливо'],
+ ['Nosotros queremos','Мы хотим'],
+ ['Nosotras queremos','Мы хотим'],
+ ['Vosotros queréis','Вы хотите'],
+ ['Vosotras queréis','Вы хотите'],
+ ['Ellos quieren','Они хотят'],
+ ['Ellas quieren','Они хотят'],
+ ['Ustedes quieren','Вы хотите · вежливо']
  ],
  examples:[
  ['Quiero aprender español.','Я хочу учить испанский.','Quiero + aprender: второй глагол не изменяется.'],
@@ -71,14 +71,14 @@ es:{
  ['Ты хочешь работать завтра.','Tú quieres trabajar mañana.','Тú quieres — форма для ты.'],
  ['Он хочет посетить Мадрид.','Él quiere visitar Madrid.','Él пишется с ударением.'],
  ['Она хочет купить книгу.','Ella quiere comprar un libro.','Ella quiere — она хочет.'],
- ['Вы (вежливо, одному человеку) хотите поговорить со мной.','Usted quiere hablar conmigo.','Usted употребляется с quiere.'],
- ['Мы (мужчины или смешанная группа) хотим учиться здесь.','Nosotros queremos estudiar aquí.','Nosotros queremos — мы хотим.'],
- ['Мы (женщины) хотим поехать в Испанию.','Nosotras queremos viajar a España.','Nosotras — группа женщин.'],
- ['Вы (группа мужчин или смешанная группа, неформально в Испании) хотите учить испанский.','Vosotros queréis aprender español.','Проверь ударение в queréis.'],
- ['Вы (группа женщин, неформально в Испании) хотите работать здесь.','Vosotras queréis trabajar aquí.','Vosotras queréis.'],
- ['Они (мужчины или смешанная группа) хотят жить в Валенсии.','Ellos quieren vivir en Valencia.','Ellos quieren.'],
- ['Они (женщины) хотят говорить по-испански.','Ellas quieren hablar español.','Ellas quieren.'],
- ['Вы (несколько человек, вежливо) хотите посетить это место.','Ustedes quieren visitar este lugar.','Ustedes хотят — ustedes quieren.'],
+ ['Вы хотите поговорить со мной.','Usted quiere hablar conmigo.','Usted употребляется с quiere.','вежливо'],
+ ['Мы хотим учиться здесь.','Nosotros queremos estudiar aquí.','Nosotros queremos — мы хотим.','', ['Nosotras queremos estudiar aquí.']],
+ ['Мы хотим поехать в Испанию.','Nosotras queremos viajar a España.','Nosotras — мы хотим.','', ['Nosotros queremos viajar a España.']],
+ ['Вы хотите учить испанский.','Vosotros queréis aprender español.','Проверь ударение в queréis.','неформально', ['Vosotras queréis aprender español.']],
+ ['Вы хотите работать здесь.','Vosotras queréis trabajar aquí.','Vosotras queréis.','неформально', ['Vosotros queréis trabajar aquí.']],
+ ['Они хотят жить в Валенсии.','Ellos quieren vivir en Valencia.','Ellos quieren.','', ['Ellas quieren vivir en Valencia.']],
+ ['Они хотят говорить по-испански.','Ellas quieren hablar español.','Ellas quieren.','', ['Ellos quieren hablar español.']],
+ ['Вы хотите посетить это место.','Ustedes quieren visitar este lugar.','Ustedes — обращение к группе.','вежливо'],
  ['Я не хочу работать сегодня.','No quiero trabajar hoy.','No перед quiero.'],
  ['Ты хочешь позаниматься со мной?','¿Quieres estudiar conmigo?','Вопросительные знаки: ¿ и ?.']
  ],
@@ -128,7 +128,7 @@ en:{
 }
 };
 
-const STORE='lingua-daily-iphone-preview-v6';
+const STORE='lingua-daily-iphone-preview-v7';
 content.es.tasks.unshift(['Я хочу учиться.','Quiero aprender.','Quiero + infinitivo.']);
 content.en.tasks.unshift(['Я хочу учиться.','I want to learn.','I want to + verb.']);
 const fresh=()=>({i:0,draft:'',checked:false,results:[]});
@@ -147,28 +147,26 @@ function cutAudio(){try{window.speechSynthesis?.cancel()}catch(e){}}
 function voiceFor(locale){try{const vs=window.speechSynthesis.getVoices();return vs.find(v=>v.lang?.toLowerCase()===locale.toLowerCase())||vs.find(v=>v.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null}catch(e){return null}}
 function speak(txt,locale,rate){cutAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве нет доступной озвучки.';return}
  try{const u=new SpeechSynthesisUtterance(txt);u.lang=locale;u.rate=rate;const v=voiceFor(locale);if(v)u.voice=v;window.speechSynthesis.speak(u);audioText=txt;audioLocale=locale;}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
-function russianPrompt(){const t=data().tasks[state().i]?.[0];if(!t)return;
- const simplified=t.replace(/^(.+?) \((.+?)\) (.+)$/,'$1 $3. $2.');
- if(/[a-z]/i.test(simplified)){ $('status').textContent='Фраза содержит иностранные символы; озвучку пропускаем.';return;}
- speak(simplified,'ru-RU',0.68);}
+function russianPrompt(){const task=data().tasks[state().i];if(!task)return;
+ const phrase=task[0]+(task[3]?' '+task[3]+'.':'');
+ speak(phrase,'ru-RU',0.68);}
 function normal(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLowerCase();}
-function assess(value,model,l){const a=normal(value),b=normal(model);
+function assess(value,model,l,alternatives=[]){const a=normal(value),b=normal(model);
  if(!a)return {ok:false,why:'Напиши перевод полностью.'};
  if(l==='en'&&model.startsWith('I ')&&!value.trim().startsWith('I '))return {ok:false,why:'Местоимение I нужно писать с заглавной буквы.'};
  if(l==='en'&&model.includes('English')&&!value.includes('English'))return {ok:false,why:'Название языка English пишется с заглавной буквы.'};
- if(a===b)return {ok:true,why:'Написано правильно.'};
- if(l==='es'){
-   const subj=/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i;
-   if(normal(model.replace(subj,''))===a || normal(value.replace(subj,''))===b)return {ok:true,why:'Написано правильно: в испанском местоимение можно опустить.'};
- }
+ const models=[model,...(Array.isArray(alternatives)?alternatives:[])];
+ const subj=/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i;
+ if(models.some(x=>normal(x)===a||(l==='es'&&normal(x.replace(subj,''))===a)))
+   return {ok:true,why:'Написано правильно.'};
  if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударение или букву ñ.'};
  let i=0,aa=[...a],bb=[...b];while(i<aa.length&&i<bb.length&&aa[i]===bb[i])i++;
  return {ok:false,why:'Ответ отличается от образца. Проверь написание примерно с символа '+(i+1)+'.'};
 }
 function check(){const s=state(),task=data().tasks[s.i],inp=$('answer');if(inp)s.draft=inp.value.slice(0,500);if(!s.draft.trim()){$('status').textContent='Напиши перевод в поле ответа.';return}
- s.checked=true;store();render();speak(task[1],data().locale,lang==='es'?0.64:0.68);}
+ s.checked=true;store();render();speak(assess(s.draft,task[1],lang,task[4]).ok?s.draft:task[1],data().locale,lang==='es'?0.64:0.68);}
 function rewrite(){state().checked=false;store();render();$('answer')?.focus()}
-function next(){const s=state(),d=data();if(!s.checked)return;const r=assess(s.draft,d.tasks[s.i][1],lang);s.results.push({answer:s.draft,ok:r.ok});s.i++;s.draft='';s.checked=false;showRule=false;showPrompt=false;cutAudio();store();render();}
+function next(){const s=state(),d=data();if(!s.checked)return;const r=assess(s.draft,d.tasks[s.i][1],lang,d.tasks[s.i][4]);s.results.push({answer:s.draft,ok:r.ok});s.i++;s.draft='';s.checked=false;showRule=false;showPrompt=false;cutAudio();store();render();}
 function restart(){cutAudio();saved[lang]=fresh();showForms=false;showRule=false;showPrompt=false;store();render()}
 function formHelp(){showForms=!showForms;cutAudio();render()}
 function progress(count,max){const top=make('div','topline');top.append(make('span','','Перевод с русского'),make('span','',Math.min(count+1,max)+' / '+max));root.append(top);
@@ -186,7 +184,7 @@ function render(){
  const play=make('button','play');play.type='button';play.append(make('span','sound','◖))'),make('span','','Слушать задание на русском'));
  play.addEventListener('click',russianPrompt);card.append(play);
  card.append(make('p','prompt-hint','Нажми, чтобы услышать фразу. Можно слушать повторно.'));
- if(showPrompt)card.append(make('p','prompt-reveal',tasks[s.i][0]));
+ if(showPrompt)card.append(make('p','prompt-reveal',tasks[s.i][0]+(tasks[s.i][3]?' — '+tasks[s.i][3]:'')));
  const view=button(showPrompt?'Скрыть текст задания':'Показать текст задания',()=>{showPrompt=!showPrompt;render()},'lightlink');
  view.className='lightlink';card.append(view);
  const lbl=make('label','input-label','Твой перевод');lbl.htmlFor='answer';card.append(lbl);
@@ -194,7 +192,7 @@ function render(){
  input.addEventListener('input',()=>{s.draft=input.value.slice(0,500);store()});
  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?next():check()}});
  card.append(input);
- if(s.checked){const ans=tasks[s.i][1],r=assess(s.draft,ans,lang);const note=make('div','feedback'+(r.ok?' good':''));note.append(make('strong','',r.ok?'Правильно!':'Сравни с правильным вариантом'),make('p','',r.why),make('div','foreign',ans));note.querySelector?.('.foreign')?.setAttribute('lang',lang);
+ if(s.checked){const ans=tasks[s.i][1],r=assess(s.draft,ans,lang,tasks[s.i][4]);const note=make('div','feedback'+(r.ok?' good':''));note.append(make('strong','',r.ok?'Правильно!':'Сравни с правильным вариантом'),make('p','',r.why),make('div','foreign',ans));note.querySelector?.('.foreign')?.setAttribute('lang',lang);
  const playAns=button('▶ Слушать правильный ответ',()=>speak(ans,d.locale,lang==='es'?0.64:0.68));playAns.className='lightlink';note.append(playAns);
  const small=button(showRule?'Скрыть объяснение':'Почему так?',()=>{showRule=!showRule;render()});small.className='lightlink';note.append(small);
  if(showRule)note.append(make('div','rule',tasks[s.i][2]));card.append(note);}
@@ -206,7 +204,7 @@ function render(){
  if(showForms){const box=make('div','formref');box.append(make('h2','',d.word+' — все формы'));const rows=make('div','formrows');
   d.forms.forEach(([foreign,ru])=>{const f=make('button','formrow',foreign);f.type='button';f.lang=lang;f.setAttribute('title',ru);f.addEventListener('click',()=>speak(foreign,d.locale,lang==='es'?0.64:0.68));rows.append(f);});
   box.append(rows,make('p','small-note','Нажми на любую форму, чтобы услышать произношение. Перевод доступен в подсказке к кнопке.'));root.append(box);}
- root.append(make('p','small-note','Пока проверяется написание по образцу. Другие правильные переводы могут быть не распознаны.'));
+ root.append(make('p','small-note','Проверяем написание. Допустимые варианты рода в испанском тоже засчитываются.'));
 }
 for(const k of ['es','en'])$('lang-'+k).addEventListener('click',()=>{if(lang===k)return;cutAudio();lang=k;showForms=false;showPrompt=false;showRule=false;store();render();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cutAudio()});window.addEventListener('pagehide',cutAudio);
