@@ -1,230 +1,280 @@
 <!doctype html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F5F7F3">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>Lingua Daily — урок без лишнего</title>
+<meta name="theme-color" content="#F6F8F4">
+<title>Lingua Daily · Испанский и английский</title>
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#24352f;background:#f5f7f3;color-scheme:light;-webkit-text-size-adjust:100%}
-*{box-sizing:border-box}body{margin:0;min-width:280px}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.46;cursor:not-allowed}
-.shell{max-width:550px;margin:0 auto;padding:calc(17px + env(safe-area-inset-top)) 18px calc(22px + env(safe-area-inset-bottom))}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.brand{font-size:21px;font-weight:830;letter-spacing:-.6px}.brand em{font-style:normal;color:#3d8968}.version{font-size:12px;color:#7b897f}
-.tabs{display:flex;gap:7px;margin-bottom:22px;padding:4px;background:#e7ede7;border-radius:14px}.tabs button{flex:1;border:0;background:transparent;color:#52685c;padding:12px 8px;border-radius:11px;font-size:14px;font-weight:700}.tabs button.selected{background:#fff;color:#175c43;box-shadow:0 1px 5px #20463314}
-.lesson-top{display:flex;justify-content:space-between;align-items:center;color:#66796c;font-size:12px;font-weight:680;margin-bottom:9px}
-.meter{height:5px;background:#e4eae3;border-radius:9px;overflow:hidden;margin-bottom:19px}.meter div{height:100%;background:#397e5d;transition:width .4s}
-h1{font-size:clamp(25px,7vw,32px);letter-spacing:-.8px;line-height:1.13;margin:0 0 17px;font-weight:830}
-.stage{background:white;border:1px solid #e1e8df;border-radius:22px;padding:19px;box-shadow:0 7px 22px #2644330c}
-.stage-kicker{font-size:12px;color:#698275;margin:0 0 12px;font-weight:700}
-.table{display:grid;gap:6px}.table-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #e5eee6;border-radius:12px;padding:13px 12px;transition:background .3s,border-color .3s}.table-row.active{background:#e8f4e9;border-color:#a5cdb4}.table-word{font-size:clamp(18px,5vw,22px);font-weight:760;color:#174b36;letter-spacing:-.3px}.table-ru{font-size:13px;color:#60796a;text-align:right}
-.phrase{font-size:clamp(27px,7.5vw,37px);line-height:1.25;letter-spacing:-.6px;font-weight:820;color:#154d39;min-height:90px;margin:10px 0 14px;overflow-wrap:break-word}
-.translation{font-size:16px;color:#576c60;line-height:1.5;margin:0;padding-top:12px;border-top:1px solid #e3eae3}
-.rule{font-size:13px;color:#66766b;line-height:1.45;margin:14px 2px 0}
-.actions{display:flex;gap:9px;margin-top:20px}.action{flex:1;border:1px solid #cbd9ce;background:#fff;color:#205641;border-radius:13px;padding:12px 10px;min-height:51px;font-weight:750;font-size:15px}.action.primary{background:#1e664b;color:white;border-color:#1e664b}.action:focus-visible,.tabs button:focus-visible,input:focus-visible{outline:3px solid #b8d8c1;outline-offset:2px}
-.notice{margin:14px 0 0;color:#62766b;font-size:13px;line-height:1.5}.muted{margin:19px 0 0;color:#85938a;font-size:12px;line-height:1.5}
-.question-card{border-radius:22px;background:white;border:1px solid #e1e8df;padding:22px 19px}.question{font-size:clamp(22px,6vw,29px);font-weight:770;line-height:1.3;margin:12px 0 23px;letter-spacing:-.35px}
-label{font-size:13px;color:#5a705f;font-weight:740;display:block;margin-bottom:8px}input.answer{width:100%;border:1.5px solid #bbd1c0;background:#fff;border-radius:12px;padding:14px 12px;min-height:56px;font-size:19px;color:#173b2e}input.answer:focus{border-color:#2c8055}input.answer:read-only{background:#f6f8f5}
-.feedback{margin:13px 0 0;border-radius:12px;background:#fff2e2;padding:12px 14px;color:#644b32;line-height:1.5;font-size:14px}.feedback.good{background:#e8f5e8;color:#295f40}.feedback strong{display:block;margin-bottom:5px}.sample{font-size:17px;font-weight:760;color:#204f39;margin-top:8px;line-height:1.35}
-.score{font-size:55px;font-weight:870;color:#216749;letter-spacing:-1px;margin:15px 0}
-@media(max-width:350px){.shell{padding-left:12px;padding-right:12px}.stage,.question-card{padding:15px}.table-row{padding:10px}.action{font-size:13px}}
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#20392c;background:#f6f8f4;color-scheme:light;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.55}
+.shell{max-width:600px;margin:0 auto;padding:calc(15px + env(safe-area-inset-top)) 17px calc(26px + env(safe-area-inset-bottom))}
+.header{display:flex;align-items:center;justify-content:space-between;margin:3px 0 18px}.brand{font-size:20px;font-weight:850;letter-spacing:-.6px}.brand b{color:#2a8060}.subbrand{font-size:12px;color:#728277}
+.tabs{display:flex;background:#e7eee6;padding:4px;border-radius:14px;gap:4px;margin-bottom:21px}.tabs button{border:0;background:transparent;color:#526e5b;padding:12px 7px;border-radius:11px;flex:1;font-size:14px;font-weight:730}.tabs button.selected{background:#fff;color:#14583e;box-shadow:0 1px 7px #17462e13}
+.meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#61786a;font-weight:700;margin-bottom:9px}.progress{height:5px;border-radius:12px;background:#e5ede5;overflow:hidden;margin-bottom:24px}.progress div{height:100%;background:#2f815a;transition:width .3s}
+h1{font-size:clamp(31px,8vw,41px);letter-spacing:-.8px;margin:0 0 18px;font-weight:810}h2{font-size:24px;letter-spacing:-.45px;line-height:1.25;margin:0 0 17px;font-weight:800}
+.panel{background:#fff;border:1px solid #e2ebe1;border-radius:22px;padding:18px;box-shadow:0 5px 25px #2446310a}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.form{min-height:64px;border:1px solid #e4ede5;border-radius:12px;background:#fcfdfb;display:flex;align-items:center;justify-content:center;text-align:center;color:#1e5037;font-size:clamp(15px,4.2vw,18px);font-weight:740;padding:10px 7px;line-height:1.24}.form.active{background:#e3f3e6;border:2px solid #3e9769;color:#144b31}.form:focus-visible{outline:3px solid #a9d8bc;outline-offset:1px}
+.caption{font-size:13px;color:#6c8073;line-height:1.5;margin:14px 1px 0}.taskhint{font-size:14px;color:#486d54;line-height:1.5;margin:0 0 16px;font-weight:650}
+.phrase{display:flex;align-items:center;justify-content:center;text-align:center;min-height:210px;color:#164f35;font-size:clamp(27px,7.3vw,40px);font-weight:830;letter-spacing:-.7px;line-height:1.35;overflow-wrap:anywhere}
+.tiny{font-size:12px;line-height:1.4;color:#718576}
+.actions{display:flex;gap:10px;margin-top:17px}.btn{border:1px solid #bed4c2;background:#fff;border-radius:13px;min-height:51px;padding:12px 13px;font-size:14px;font-weight:780;color:#285940;flex:1}.btn.primary{background:#1b6845;color:#fff;border-color:#1b6845;flex:1.35}.btn:focus-visible{outline:3px solid #b0d9b7;outline-offset:2px}
+.text-link{display:block;margin:12px auto 0;padding:8px 7px;border:0;background:transparent;color:#627b68;font-size:13px;font-weight:700;min-height:39px}
+.explain{margin:13px 0 0;padding:14px;border-radius:12px;background:#edf5ee;color:#435e4c;font-size:14px;line-height:1.55}.explain p{margin:0 0 7px}.explain p:last-child{margin-bottom:0}
+.question{font-size:clamp(23px,6.3vw,31px);line-height:1.3;font-weight:790;letter-spacing:-.45px;margin:7px 0 24px;color:#21372a}
+input.answer{border:1.5px solid #b3d0bd;border-radius:12px;padding:14px 12px;width:100%;font-size:18px;min-height:55px;outline:0}input.answer:focus{box-shadow:0 0 0 3px #d3ecdd}input.answer:read-only{background:#f5f7f4}
+.feedback{background:#fff2e3;border-radius:12px;color:#5e472b;margin:15px 0 0;padding:14px;font-size:14px;line-height:1.5}.feedback.good{background:#e8f5ea;color:#285c38}.feedback strong{display:block;margin-bottom:4px}.expected{display:block;font-size:17px;font-weight:780;margin-top:7px;color:#194d35}
+.score{font-size:49px;font-weight:880;color:#266949;margin:13px 0}
+.footer{font-size:12px;line-height:1.5;color:#7b8c81;margin:19px 0 5px}.message{color:#86572a;font-size:13px;line-height:1.45;margin:12px 2px 0;min-height:0}
+@media(max-width:340px){.shell{padding-left:11px;padding-right:11px}.panel{padding:13px}.form{font-size:14px;padding:8px 5px;min-height:56px}.btn{font-size:13px;padding:10px 6px}.phrase{font-size:25px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
-.explanation{margin:15px 0 0;padding:12px 13px;border:1px solid #d9e5d9;background:#fff;border-radius:13px;color:#456453;font-size:14px;line-height:1.55}
-.explanation strong{display:block;font-size:13px;margin-bottom:6px;color:#24543c}
-.explanation p{margin:0 0 6px}.explanation p:last-child{margin-bottom:0}
-.action.practice-link{display:block;background:transparent;border:0;box-shadow:none;color:#5c7664;text-align:center;margin:11px auto 0;min-height:34px;font-size:13px;font-weight:650;padding:4px 12px}
-.stage{min-height:260px}.phrase{font-size:clamp(29px,7.8vw,39px);min-height:180px;display:flex;align-items:center;justify-content:center;text-align:center}
-.table-ru,.translation{display:none!important}
 </style>
-</head>
-<body>
-<div class="shell">
-<header><div class="brand">Lingua <em>Daily</em></div><div class="version">Пробный урок</div></header>
-<nav class="tabs" aria-label="Выбери язык"><button type="button" id="tab-es">Испанский</button><button type="button" id="tab-en">Английский</button></nav>
-<main id="app" aria-live="polite"></main>
-<p id="notice" class="notice" role="status"></p>
-</div>
+</head><body>
+<div class="shell"><header class="header"><div class="brand">Lingua <b>Daily</b></div><div class="subbrand">Пробный урок</div></header><nav class="tabs" aria-label="Язык"><button type="button" id="tab-es">Испанский</button><button type="button" id="tab-en">Английский</button></nav><main id="app"></main><p id="notice" class="message" role="status"></p></div>
 <script>
-(()=>{
+(function(){
 'use strict';
-const DATA={
- es:{
-  locale:'es-ES',name:'Испанский',verb:'querer',meaning:'хотеть',
-  forms:[['Yo quiero','Я хочу'],['Tú quieres','Ты хочешь'],['Él quiere','Он хочет'],['Nosotros queremos','Мы хотим']],
-  examples:[
-   ['Quiero aprender español.','Я хочу учить испанский.','После quiero ставим глагол в начальной форме.'],
-   ['Quiero hablar español.','Я хочу говорить по-испански.','Поменяли aprender на hablar.'],
-   ['Quiero trabajar mañana.','Я хочу работать завтра.','Меняем действие и добавляем время.'],
-   ['Tú quieres aprender español.','Ты хочешь учить испанский.','С tú используется quieres.'],
-   ['Ella quiere aprender español.','Она хочет учить испанский.','С ella используется quiere.'],
-   ['Nosotros queremos hablar español.','Мы хотим говорить по-испански.','С nosotros используется queremos.'],
-   ['No quiero estudiar hoy.','Я не хочу заниматься сегодня.','Отрицание no ставится перед quiero.'],
-   ['¿Quieres estudiar conmigo?','Ты хочешь позаниматься со мной?','Вопрос с quieres; conmigo — со мной.'],
-   ['Quiero comprar un libro.','Я хочу купить книгу.','Comprar — покупать.'],
-   ['Quiero aprender español porque vivo en España.','Я хочу учить испанский, потому что живу в Испании.','Porque — потому что.'],
-   ['Quiero aprender español para trabajar aquí.','Я хочу выучить испанский, чтобы работать здесь.','Para + глагол показывает цель.'],
-   ['Quiero estudiar español todos los días.','Я хочу заниматься испанским каждый день.','Todos los días — каждый день.'],
-   ['Él quiere visitar este país.','Он хочет посетить эту страну.','Él quiere — он хочет.'],
-   ['Ellos quieren hablar español mejor.','Они хотят лучше говорить по-испански.','Ellos quieren — они хотят.'],
-   ['No quiero comprar este libro porque es muy caro.','Я не хочу покупать эту книгу, потому что она очень дорогая.','Caro — дорогой; libro — мужского рода.'],
-   ['¿Dónde quieres trabajar?','Где ты хочешь работать?','Dónde — где.'],
-   ['Quiero explicar estas palabras.','Я хочу объяснить эти слова.','Estas palabras — эти слова.'],
-   ['Ella quiere aprender español para trabajar en Valencia.','Она хочет учить испанский, чтобы работать в Валенсии.','Para trabajar — чтобы работать.'],
-   ['¿Quieres venir conmigo mañana?','Ты хочешь пойти со мной завтра?','Venir — приходить; conmigo — со мной.'],
-   ['Me gustaría aprender español.','Мне бы хотелось учить испанский.','Me gustaría — вежливая форма желания.'],
-  ],
-  tasks:[
-   ['Я хочу учить испанский.','Quiero aprender español.','Quiero + aprender + español.'],
-   ['Ты хочешь учить испанский.','Tú quieres aprender español.','Tú quieres — ты хочешь.'],
-   ['Она хочет работать завтра.','Ella quiere trabajar mañana.','Ella quiere — она хочет.'],
-   ['Мы хотим говорить по-испански.','Nosotros queremos hablar español.','Nosotros queremos — мы хотим.'],
-   ['Я не хочу заниматься сегодня.','No quiero estudiar hoy.','No ставится перед quiero.'],
-   ['Ты хочешь позаниматься со мной?','¿Quieres estudiar conmigo?','Conmigo — со мной.'],
-   ['Я хочу купить книгу.','Quiero comprar un libro.','Comprar — купить.'],
-   ['Я хочу учить испанский, потому что живу в Испании.','Quiero aprender español porque vivo en España.','Porque — потому что.'],
-   ['Я хочу учить испанский, чтобы работать здесь.','Quiero aprender español para trabajar aquí.','Para — чтобы.'],
-   ['Я хочу говорить по-испански.','Quiero hablar español.','Hablar — говорить.']
-  ]
- },
- en:{
-  locale:'en-GB',name:'Английский',verb:'want',meaning:'хотеть',
-  forms:[['I want','Я хочу'],['You want','Ты хочешь'],['She wants','Она хочет'],['We want','Мы хотим']],
-  examples:[
-   ['I want to learn English.','Я хочу учить английский.','После want ставим to и глагол.'],
-   ['I want to speak English.','Я хочу говорить по-английски.','Меняем learn на speak.'],
-   ['I want to work tomorrow.','Я хочу работать завтра.','Добавляем обстоятельство времени.'],
-   ['You want to learn English.','Ты хочешь учить английский.','С you форма want не меняется.'],
-   ['She wants to learn English.','Она хочет учить английский.','С she добавляется окончание -s.'],
-   ['We want to speak English.','Мы хотим говорить по-английски.','С we форма want не меняется.'],
-   ["I don't want to study today.",'Я не хочу заниматься сегодня.','Отрицание — do not или don’t.'],
-   ['Do you want to study with me?','Ты хочешь позаниматься со мной?','Вопрос начинается с Do.'],
-   ['I want to buy a book.','Я хочу купить книгу.','Buy — покупать.'],
-   ['I want to learn English because I live in Spain.','Я хочу учить английский, потому что живу в Испании.','Because — потому что.'],
-   ['I want to learn English to work here.','Я хочу выучить английский, чтобы работать здесь.','To work — чтобы работать.'],
-   ['I want to study English every day.','Я хочу заниматься английским каждый день.','Every day — каждый день.'],
-   ['He wants to visit this country.','Он хочет посетить эту страну.','He wants — он хочет.'],
-   ['They want to speak English better.','Они хотят лучше говорить по-английски.','They want — они хотят.'],
-   ["I don't want to buy this book because it is expensive.",'Я не хочу покупать эту книгу, потому что она дорогая.','Because — потому что.'],
-   ['Where do you want to work?','Где ты хочешь работать?','Where — где.'],
-   ['I want to explain these words.','Я хочу объяснить эти слова.','These words — эти слова.'],
-   ['She wants to learn English to work in Valencia.','Она хочет учить английский, чтобы работать в Валенсии.','She wants — она хочет.'],
-   ['Do you want to come with me tomorrow?','Ты хочешь пойти со мной завтра?','With me — со мной.'],
-   ["I'd like to learn English.",'Мне бы хотелось учить английский.','I’d like — вежливая форма желания.'],
-  ],
-  tasks:[
-   ['Я хочу учить английский.','I want to learn English.','Want to learn — хочу учить.'],
-   ['Ты хочешь учить английский.','You want to learn English.','You want — ты хочешь.'],
-   ['Она хочет работать завтра.','She wants to work tomorrow.','She wants — она хочет.'],
-   ['Мы хотим говорить по-английски.','We want to speak English.','We want — мы хотим.'],
-   ['Я не хочу заниматься сегодня.',"I don't want to study today.",'Don’t want to — не хочу.'],
-   ['Ты хочешь позаниматься со мной?','Do you want to study with me?','Вопрос начинается с Do.'],
-   ['Я хочу купить книгу.','I want to buy a book.','Buy — покупать.'],
-   ['Я хочу учить английский, потому что живу в Испании.','I want to learn English because I live in Spain.','Because — потому что.'],
-   ['Я хочу учить английский, чтобы работать здесь.','I want to learn English to work here.','To work — чтобы работать.'],
-   ['Я хочу говорить по-английски.','I want to speak English.','Speak — говорить.']
-  ]
- }
+const content={
+es:{
+ word:'Querer',locale:'es-ES',
+ forms:[
+ ['Yo quiero','Я хочу'],
+ ['Tú quieres','Ты хочешь'],
+ ['Él quiere','Он хочет'],
+ ['Ella quiere','Она хочет'],
+ ['Usted quiere','Вы хотите (вежливо, один человек)'],
+ ['Nosotros queremos','Мы хотим (мужчины или смешанная группа)'],
+ ['Nosotras queremos','Мы хотим (женщины)'],
+ ['Vosotros queréis','Вы хотите (Испания, неформально, мужчины или смешанная группа)'],
+ ['Vosotras queréis','Вы хотите (Испания, неформально, женщины)'],
+ ['Ellos quieren','Они хотят (мужчины или смешанная группа)'],
+ ['Ellas quieren','Они хотят (женщины)'],
+ ['Ustedes quieren','Вы хотите (несколько человек; в Испании вежливо, в Латинской Америке обычно)']
+ ],
+ examples:[
+ ['Quiero aprender español.','Я хочу учить испанский.','Quiero + aprender: второй глагол не изменяется.'],
+ ['Tú quieres trabajar mañana.','Ты хочешь работать завтра.','Tú quieres: с tú окончание меняется.'],
+ ['Él quiere visitar Madrid.','Он хочет посетить Мадрид.','Él quiere: он хочет.'],
+ ['Ella quiere comprar un libro.','Она хочет купить книгу.','Ella quiere: она хочет.'],
+ ['Usted quiere hablar conmigo.','Вы хотите поговорить со мной.','Usted — уважительное обращение к одному человеку; глагол quiere.'],
+ ['Nosotros queremos estudiar aquí.','Мы хотим заниматься здесь.','Nosotros queremos: форма для мы.'],
+ ['Nosotras queremos viajar a España.','Мы хотим поехать в Испанию (женская группа).','Nosotras — мы, когда речь только о женщинах.'],
+ ['Vosotros queréis aprender español.','Вы хотите учить испанский (неформально, Испания).','Vosotros queréis: форма для нескольких людей в Испании.'],
+ ['Vosotras queréis trabajar aquí.','Вы хотите работать здесь (женская группа, Испания).','Vosotras — обращение к группе женщин.'],
+ ['Ellos quieren vivir en Valencia.','Они хотят жить в Валенсии.','Ellos quieren — они хотят.'],
+ ['Ellas quieren hablar español.','Они хотят говорить по-испански (женщины).','Ellas quieren — женская группа.'],
+ ['Ustedes quieren visitar este lugar.','Вы хотите посетить это место (несколько человек).','Ustedes требует форму quieren.'],
+ ['No quiero trabajar hoy.','Я не хочу работать сегодня.','No перед quiero образует отрицание.'],
+ ['¿Quieres estudiar conmigo?','Ты хочешь позаниматься со мной?','Вопрос: quieres; conmigo — со мной.']
+ ],
+ tasks:[
+ ['Я хочу учить испанский.','Yo quiero aprender español.','Форма первого лица — quiero.'],
+ ['Ты хочешь работать завтра.','Tú quieres trabajar mañana.','Тú quieres — форма для ты.'],
+ ['Он хочет посетить Мадрид.','Él quiere visitar Madrid.','Él пишется с ударением.'],
+ ['Она хочет купить книгу.','Ella quiere comprar un libro.','Ella quiere — она хочет.'],
+ ['Вы (вежливо, одному человеку) хотите поговорить со мной.','Usted quiere hablar conmigo.','Usted употребляется с quiere.'],
+ ['Мы (мужчины или смешанная группа) хотим учиться здесь.','Nosotros queremos estudiar aquí.','Nosotros queremos — мы хотим.'],
+ ['Мы (женщины) хотим поехать в Испанию.','Nosotras queremos viajar a España.','Nosotras — группа женщин.'],
+ ['Вы (группа мужчин или смешанная группа, неформально в Испании) хотите учить испанский.','Vosotros queréis aprender español.','Проверь ударение в queréis.'],
+ ['Вы (группа женщин, неформально в Испании) хотите работать здесь.','Vosotras queréis trabajar aquí.','Vosotras queréis.'],
+ ['Они (мужчины или смешанная группа) хотят жить в Валенсии.','Ellos quieren vivir en Valencia.','Ellos quieren.'],
+ ['Они (женщины) хотят говорить по-испански.','Ellas quieren hablar español.','Ellas quieren.'],
+ ['Вы (несколько человек, вежливо) хотите посетить это место.','Ustedes quieren visitar este lugar.','Ustedes хотят — ustedes quieren.'],
+ ['Я не хочу работать сегодня.','No quiero trabajar hoy.','No перед quiero.'],
+ ['Ты хочешь позаниматься со мной?','¿Quieres estudiar conmigo?','Вопросительные знаки: ¿ и ?.']
+ ],
+ notes:[
+ 'Глагол querer означает «хотеть». У него меняется гласная в основе: quiero, quieres, quiere, quieren. В формах nosotros и vosotros — queremos, queréis.',
+ 'Usted — уважительное «Вы» одному человеку, с глаголом quiere. Ustedes — обращение к нескольким: с глаголом quieren.',
+ 'Vosotros / vosotras — неформальное «вы» в Испании. В большинстве стран Латинской Америки вместо него используют ustedes.',
+ 'В испанском местоимение нередко опускают. В этих письменных упражнениях мы используем его, чтобы отработать каждое лицо.'
+ ]
+},
+en:{
+ word:'Want',locale:'en-GB',
+ forms:[
+ ['I want','Я хочу'],['You want','Ты хочешь'],['He wants','Он хочет'],['She wants','Она хочет'],
+ ['It wants','Оно хочет'],['We want','Мы хотим'],['You want','Вы хотите'],['They want','Они хотят']
+ ],
+ examples:[
+ ['I want to learn English.','Я хочу учить английский.','I want to + глагол.'],
+ ['You want to work tomorrow.','Ты хочешь работать завтра.','You want — ты хочешь.'],
+ ['He wants to visit Madrid.','Он хочет посетить Мадрид.','He wants: добавляем s.'],
+ ['She wants to buy a book.','Она хочет купить книгу.','She wants.'],
+ ['It wants to sleep.','Оно хочет спать.','It wants.'],
+ ['We want to study here.','Мы хотим заниматься здесь.','We want.'],
+ ['You want to learn English.','Вы хотите учить английский.','You — ты и вы.'],
+ ['They want to live in Valencia.','Они хотят жить в Валенсии.','They want.'],
+ ["I don't want to work today.",'Я не хочу работать сегодня.','I don’t want to — отрицание.'],
+ ['Do you want to study with me?','Ты хочешь позаниматься со мной?','Вопрос: Do you want to…?']
+ ],
+ tasks:[
+ ['Я хочу учить английский.','I want to learn English.','I want to learn.'],
+ ['Ты хочешь работать завтра.','You want to work tomorrow.','You want.'],
+ ['Он хочет посетить Мадрид.','He wants to visit Madrid.','He wants.'],
+ ['Она хочет купить книгу.','She wants to buy a book.','She wants.'],
+ ['Оно хочет спать.','It wants to sleep.','It wants.'],
+ ['Мы хотим заниматься здесь.','We want to study here.','We want.'],
+ ['Вы хотите учить английский.','You want to learn English.','You want.'],
+ ['Они хотят жить в Валенсии.','They want to live in Valencia.','They want.'],
+ ['Я не хочу работать сегодня.',"I don't want to work today.",'Don’t want.'],
+ ['Ты хочешь позаниматься со мной?','Do you want to study with me?','Do you want to…?']
+ ],
+ notes:[
+ 'После want перед глаголом используется to: I want to work.',
+ 'В настоящем времени с he, she, it глагол получает окончание -s: wants.',
+ 'You означает и «ты», и «вы». Форма want в этих случаях совпадает.',
+ 'В отрицаниях и вопросах используются do / does.'
+ ]
+}
 };
-const KEY='lingua-daily-iphone-preview-v4';
-const $=id=>document.getElementById(id);
-const fresh=()=>({position:0,mode:'lesson',task:0,typed:'',checked:false,results:[]});
-function valid(s,l){return !!s&&typeof s==='object'&&!Array.isArray(s)&&s.mode==='lesson'||false;}
-function safe(s,l){const d=DATA[l];return !!s&&typeof s==='object'&&!Array.isArray(s)&&['lesson','practice'].includes(s.mode)&&Number.isInteger(s.position)&&s.position>=0&&s.position<=d.forms.length+d.examples.length&&Number.isInteger(s.task)&&s.task>=0&&s.task<=d.tasks.length&&typeof s.typed==='string'&&s.typed.length<=500&&typeof s.checked==='boolean'&&Array.isArray(s.results)&&s.results.length===s.task&&s.results.every(x=>x&&typeof x.value==='string'&&typeof x.match==='boolean');}
-let saved;
-try{const v=JSON.parse(localStorage.getItem(KEY)||'null');saved=v&&['es','en'].includes(v.language)&&safe(v.es,'es')&&safe(v.en,'en')?v:null;}catch(e){}
+const STORE='lingua-daily-iphone-preview-v5';
+const fresh=()=>({phase:'forms',form:0,example:0,task:0,input:'',checked:false,results:[]});
+function valid(s,l){
+ const d=content[l];
+ return s&&typeof s==='object'&&!Array.isArray(s)&&['forms','examples','write','result'].includes(s.phase)&&
+ Number.isInteger(s.form)&&s.form>=0&&s.form<=d.forms.length&&Number.isInteger(s.example)&&s.example>=0&&s.example<=d.examples.length&&
+ Number.isInteger(s.task)&&s.task>=0&&s.task<=d.tasks.length&&typeof s.input==='string'&&s.input.length<=500&&
+ typeof s.checked==='boolean'&&Array.isArray(s.results)&&s.results.length===s.task&&
+ s.results.every(x=>x&&typeof x.value==='string'&&x.value.length<=500&&typeof x.ok==='boolean');
+}
+let saved=null;try{const s=JSON.parse(localStorage.getItem(STORE)||'null');if(s&&['es','en'].includes(s.language)&&valid(s.es,'es')&&valid(s.en,'en'))saved=s;}catch(e){}
 if(!saved)saved={language:'es',es:fresh(),en:fresh()};
-let lang=saved.language,playing=false,token=0,delay=null,message='',explanationOpen=false;
-const app=$('app');const current=()=>DATA[lang],state=()=>saved[lang];
-function persist(){saved.language=lang;try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){message='В этом режиме браузер не сохранил прогресс.';}}
-function el(tag,cls,content){const x=document.createElement(tag);if(cls)x.className=cls;if(content!==undefined)x.textContent=content;return x;}
-function btn(label,action,cls){const b=el('button','action'+(cls?' '+cls:''),label);b.type='button';b.addEventListener('click',action);return b;}
-function stop(){token++;playing=false;if(delay!==null){clearTimeout(delay);delay=null;}try{window.speechSynthesis?.cancel();}catch(e){}}
-function total(d){return d.forms.length+d.examples.length;}
-function item(d,i){return i<d.forms.length?d.forms[i][0]:d.examples[i-d.forms.length][0];}
-function voiceFor(locale){try{const vv=window.speechSynthesis.getVoices();return vv.find(v=>v.lang?.toLowerCase()===locale.toLowerCase())||vv.find(v=>v.lang?.toLowerCase().startsWith(locale.slice(0,2).toLowerCase()))||null;}catch(e){return null;}}
-function nextSpoken(t){if(t!==token||!playing)return;const d=current(),s=state();if(s.mode!=='lesson')return stop();
-if(s.position>=total(d)){stop();render();return;}
-render();
-const langText=item(d,s.position);
-if(!window.SpeechSynthesisUtterance||!window.speechSynthesis){stop();message='На этом устройстве озвучка недоступна.';render();return;}
-try{
-const utter=new SpeechSynthesisUtterance(langText);
-utter.lang=d.locale;const voice=voiceFor(d.locale);if(voice)utter.voice=voice;
-utter.rate=lang==='es'?0.74:0.78;utter.pitch=1;
-utter.onend=()=>{if(t!==token||!playing)return;delay=setTimeout(()=>{delay=null;if(t!==token||!playing)return;s.position++;explanationOpen=false;persist();nextSpoken(t);},1500);};
-utter.onerror=()=>{if(t!==token)return;stop();message='Голосовое воспроизведение остановилось. Попробуй снова.';render();};
-window.speechSynthesis.speak(utter);
-}catch(e){stop();message='Не удалось воспроизвести фразу.';render();}
+let lang=saved.language,playing=false,token=0,timer=null,explanation=false,slower=false,errorText='';
+const app=document.getElementById('app');
+const qs=id=>document.getElementById(id);
+const state=()=>saved[lang],lesson=()=>content[lang];
+function store(){saved.language=lang;try{localStorage.setItem(STORE,JSON.stringify(saved));}catch(e){errorText='В этом браузере не удалось сохранить прогресс.'}}
+function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;}
+function btn(label,onClick,cls){const b=el('button','btn '+(cls||''),label);b.type='button';b.addEventListener('click',onClick);return b;}
+function stop(){token++;playing=false;if(timer!==null){clearTimeout(timer);timer=null;}try{window.speechSynthesis?.cancel()}catch(e){}}
+function voiceFor(locale){try{const v=window.speechSynthesis.getVoices();return v.find(x=>x.lang?.toLowerCase()===locale.toLowerCase())||v.find(x=>x.lang?.toLowerCase().startsWith(locale.slice(0,2).toLowerCase()))||null;}catch(e){return null}}
+function speak(text,onDone){
+ if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){stop();errorText='На этом устройстве не работает озвучка.';render();return;}
+ const t=token;
+ try{
+  const u=new SpeechSynthesisUtterance(text);u.lang=lesson().locale;
+  const v=voiceFor(u.lang);if(v)u.voice=v;
+  u.rate=slower?.50:.62;u.pitch=1;
+  u.onend=()=>{if(t===token&&playing)onDone()};
+  u.onerror=()=>{if(t!==token)return;stop();errorText='Озвучка прервалась. Нажми «Слушать» ещё раз.';render()};
+  window.speechSynthesis.speak(u);
+ }catch(e){stop();errorText='Не удалось включить звук.';render()}
 }
-function toggle(){if(playing){stop();render();return;}explanationOpen=false;const s=state(),d=current();if(s.position>=total(d))s.position=0;message='';persist();stop();playing=true;nextSpoken(token);}
-function practice(){stop();explanationOpen=false;state().mode='practice';state().typed='';state().checked=false;message='';persist();render();}
-function normalize(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/^[¿¡]/,'').replace(/[.!?]+$/,'').toLowerCase();}
-function assess(v,expected){if(!String(v).trim())return {match:false,info:'Напиши весь перевод.'};if(normalize(v)===normalize(expected))return {match:true,info:'Написано правильно.'};
-const a=normalize(v),b=normalize(expected);
-if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {match:false,info:'Проверь ударение или букву ñ.'};
-let p=0;const aa=[...a],bb=[...b];while(p<aa.length&&p<bb.length&&aa[p]===bb[p])p++;
-return {match:false,info:'Ответ отличается от образца. Проверь написание примерно с символа '+(p+1)+'.'};
+function playSequence(){
+ if(!playing)return;
+ const d=lesson(),s=state(),phase=s.phase,t=token;
+ const arr=phase==='forms'?d.forms:d.examples;
+ const idx=phase==='forms'?s.form:s.example;
+ if(idx>=arr.length){stop();render();return;}
+ render();
+ speak(arr[idx][0],()=>{
+  timer=setTimeout(()=>{
+   timer=null;if(!playing||t!==token)return;
+   if(phase==='forms')s.form++;else s.example++;
+   store();playSequence();
+  },phase==='forms'?2800:4800);
+ });
 }
-function check(){const s=state();const v=$('answer')?.value||s.typed;s.typed=v.slice(0,500);if(!s.typed.trim()){message='Напиши перевод, потом проверь.';render();return;}s.checked=true;message='';persist();render();}
-function retry(){state().checked=false;persist();render();$('answer')?.focus();}
-function nextTask(){const s=state(),d=current();if(!s.checked||s.task>=d.tasks.length)return;const expected=d.tasks[s.task][1],result=assess(s.typed,expected);s.results.push({value:s.typed,match:result.match});s.task++;s.typed='';s.checked=false;persist();render();$('answer')?.focus();}
-function restart(){stop();explanationOpen=false;saved[lang]=fresh();persist();render();}
-function header(stage,n,max){const meta=el('div','lesson-top');meta.append(el('span','',stage),el('span','',n+' / '+max));app.append(meta);const meter=el('div','meter'),bar=el('div');bar.style.width=Math.round(n/max*100)+'%';meter.append(bar);app.append(meter);}
-function lessonScreen(d,s){const size=total(d),position=s.position;
-header('Урок 1',Math.min(size,position+1),size);
-app.append(el('h1','',d.verb));
-const stage=el('div','stage');
-if(position<d.forms.length){
-stage.append(el('p','stage-kicker',lang==='es'?'Conjugación':'Conjugation'));
-const rows=el('div','table');
-d.forms.forEach((pair,i)=>{const row=el('div','table-row'+(i===position?' active':''));
-const w=el('span','table-word',pair[0]);w.lang=lang;row.append(w);rows.append(row);});
-stage.append(rows);
-}else{
-const idx=Math.min(position-d.forms.length,d.examples.length-1),pair=d.examples[idx];
-stage.append(el('p','stage-kicker',lang==='es'?'Frases · '+(idx+1):'Sentences · '+(idx+1)));
-const foreign=el('div','phrase',pair[0]);foreign.lang=lang;stage.append(foreign);
+function togglePlay(){
+ if(playing){stop();render();return;}
+ const d=lesson(),s=state(),arr=s.phase==='forms'?d.forms:d.examples;
+ if(!['forms','examples'].includes(s.phase))return;
+ if(s.phase==='forms'&&s.form>=arr.length)s.form=0;
+ if(s.phase==='examples'&&s.example>=arr.length)s.example=0;
+ stop();playing=true;explanation=false;errorText='';store();playSequence();
 }
-app.append(stage);
-if(explanationOpen){const explanation=el('div','explanation');explanation.setAttribute('role','region');
- if(position<d.forms.length){
-  explanation.append(el('strong','','Формы глагола'),el('p','',d.forms.map(p=>p[0]+' — '+p[1]).join('; ')+'.'));
-  explanation.append(el('p','','После этой формы другой глагол остаётся в начальной форме. Например: '+(lang==='es'?'quiero aprender':'want to learn')+'.'));
- }else{
-  const ex=d.examples[Math.min(position-d.forms.length,d.examples.length-1)];
-  explanation.append(el('strong','','Перевод'),el('p','',ex[1]),el('p','',ex[2]));
- }
- app.append(explanation);
+function onePhrase(text){
+ stop();errorText='';
+ if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){errorText='На этом устройстве не работает озвучка.';render();return}
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang=lesson().locale;const v=voiceFor(u.lang);if(v)u.voice=v;u.rate=slower?.50:.62;
+ try{window.speechSynthesis.speak(u)}catch(e){errorText='Не удалось включить звук.'}
 }
-const actions=el('div','actions');
-actions.append(btn(playing?'⏸ Пауза':position>=size?'▶ Повторить':'▶ Слушать',toggle,'primary'),btn(explanationOpen?'Скрыть пояснение':'? Пояснение',()=>{stop();explanationOpen=!explanationOpen;render();},''));
-app.append(actions);
-app.append(btn('Перейти к практике →',practice,'practice-link'));
-
+function setPhase(phase){stop();explanation=false;errorText='';state().phase=phase;store();render();}
+function normal(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLocaleLowerCase('en');}
+function assess(answer,expected){const a=normal(answer),b=normal(expected);
+ if(!a)return {ok:false,why:'Напиши весь ответ.'};
+ if(lesson().locale==='en-GB'&&expected.includes('English')&&!String(answer).includes('English'))return {ok:false,why:'English пишется с заглавной буквы.'};
+ if(lesson().locale==='en-GB'&&expected.startsWith('I ')&&!String(answer).trim().startsWith('I '))return {ok:false,why:'Местоимение I пишется с заглавной буквы.'};
+ if(a===b)return {ok:true,why:'Написано правильно.'};
+ if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударения или букву ñ.'};
+ const aa=[...a],bb=[...b];let i=0;while(i<aa.length&&i<bb.length&&aa[i]===bb[i])i++;
+ return {ok:false,why:'Отличается от образца. Проверь написание начиная примерно с символа '+(i+1)+'.'}
 }
-function practiceScreen(d,s){const n=d.tasks.length;
-if(s.task>=n){header('Результат',n,n);const match=s.results.filter(x=>x.match).length;
-app.append(el('h1','','Письменная практика закончена'),el('div','score',match+' / '+n),el('p','rule','Столько ответов совпало с образцом. Другие правильные переводы пробная проверка пока не распознаёт.'));
-const actions=el('div','actions');actions.append(btn('Повторить урок',restart,'primary'));app.append(actions);return;}
-header('Пишем полные предложения',s.task+1,n);
-const pair=d.tasks[s.task];const card=el('div','question-card');
-card.append(el('div','stage-kicker','Переведи на '+d.name.toLowerCase()),el('div','question',pair[0]));
-const label=el('label','', 'Твой ответ');label.htmlFor='answer';card.append(label);
-const input=el('input','answer');input.id='answer';input.type='text';input.lang=lang;input.autocomplete='off';input.spellcheck=false;input.setAttribute('autocapitalize','none');input.value=s.typed;input.readOnly=s.checked;
-input.addEventListener('input',()=>{s.typed=input.value.slice(0,500);persist();});
-input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?nextTask():check();}});
-card.append(input);
-if(s.checked){const r=assess(s.typed,pair[1]);const feedback=el('div','feedback'+(r.match?' good':''));feedback.append(el('strong','',r.match?'Совпадает с образцом':'Проверь по образцу'),el('div','',r.info),el('div','sample',pair[1]),el('div','',pair[2]));card.append(feedback);}
-app.append(card);
-const actions=el('div','actions');if(s.checked){actions.append(btn('Исправить',retry,''),btn('Следующее →',nextTask,'primary'));}else{actions.append(btn('Проверить',check,'primary'));}app.append(actions);
-app.append(el('p','muted','В этой пробе проверяется точное написание. Несколько правильных вариантов перевода пока не поддерживаются.'));
+function check(){const s=state();const inp=qs('answer');if(inp)s.input=inp.value.slice(0,500);if(!s.input.trim()){errorText='Сначала напиши перевод.';render();return;}s.checked=true;store();render()}
+function retry(){const s=state();s.checked=false;store();render();qs('answer')?.focus()}
+function next(){const s=state(),d=lesson();if(!s.checked||s.task>=d.tasks.length)return;
+ s.results.push({value:s.input,ok:assess(s.input,d.tasks[s.task][1]).ok});s.task++;s.input='';s.checked=false;
+ if(s.task>=d.tasks.length)s.phase='result';store();render();qs('answer')?.focus()
 }
-function render(){const d=current(),s=state();for(const k of ['es','en'])$('tab-'+k).classList.toggle('selected',k===lang);app.replaceChildren();s.mode==='lesson'?lessonScreen(d,s):practiceScreen(d,s);const note=$('notice');note.textContent=message;}
-for(const k of ['es','en'])$('tab-'+k).addEventListener('click',()=>{if(lang===k)return;stop();lang=k;explanationOpen=false;message='';persist();render();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){stop();render();}});
+function reset(){stop();explanation=false;saved[lang]=fresh();store();render()}
+function header(title,pos,total){const m=el('div','meta');m.append(el('span','',title),el('span','',pos+' / '+total));app.append(m);
+ const pr=el('div','progress'),bar=el('div');bar.style.width=Math.round((pos/Math.max(1,total))*100)+'%';pr.append(bar);app.append(pr)}
+function explanationBlock(lines){const b=el('div','explain');b.setAttribute('role','region');for(const text of lines)b.append(el('p','',text));app.append(b)}
+function formScreen(){
+ const d=lesson(),s=state();header('1. Формы глагола',Math.min(d.forms.length,s.form+1),d.forms.length);
+ app.append(el('h1','',d.word),el('div','taskhint','Послушай каждую форму и повтори вслух во время паузы.'));
+ const p=el('div','panel'),grid=el('div','form-grid');
+ d.forms.forEach((pair,i)=>{
+  const row=el('button','form'+(s.form===i?' active':''),pair[0]);row.type='button';row.lang=lang;
+  row.setAttribute('aria-label',pair[0]+'. Нажми, чтобы послушать ещё раз');
+  row.addEventListener('click',()=>{s.form=i;store();render();onePhrase(pair[0])});
+  grid.append(row);
+ });p.append(grid);app.append(p);
+ app.append(el('p','caption','Нажми на любую форму, чтобы услышать её отдельно.'));
+ if(explanation)explanationBlock(d.notes);
+ const actions=el('div','actions');actions.append(btn(playing?'⏸ Пауза':'▶ Слушать формы',togglePlay,'primary'),btn(slower?'Обычная скорость':'Ещё медленнее',()=>{slower=!slower;if(playing)stop();render()},''));app.append(actions);
+ app.append(btn(explanation?'Скрыть пояснение':'? Пояснение',()=>{explanation=!explanation;stop();render()},'text-link'));
+ app.append(btn('Перейти к примерам →',()=>setPhase('examples'),'text-link'));
+}
+function exampleScreen(){
+ const d=lesson(),s=state(),n=d.examples.length,pos=s.example;header('2. Читаем и повторяем',Math.min(n,pos+1),n);
+ app.append(el('h2','','Сначала произнеси фразу сама. Затем послушай и повтори.'));
+ const p=el('div','panel');if(pos<n){
+  const phrase=el('div','phrase',d.examples[pos][0]);phrase.lang=lang;p.append(phrase);
+ }else p.append(el('div','phrase','✓'));
+ app.append(p);
+ app.append(el('p','caption',pos>=n?'Примеры закончились. Можно переходить к письменной практике.':'После фразы будет пауза четыре–пять секунд, чтобы ты успела повторить.'));
+ if(explanation&&pos<n)explanationBlock([d.examples[pos][1],d.examples[pos][2]]);
+ const actions=el('div','actions');actions.append(btn(playing?'⏸ Пауза':pos>=n?'▶ Прослушать снова':'▶ Слушать и повторять',togglePlay,'primary'),
+ btn(slower?'Обычная скорость':'Ещё медленнее',()=>{slower=!slower;if(playing)stop();render()},''));app.append(actions);
+ app.append(btn(explanation?'Скрыть перевод':'? Перевод',()=>{explanation=!explanation;stop();render()},'text-link'));
+ app.append(btn('Перейти к письму →',()=>setPhase('write'),'text-link'));
+ app.append(btn('← Формы глагола',()=>setPhase('forms'),'text-link'));
+}
+function writeScreen(){
+ const d=lesson(),s=state(),n=d.tasks.length;
+ header('3. Переводи и пиши',s.task+1,n);
+ const p=el('div','panel'),task=d.tasks[s.task];p.append(el('p','caption','Напиши перевод на изучаемом языке, полностью и без вариантов ответа.'),el('div','question',task[0]));
+ const label=el('label','caption','Твой перевод');label.htmlFor='answer';p.append(label);
+ const inp=el('input','answer');inp.id='answer';inp.type='text';inp.autocomplete='off';inp.spellcheck=false;inp.setAttribute('autocapitalize','none');inp.lang=lang;inp.value=s.input;inp.readOnly=s.checked;
+ inp.addEventListener('input',()=>{s.input=inp.value.slice(0,500);store()});
+ inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?next():check()}});
+ p.append(inp);
+ if(s.checked){const r=assess(s.input,task[1]);const fb=el('div','feedback'+(r.ok?' good':''));fb.append(el('strong','',r.ok?'Верно':'Проверь ответ'),el('div','',r.why),el('div','expected',task[1]),el('div','',task[2]));p.append(fb)}
+ app.append(p);
+ const actions=el('div','actions');if(s.checked)actions.append(btn('Переписать',retry,''),btn('Следующее →',next,'primary'));else actions.append(btn('Проверить',check,'primary'));app.append(actions);
+ app.append(el('p','footer','Проверка пока сравнивает написание с образцом. Другие правильные переводы могут не распознаваться.'));
+ app.append(btn('← Вернуться к примерам',()=>setPhase('examples'),'text-link'))
+}
+function resultScreen(){
+ const d=lesson(),s=state(),good=s.results.filter(x=>x.ok).length;
+ header('Тренировка завершена',d.tasks.length,d.tasks.length);
+ app.append(el('h2','','Результат письменной практики'),el('div','score',good+' / '+d.tasks.length),
+ el('p','caption','Столько переводов совпало с образцом. Можно ещё раз повторить формы и пройти упражнения.'));
+ const a=el('div','actions');a.append(btn('Повторить урок',reset,'primary'));app.append(a)
+}
+function render(){
+ for(const k of ['es','en'])qs('tab-'+k).classList.toggle('selected',lang===k);
+ app.replaceChildren();const phase=state().phase;
+ if(phase==='forms')formScreen();else if(phase==='examples')exampleScreen();else if(phase==='write')writeScreen();else resultScreen();
+ qs('notice').textContent=errorText;
+}
+for(const k of ['es','en'])qs('tab-'+k).addEventListener('click',()=>{if(lang===k)return;stop();lang=k;explanation=false;errorText='';store();render()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){stop();render()}});
 window.addEventListener('pagehide',stop);
-window.LinguaPreviewQA={assess,data:()=>DATA,state:()=>saved};
-persist();render();
+window.LinguaPreviewQA={content,assess,progress:()=>saved};
+store();render();
 })();</script>
-</body>
-</html>
+</body></html>
