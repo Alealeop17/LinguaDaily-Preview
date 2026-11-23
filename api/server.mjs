@@ -106,6 +106,18 @@ export function makeHandler(opts = {}) {
       if (origin !== allowedOrigin) return json(res, 403, { error: "origin_denied" });
       res.writeHead(204); res.end(); return;
     }
+    // Serve the standalone preview from the same origin as the protected token endpoint.
+    if ((req.url === "/" || req.url === "/index.html") && req.method === "GET") {
+      res.writeHead(200, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "Referrer-Policy": "no-referrer"
+      });
+      res.end(readFileSync(new URL("../index.html", import.meta.url)));
+      return;
+    }
     if (req.url === "/health" && req.method === "GET") return json(res, 200, { ok: true, configured: Boolean(getEnv().OPENAI_API_KEY && getEnv().PREVIEW_ACCESS_CODE) });
     if (req.url !== "/api/realtime/token" || req.method !== "POST") return json(res, 404, { error: "not_found" });
     if (origin !== allowedOrigin) return json(res, 403, { error: "origin_denied" });
