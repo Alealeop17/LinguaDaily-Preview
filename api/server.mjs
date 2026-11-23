@@ -42,13 +42,19 @@ function limit(map, id, windowMs, allowed) {
   hits.push(now()); map.set(id, hits); return true;
 }
 
-function buildInstructions(lang, lessonIndex, errors = [], mastered = 0) {
+function buildInstructions(lang, lessonIndex, errors = [], mastered = 0, style = 'calm') {
   const lesson = curriculum[lang][lessonIndex];
   const previous = lessonIndex === 1 ? curriculum[lang][0] : null;
   const target = lang === "es" ? "испанском" : "английском";
   const words = [ ...(previous ? [...previous.nouns, ...previous.adjectives, ...previous.verbs] : []), ...lesson.nouns, ...lesson.adjectives, ...lesson.verbs ].map(x => x[0]);
   const errorExamples = errors.filter(n => Number.isInteger(n) && n >= 0 && n < lesson.tasks.length).slice(0, 6).map(n => lesson.tasks[n][1]);
+  const styleInstruction = {
+    calm: "Манера спокойная, внимательная, доброжелательная. Давай время подумать.",
+    energetic: "Манера энергичная и дружелюбная, поощряй свободную речь и поддерживай темп.",
+    demanding: "Манера требовательная, но уважительная. Проверяй владение формами, проси исправить важные ошибки без давления."
+  }[style] || "Манера спокойная, внимательная, доброжелательная.";
   return [
+    styleInstruction,
     "Ты профессиональный терпеливый языковой преподаватель. Ученик — русскоязычный взрослый.",
     "Веди настоящий диалог голосом. Твой основной язык — " + target + ". Говори короткими естественными фразами, по одной мысли за раз, медленно, с паузами.",
     "Урок " + (lessonIndex + 1) + ". Тема: " + lesson.title + ". Сегодня тренируем спряжение глагола " + lesson.focus + ".",
@@ -67,16 +73,19 @@ function buildInstructions(lang, lessonIndex, errors = [], mastered = 0) {
   ].filter(Boolean).join("\n");
 }
 
-function sessionParams({lang, lesson, errors, mastered}) {
+function sessionParams({lang, lesson, errors, mastered, style, voice, pace}) {
   const safeLang = ["es","en"].includes(lang) ? lang : "es";
   const n = lesson === 1 ? 1 : 0;
   const model = process.env.OPENAI_REALTIME_MODEL || "gpt-realtime-2.1";
+  const safeStyle = ['calm','energetic','demanding'].includes(style) ? style : 'calm';
+  const safeVoice = ['marin','cedar'].includes(voice) ? voice : 'marin';
+  const safeSpeed = pace==='normal' ? 1 : 0.84;
   return {
     expires_after: { anchor: "created_at", seconds: 60 },
     session: {
       type: "realtime",
       model,
-      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : [], Number.isInteger(mastered) ? Math.max(0,Math.min(100,mastered)) : 0),
+      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : [], Number.isInteger(mastered) ? Math.max(0,Math.min(100,mastered)) : 0, safeStyle),
       max_output_tokens: 320,
       audio: {
         input: {
@@ -84,7 +93,7 @@ function sessionParams({lang, lesson, errors, mastered}) {
           transcription: { model: "gpt-4o-mini-transcribe", language: safeLang },
           turn_detection: { type: "semantic_vad", eagerness: "low", create_response: true, interrupt_response: true }
         },
-        output: { voice: "marin", speed: 0.84 }
+        output: { voice: safeVoice, speed: safeSpeed }
       }
     }
   };
@@ -131,13 +140,13 @@ export function makeHandler(opts = {}) {
       if (!limit(badAttempts, client, 15 * 60_000, 5)) return json(res, 429, { error: "too_many_attempts" });
       return json(res, 401, { error: "invalid_access_code" });
     }
-    if (!limit(recentSessions, "sessions:" + client, 60 * 60_000, maxTokensPerHour)) return json(res, 429, { error: "session_limit" });
     let body;
     try { body = await jsonBody(req); } catch(e) { return json(res, e.status || 400, { error: "invalid_body" }); }
-    if (!["es","en"].includes(body.lang) || ![0,1].includes(body.lesson)) return json(res, 400, { error: "invalid_lesson" });
+    if (!body || !["es","en"].includes(body.lang) || ![0,1].includes(body.lesson)) return json(res, 400, { error: "invalid_lesson" });
+    if (!limit(recentSessions, "sessions:" + client, 60 * 60_000, maxTokensPerHour)) return json(res, 429, { error: "session_limit" });
     const safeErrors = Array.isArray(body.errors) ? body.errors.slice(0, 6) : [];
     const safeMastered = Number.isInteger(body.mastered) ? Math.max(0,Math.min(100,body.mastered)) : 0;
-    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors, mastered: safeMastered });
+    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors, mastered: safeMastered, style: body.style, voice: body.voice, pace: body.pace });
 
     try {
       const safetyId = createHash("sha256").update("lingua-preview-user:" + PREVIEW_ACCESS_CODE).digest("hex");
