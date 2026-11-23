@@ -6,8 +6,11 @@ const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const code = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
 assert.ok(code);
 
-function runApp({ store = new Map(), tokenOk = true } = {}) {
- const nodes = {}, requests = [], events = [], stats = { spoken:0, stopped:0, closed:0, mic:0, playback:0 };
+function runApp({ store = new Map(), tokenOk = true, playbackBlocked = false, tokenDeferred = null, mediaDeferred = null } = {}) {
+ const nodes = {}, requests = [], events = [], listeners={}, timers=new Map(), stats = { spoken:0, stopped:0, closed:0, mic:0, playback:0 };
+ let timerId=0;const schedule=(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return {id,unref(){}}};
+ const unschedule=timer=>timers.delete(timer?.id||timer);
+ const fireTimer=(ms)=>{for(const [id,entry] of [...timers])if(entry.ms===ms){timers.delete(id);entry.fn()}};
  class El {
   constructor(tag) { this.tag=tag;this.children=[];this.listeners={};this.classList={toggle(){}};this.textContent="";this.value=""; }
   set id(value) { this._id=value;nodes[value]=this; }
@@ -16,7 +19,7 @@ function runApp({ store = new Map(), tokenOk = true } = {}) {
   replaceChildren(...items) { this.children=[...items]; }
   setAttribute(name,value) { this[name]=value; }
   addEventListener(name,cb) { this.listeners[name]=cb; }
-  play() { stats.playback++;return Promise.resolve(); }
+  play() { stats.playback++;return playbackBlocked&&stats.playback===1?Promise.reject(new Error('NotAllowed')):Promise.resolve(); }
  }
  class Peer {
   addTrack() {}
@@ -31,9 +34,10 @@ function runApp({ store = new Map(), tokenOk = true } = {}) {
  }
  const track = {enabled:true,stop(){stats.stopped++;}};
  const stream = {getTracks:()=>[track],getAudioTracks:()=>[track]};
- const navigator = {mediaDevices:{getUserMedia:async()=>{stats.mic++;return stream;}}};
+ const navigator = {mediaDevices:{getUserMedia:async()=>{stats.mic++;return mediaDeferred?await mediaDeferred.promise:stream;}}};
  const fetchStub = async(url,options) => {
   requests.push({url,...options});
+  if(url==="/api/realtime/token"&&tokenDeferred)return tokenDeferred.promise;
   if(url==="/api/realtime/token")return tokenOk
     ? {ok:true,json:async()=>({value:"ek_mock_ephemeral"})}
     : {ok:false,status:401};
@@ -44,7 +48,7 @@ function runApp({ store = new Map(), tokenOk = true } = {}) {
   body:new El("body"),
   createElement:tag=>new El(tag),
   getElementById:id=>(nodes[id]??=new El("div")),
-  addEventListener(){}
+  addEventListener(name,fn){listeners[name]=fn;}
  };
  const window = {
   isSecureContext:true,
@@ -53,15 +57,15 @@ function runApp({ store = new Map(), tokenOk = true } = {}) {
   addEventListener(){}
  };
  const localStorage = {getItem:k=>store.get(k)||null,setItem:(k,value)=>store.set(k,value)};
- const qa=new Function("window","document","localStorage","navigator","RTCPeerConnection","fetch",code+"\nreturn window.LinguaPreviewQA;")(
-  window,document,localStorage,navigator,Peer,fetchStub
+ const qa=new Function("window","document","localStorage","navigator","RTCPeerConnection","fetch","setTimeout","clearTimeout",code+"\nreturn window.LinguaPreviewQA;")(
+  window,document,localStorage,navigator,Peer,fetchStub,schedule,unschedule
  );
  const findText = (root,text) => {
   if(root?.textContent===text)return root;
   for(const child of root?.children||[]) { const found=findText(child,text);if(found)return found; }
   return null;
  };
- return {qa,nodes,store,stats,requests,events,findText};
+ return {qa,nodes,store,stats,requests,events,findText,fireTimer,listeners,document,track};
 }
 
 test("typo is green, conjugation is red, queue survives reopening", () => {
@@ -115,4 +119,87 @@ test("failed token request shuts off microphone and displays access error", asyn
  assert.equal(a.stats.stopped,1);
  assert.equal(a.stats.closed,0);
  assert.equal(a.requests.length,1);
+});
+
+test("user-selected tutor voice and style are safely persisted", async () => {
+ const store=new Map(),a=runApp({store});
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["tutor-style"].value="demanding";a.nodes["tutor-style"].listeners.change();
+ a.nodes["tutor-voice"].value="cedar";a.nodes["tutor-voice"].listeners.change();
+ a.nodes["tutor-pace"].value="normal";a.nodes["tutor-pace"].listeners.change();
+ a.nodes["preview-code"].value="private";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ const req=JSON.parse(a.requests[0].body);
+ assert.equal(req.style,"demanding");
+ assert.equal(req.voice,"cedar");
+ assert.equal(req.pace,"normal");
+ assert.equal([...store.keys()].some(key=>String(store.get(key)).includes("private")),false);
+ a.findText(a.nodes.app,"Завершить разговор").listeners.click();
+ const reopened=runApp({store});
+ reopened.nodes["mode-speak"].listeners.click();
+ assert.equal(reopened.nodes["tutor-style"].value,"demanding");
+ assert.equal(reopened.nodes["tutor-voice"].value,"cedar");
+ assert.equal(reopened.nodes["tutor-pace"].value,"normal");
+});
+
+test("browser audio autoplay failure offers an explicit play button", async () => {
+ const a=runApp({playbackBlocked:true});
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ assert.ok(a.findText(a.nodes.app,"Включить звук преподавателя"));
+ await a.findText(a.nodes.app,"Включить звук преподавателя").listeners.click();
+ assert.equal(a.stats.playback,2);
+ assert.ok(!a.findText(a.nodes.app,"Включить звук преподавателя"));
+ a.findText(a.nodes.app,"Завершить разговор").listeners.click();
+});
+
+test("cancel during pending token request switches off microphone immediately", async () => {
+ let resolveToken;const tokenDeferred={promise:new Promise(resolve=>resolveToken=resolve)};
+ const a=runApp({tokenDeferred});
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ const starting=a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ await Promise.resolve();await Promise.resolve();
+ assert.ok(a.findText(a.nodes.app,"Отмена"));
+ a.findText(a.nodes.app,"Отмена").listeners.click();
+ assert.equal(a.stats.stopped,1);
+ resolveToken({ok:true,json:async()=>({value:"ek_late"})});
+ await starting;
+ assert.equal(a.requests.length,1,"Canceled connections must never reach the calls endpoint");
+});
+
+test("preview call ends itself after ten minutes", async () => {
+ const a=runApp();
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ a.fireTimer(10*60*1000);
+ assert.equal(a.stats.stopped,1);
+ assert.equal(a.stats.closed,1);
+ assert.ok(a.findText(a.nodes.app,"Пробные десять минут закончились. Можно начать следующий разговор."));
+});
+
+test("minimizing the application ends a connected call", async () => {
+ const a=runApp();
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ a.document.hidden=true;a.listeners.visibilitychange();
+ assert.equal(a.stats.stopped,1);
+ assert.equal(a.stats.closed,1);
+ assert.ok(a.findText(a.nodes.app,"Разговор завершён при сворачивании приложения."));
+});
+
+test("muting microphone changes track state without closing the call", async () => {
+ const a=runApp();
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ a.findText(a.nodes.app,"Выключить микрофон").listeners.click();
+ assert.equal(a.track.enabled,false);
+ assert.ok(a.findText(a.nodes.app,"Включить микрофон"));
+ a.findText(a.nodes.app,"Включить микрофон").listeners.click();
+ assert.equal(a.track.enabled,true);
+ a.findText(a.nodes.app,"Завершить разговор").listeners.click();
 });
