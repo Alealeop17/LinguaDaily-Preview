@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#F7F8F5"><title>Lingua Daily — До автоматизма</title><style>
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#F7F8F5"><title>Lingua Daily — Слова и предложения</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#233c2d;background:#f7f8f5;font-size:16px;color-scheme:light}
 *{box-sizing:border-box}body{margin:0;min-width:280px}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
 .shell{max-width:570px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(35px + env(safe-area-inset-bottom))}
@@ -30,249 +29,162 @@ h1{font-weight:815;font-size:clamp(27px,7vw,37px);line-height:1.17;letter-spacin
 .mastery span.current{outline:1px solid #94ada0;outline-offset:1px}
 .mastery-stat{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#68776b;margin-bottom:23px;font-weight:720}
 .retry-note{font-size:12px;color:#ae5148;font-weight:760;text-align:center;margin:12px 0 0}
-</style></head><body><div class="shell"><header><div class="brand">Lingua <em>Daily</em></div><div class="caption">Практика речи и письма</div></header><nav class="langs"><button type="button" id="lang-es">Испанский</button><button type="button" id="lang-en">Английский</button></nav><main id="app"></main><div id="status" class="small-note" role="status"></div></div><script>'use strict';
-const content={
-es:{
- word:'Querer',locale:'es-ES',
- forms:[
- ['Yo quiero','Я хочу'],
- ['Tú quieres','Ты хочешь'],
- ['Él quiere','Он хочет'],
- ['Ella quiere','Она хочет'],
- ['Usted quiere','Вы хотите · вежливо'],
- ['Nosotros queremos','Мы хотим'],
- ['Nosotras queremos','Мы хотим'],
- ['Vosotros queréis','Вы хотите'],
- ['Vosotras queréis','Вы хотите'],
- ['Ellos quieren','Они хотят'],
- ['Ellas quieren','Они хотят'],
- ['Ustedes quieren','Вы хотите · вежливо']
- ],
- examples:[
- ['Quiero aprender español.','Я хочу учить испанский.','Quiero + aprender: второй глагол не изменяется.'],
- ['Tú quieres trabajar mañana.','Ты хочешь работать завтра.','Tú quieres: с tú окончание меняется.'],
- ['Él quiere visitar Madrid.','Он хочет посетить Мадрид.','Él quiere: он хочет.'],
- ['Ella quiere comprar un libro.','Она хочет купить книгу.','Ella quiere: она хочет.'],
- ['Usted quiere hablar conmigo.','Вы хотите поговорить со мной.','Usted — уважительное обращение к одному человеку; глагол quiere.'],
- ['Nosotros queremos estudiar aquí.','Мы хотим заниматься здесь.','Nosotros queremos: форма для мы.'],
- ['Nosotras queremos viajar a España.','Мы хотим поехать в Испанию (женская группа).','Nosotras — мы, когда речь только о женщинах.'],
- ['Vosotros queréis aprender español.','Вы хотите учить испанский (неформально, Испания).','Vosotros queréis: форма для нескольких людей в Испании.'],
- ['Vosotras queréis trabajar aquí.','Вы хотите работать здесь (женская группа, Испания).','Vosotras — обращение к группе женщин.'],
- ['Ellos quieren vivir en Valencia.','Они хотят жить в Валенсии.','Ellos quieren — они хотят.'],
- ['Ellas quieren hablar español.','Они хотят говорить по-испански (женщины).','Ellas quieren — женская группа.'],
- ['Ustedes quieren visitar este lugar.','Вы хотите посетить это место (несколько человек).','Ustedes требует форму quieren.'],
- ['No quiero trabajar hoy.','Я не хочу работать сегодня.','No перед quiero образует отрицание.'],
- ['¿Quieres estudiar conmigo?','Ты хочешь позаниматься со мной?','Вопрос: quieres; conmigo — со мной.']
- ],
- tasks:[
- ['Я хочу учить испанский.','Yo quiero aprender español.','Форма первого лица — quiero.'],
- ['Ты хочешь работать завтра.','Tú quieres trabajar mañana.','Тú quieres — форма для ты.'],
- ['Он хочет посетить Мадрид.','Él quiere visitar Madrid.','Él пишется с ударением.'],
- ['Она хочет купить книгу.','Ella quiere comprar un libro.','Ella quiere — она хочет.'],
- ['Вы хотите поговорить со мной.','Usted quiere hablar conmigo.','Usted употребляется с quiere.','вежливо'],
- ['Мы хотим учиться здесь.','Nosotros queremos estudiar aquí.','Nosotros queremos — мы хотим.','', ['Nosotras queremos estudiar aquí.']],
- ['Мы хотим поехать в Испанию.','Nosotras queremos viajar a España.','Nosotras — мы хотим.','', ['Nosotros queremos viajar a España.']],
- ['Вы хотите учить испанский.','Vosotros queréis aprender español.','Проверь ударение в queréis.','неформально', ['Vosotras queréis aprender español.']],
- ['Вы хотите работать здесь.','Vosotras queréis trabajar aquí.','Vosotras queréis.','неформально', ['Vosotros queréis trabajar aquí.']],
- ['Они хотят жить в Валенсии.','Ellos quieren vivir en Valencia.','Ellos quieren.','', ['Ellas quieren vivir en Valencia.']],
- ['Они хотят говорить по-испански.','Ellas quieren hablar español.','Ellas quieren.','', ['Ellos quieren hablar español.']],
- ['Вы хотите посетить это место.','Ustedes quieren visitar este lugar.','Ustedes — обращение к группе.','вежливо'],
- ['Я не хочу работать сегодня.','No quiero trabajar hoy.','No перед quiero.'],
- ['Ты хочешь позаниматься со мной?','¿Quieres estudiar conmigo?','Вопросительные знаки: ¿ и ?.']
- ],
- notes:[
- 'Глагол querer означает «хотеть». У него меняется гласная в основе: quiero, quieres, quiere, quieren. В формах nosotros и vosotros — queremos, queréis.',
- 'Usted — уважительное «Вы» одному человеку, с глаголом quiere. Ustedes — обращение к нескольким: с глаголом quieren.',
- 'Vosotros / vosotras — неформальное «вы» в Испании. В большинстве стран Латинской Америки вместо него используют ustedes.',
- 'В испанском местоимение нередко опускают. В этих письменных упражнениях мы используем его, чтобы отработать каждое лицо.'
- ]
-},
-en:{
- word:'Want',locale:'en-GB',
- forms:[
- ['I want','Я хочу'],['You want','Ты хочешь'],['He wants','Он хочет'],['She wants','Она хочет'],
- ['It wants','Оно хочет'],['We want','Мы хотим'],['You want','Вы хотите'],['They want','Они хотят']
- ],
- examples:[
- ['I want to learn English.','Я хочу учить английский.','I want to + глагол.'],
- ['You want to work tomorrow.','Ты хочешь работать завтра.','You want — ты хочешь.'],
- ['He wants to visit Madrid.','Он хочет посетить Мадрид.','He wants: добавляем s.'],
- ['She wants to buy a book.','Она хочет купить книгу.','She wants.'],
- ['It wants to sleep.','Оно хочет спать.','It wants.'],
- ['We want to study here.','Мы хотим заниматься здесь.','We want.'],
- ['You want to learn English.','Вы хотите учить английский.','You — ты и вы.'],
- ['They want to live in Valencia.','Они хотят жить в Валенсии.','They want.'],
- ["I don't want to work today.",'Я не хочу работать сегодня.','I don’t want to — отрицание.'],
- ['Do you want to study with me?','Ты хочешь позаниматься со мной?','Вопрос: Do you want to…?']
- ],
- tasks:[
- ['Я хочу учить английский.','I want to learn English.','I want to learn.'],
- ['Ты хочешь работать завтра.','You want to work tomorrow.','You want.'],
- ['Он хочет посетить Мадрид.','He wants to visit Madrid.','He wants.'],
- ['Она хочет купить книгу.','She wants to buy a book.','She wants.'],
- ['Оно хочет спать.','It wants to sleep.','It wants.'],
- ['Мы хотим заниматься здесь.','We want to study here.','We want.'],
- ['Вы хотите учить английский.','You want to learn English.','You want.'],
- ['Они хотят жить в Валенсии.','They want to live in Valencia.','They want.'],
- ['Я не хочу работать сегодня.',"I don't want to work today.",'Don’t want.'],
- ['Ты хочешь позаниматься со мной?','Do you want to study with me?','Do you want to…?']
- ],
- notes:[
- 'После want перед глаголом используется to: I want to work.',
- 'В настоящем времени с he, she, it глагол получает окончание -s: wants.',
- 'You означает и «ты», и «вы». Форма want в этих случаях совпадает.',
- 'В отрицаниях и вопросах используются do / does.'
- ]
-}
-};
 
+.lesson-nav{display:flex;gap:8px;margin:-8px 0 18px}.lesson-nav button{flex:1;border:1px solid #d3e3d6;background:#fff;border-radius:11px;padding:11px 9px;color:#42664f;font-size:13px;font-weight:760}.lesson-nav button.active{background:#dceee2;border-color:#8abb96;color:#145239}
+.deck-info{margin:0 0 12px;color:#637765;font-size:14px;line-height:1.55}.deck-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.deck-card{border:1px solid #d9e9dd;background:#fff;border-radius:15px;min-height:98px;padding:13px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#1e5b3e;text-align:center}.deck-card strong{font-size:clamp(16px,4.5vw,20px);line-height:1.2}.deck-card small{font-size:12px;color:#687c6e;line-height:1.3}.deck-card i{font-size:12px;color:#78a084;font-style:normal}.deck-card:focus-visible{outline:3px solid #a6cfb1;outline-offset:1px}
+.deck-cta{width:100%;margin:19px 0 0}.deck-subhead{font-size:18px;font-weight:770;margin:10px 0 13px}.deck-old{margin:18px 0 0}.deck-footer{font-size:13px;color:#6f8074;line-height:1.5;margin:12px 0}
+@media(max-width:340px){.deck-grid{gap:6px}.deck-card{padding:9px 6px;min-height:86px}.deck-card strong{font-size:15px}}
+</style></head><body><div class="shell"><header><div class="brand">Lingua <em>Daily</em></div><div class="caption">Сначала слова, затем практика</div></header><nav class="langs" aria-label="Язык"><button type="button" id="lang-es">Испанский</button><button type="button" id="lang-en">Английский</button></nav><nav class="lesson-nav" aria-label="Урок"><button type="button" id="lesson-1">Урок 1</button><button type="button" id="lesson-2">Урок 2</button></nav><main id="app"></main><div id="status" class="small-note" role="status"></div></div><script>'use strict';
+const packs={"es":[{"title":"Querer: желания и планы","vocab":[["yo","я"],["tú","ты"],["él","он"],["ella","она"],["usted","Вы вежливо"],["nosotros/nosotras","мы"],["vosotros/vosotras","вы неформально"],["ellos/ellas","они"],["ustedes","вы во множественном числе"],["querer","хотеть"],["aprender","учить"],["hablar","говорить"],["trabajar","работать"],["estudiar","заниматься"],["vivir","жить"],["comprar","покупать"],["español","испанский"],["libro","книга"],["un","артикль"],["en","в"],["España","Испания"],["Valencia","Валенсия"],["aquí","здесь"],["mañana","завтра"],["hoy","сегодня"],["no","не"],["porque","потому что"],["pero","но"],["con","с"],["y","и"]],"tasks":[["Я хочу учить испанский и работать здесь.","Quiero aprender español y trabajar aquí.","",""],["Ты хочешь заниматься испанским сегодня, но завтра хочешь работать.","Tú quieres estudiar español hoy, pero mañana quieres trabajar.","",""],["Она хочет жить в Испании и говорить по-испански.","Ella quiere vivir en España y hablar español.","",""],["Он хочет купить книгу и заниматься испанским.","Él quiere comprar un libro y estudiar español.","",""],["Мы хотим жить в Валенсии и работать здесь.","Nosotros queremos vivir en Valencia y trabajar aquí.","",""],["Вы хотите учить испанский, но сегодня не хотите заниматься.","Vosotros queréis aprender español, pero hoy no queréis estudiar.","","неформально"],["Они хотят купить книгу и учить испанский.","Ellos quieren comprar un libro y aprender español.","",""],["Вы хотите работать в Валенсии и учить испанский.","Usted quiere trabajar en Valencia y aprender español.","","вежливо"],["Вы хотите жить в Испании и говорить по-испански.","Ustedes quieren vivir en España y hablar español.","","вежливо"],["Я хочу говорить по-испански, но сегодня не хочу работать.","Yo quiero hablar español, pero hoy no quiero trabajar.","",""],["Ты хочешь купить книгу и учить испанский завтра.","Tú quieres comprar un libro y aprender español mañana.","",""],["Она и он хотят жить в Испании и работать здесь.","Ella y él quieren vivir en España y trabajar aquí.","",""],["Мы не хотим работать сегодня, но хотим учить испанский.","Nosotros no queremos trabajar hoy, pero queremos aprender español.","",""],["Они хотят заниматься испанским, потому что хотят жить в Валенсии.","Ellos quieren estudiar español porque quieren vivir en Valencia.","",""],["Я хочу работать с ней завтра и заниматься с ним сегодня.","Yo quiero trabajar con ella mañana y estudiar con él hoy.","",""],["Вы хотите купить книгу, но не хотите работать здесь.","Usted quiere comprar un libro, pero no quiere trabajar aquí.","","вежливо"],["Вы хотите говорить по-испански и жить в Испании.","Vosotros queréis hablar español y vivir en España.","","неформально"],["Вы не хотите работать сегодня, потому что хотите учить испанский.","Ustedes no quieren trabajar hoy porque quieren aprender español.","","вежливо"],["Я хочу учить испанский и завтра говорить по-испански.","Quiero aprender español y hablar español mañana.","",""],["Она хочет купить книгу и жить в Валенсии.","Ella quiere comprar un libro y vivir en Valencia.","",""],["Он не хочет учиться сегодня, но завтра хочет работать.","Él no quiere estudiar hoy, pero mañana quiere trabajar.","",""],["Мы хотим говорить по-испански с ними.","Nosotros queremos hablar español con ellos.","",""],["Я хочу жить в Испании, потому что хочу работать здесь.","Yo quiero vivir en España porque quiero trabajar aquí.","",""],["Ты хочешь учить испанский и работать с ней.","Tú quieres aprender español y trabajar con ella.","",""],["Они хотят заниматься в Валенсии и говорить по-испански здесь.","Ellos quieren estudiar en Valencia y hablar español aquí.","",""],["Вы хотите работать в Испании, но они хотят заниматься в Валенсии.","Vosotros queréis trabajar en España, pero ellos quieren estudiar en Valencia.","","неформально"],["Я хочу купить книгу с ней и заниматься испанским.","Yo quiero comprar un libro con ella y estudiar español.","",""],["Вы хотите учить испанский, потому что хотите жить в Испании.","Ustedes quieren aprender español porque quieren vivir en España.","","вежливо"]]},{"title":"Действия и повседневная жизнь","vocab":[["poder","мочь"],["tener","иметь"],["ir","идти ехать"],["comer","есть"],["beber","пить"],["agua","вода"],["café","кофе"],["pan","хлеб"],["casa","дом"],["escuela","школа"],["tiempo","время"],["ahora","сейчас"],["después","потом"],["siempre","всегда"],["nunca","никогда"],["para","чтобы"],["sin","без"],["mi","мой"],["tu","твой"],["amigo","друг"],["amiga","подруга"],["bien","хорошо"],["también","тоже"],["a","в к"],["la","артикль"],["este","этот"],["hacer","делать"],["ciudad","город"],["dinero","деньги"],["necesitar","нуждаться"]],"tasks":[["Я хочу пить воду и есть хлеб сейчас.","Quiero beber agua y comer pan ahora.","",""],["Моя подруга хочет пить кофе, но я хочу воду.","Mi amiga quiere beber café, pero yo quiero agua.","",""],["У нас сегодня есть время учить испанский.","Nosotros tenemos tiempo para aprender español hoy.","",""],["Она хочет пойти в школу и потом пойти домой.","Ella quiere ir a la escuela y después ir a casa.","",""],["У меня нет денег, чтобы купить эту книгу.","No tengo dinero para comprar este libro.","",""],["Я могу говорить по-испански, но мой друг не может.","Yo puedo hablar español, pero mi amigo no puede.","",""],["Ты хочешь есть хлеб с твоей подругой сейчас.","Tú quieres comer pan con tu amiga ahora.","",""],["Я всегда хочу заниматься испанским, но у меня никогда нет времени.","Siempre quiero estudiar español, pero nunca tengo tiempo.","",""],["Моему другу нужны деньги, чтобы жить в городе.","Mi amigo necesita dinero para vivir en la ciudad.","",""],["Мы можем работать здесь, а потом пойти домой.","Nosotros podemos trabajar aquí y después ir a casa.","",""],["Я хочу приготовить кофе для моей подруги и есть хлеб.","Quiero hacer café para mi amiga y comer pan.","",""],["Я тоже хочу завтра пойти в школу.","Yo también quiero ir a la escuela mañana.","",""],["Я не хочу пить кофе без моей подруги.","No quiero beber café sin mi amiga.","",""],["Он хочет хорошо заниматься испанским, чтобы работать здесь.","Él quiere estudiar español bien para trabajar aquí.","",""],["У моей подруги есть книга, и она хочет учить испанский.","Mi amiga tiene un libro y quiere aprender español.","",""],["Вы хотите пойти в школу, но сегодня не можете.","Vosotros queréis ir a la escuela, pero hoy no podéis.","","неформально"],["Вы хотите пить воду сейчас и есть хлеб потом.","Ustedes quieren beber agua ahora y comer pan después.","","вежливо"],["Им нужны время и деньги, чтобы жить в Испании.","Ellos necesitan tiempo y dinero para vivir en España.","",""],["Я хочу завтра купить эту книгу для моего друга.","Yo quiero comprar este libro para mi amigo mañana.","",""],["Она всегда хочет готовить кофе, но я никогда не хочу пить кофе.","Ella siempre quiere hacer café, pero yo nunca quiero beber café.","",""],["Мы можем есть хлеб здесь, а потом работать.","Nosotros podemos comer pan aquí y después trabajar.","",""],["У тебя сейчас есть время учить испанский.","Tú tienes tiempo para aprender español ahora.","",""],["Мне нужна вода, и я тоже хочу хлеб.","Yo necesito agua y también quiero pan.","",""],["Моя подруга может заниматься испанским без твоей книги.","Mi amiga puede estudiar español sin tu libro.","",""],["Мы сегодня не хотим идти в школу.","Nosotros no queremos ir a la escuela hoy.","",""],["Мой друг хочет учить испанский, чтобы работать в Валенсии.","Mi amigo quiere aprender español para trabajar en Valencia.","",""],["У меня есть книга, но мне нужны деньги, чтобы купить хлеб.","Tengo un libro, pero necesito dinero para comprar pan.","",""],["Мы хотим приготовить кофе сейчас и пить воду потом.","Nosotros queremos hacer café ahora y beber agua después.","",""],["Вы можете жить в Испании и работать здесь.","Ustedes pueden vivir en España y trabajar aquí.","","вежливо"],["Я могу хорошо учить испанский без этой книги.","Yo puedo aprender español bien sin este libro.","",""]]}],"en":[{"title":"Want: желания и планы","vocab":[["I","я"],["you","ты вы"],["he","он"],["she","она"],["we","мы"],["they","они"],["want","хотеть"],["to","перед глаголом"],["learn","учить"],["English","английский"],["speak","говорить"],["work","работать"],["tomorrow","завтра"],["today","сегодня"],["here","здесь"],["study","заниматься"],["live","жить"],["in","в"],["Spain","Испания"],["Valencia","Валенсия"],["buy","покупать"],["a","артикль"],["book","книга"],["not","не"],["do","вспомогательный глагол"],["with","с"],["me","мной"],["and","и"],["because","потому что"],["but","но"]],"tasks":[["Я хочу учить английский и работать здесь.","I want to learn English and work here.","",""],["Ты хочешь учить английский сегодня и работать завтра.","You want to study English today and work tomorrow.","",""],["Она хочет жить в Испании и говорить по-английски.","She wants to live in Spain and speak English.","",""],["Он хочет купить книгу и заниматься английским.","He wants to buy a book and study English.","",""],["Мы хотим жить в Валенсии и работать здесь.","We want to live in Valencia and work here.","",""],["Они хотят учить английский, потому что хотят работать в Испании.","They want to learn English because they want to work in Spain.","",""],["Я не хочу работать сегодня, потому что хочу заниматься английским.","I do not want to work today because I want to study English.","",""],["Ты хочешь говорить со мной по-английски.","You want to speak English with me.","",""],["Он хочет заниматься здесь и жить в Испании.","He wants to study here and live in Spain.","",""],["Мы хотим купить книгу и учить английский.","We want to buy a book and learn English.","",""],["Она хочет работать завтра и заниматься английским сегодня.","She wants to work tomorrow and study English today.","",""],["Они не хотят работать здесь, но хотят учить английский.","They do not want to work here but want to learn English.","",""],["Я хочу жить в Валенсии, потому что хочу учить английский.","I want to live in Valencia because I want to learn English.","",""],["Ты хочешь купить книгу и говорить со мной по-английски.","You want to buy a book and speak English with me.","",""],["Мы не хотим работать завтра, но хотим заниматься сегодня.","We do not want to work tomorrow but want to study today.","",""],["Она хочет учить английский и работать здесь.","She wants to learn English and work here.","",""],["Он хочет говорить по-английски, потому что хочет жить в Испании.","He wants to speak English because he wants to live in Spain.","",""],["Мы хотим заниматься английским здесь и работать завтра.","We want to study English here and work tomorrow.","",""],["Они хотят купить книгу, но не хотят учить английский сегодня.","They want to buy a book but do not want to study English today.","",""],["Я хочу учить английский и говорить по-английски с тобой.","I want to learn English and speak English with you.","",""],["Ты хочешь говорить по-английски, потому что хочешь работать в Валенсии.","You want to speak English because you want to work in Valencia.","",""],["Они хотят жить здесь и учить английский.","They want to live here and learn English.","",""],["Она не хочет покупать книгу завтра.","She does not want to buy a book tomorrow.","",""],["Я хочу заниматься сегодня и работать завтра.","I want to study today and work tomorrow.","",""],["Вы хотите говорить по-английски со мной и учиться здесь.","You want to speak English with me and study here.","",""]]},{"title":"Действия и повседневная жизнь","vocab":[["can","мочь"],["have","иметь"],["go","идти ехать"],["make","делать готовить"],["eat","есть"],["drink","пить"],["water","вода"],["coffee","кофе"],["bread","хлеб"],["home","домой"],["school","школа"],["time","время"],["now","сейчас"],["later","позже"],["always","всегда"],["never","никогда"],["for","для"],["without","без"],["my","мой"],["your","твой"],["friend","друг подруга"],["well","хорошо"],["also","тоже"],["at","в у"],["please","пожалуйста"],["the","артикль"],["this","этот"],["money","деньги"],["need","нуждаться"],["very","очень"]],"tasks":[["Я хочу пить воду сейчас и есть хлеб позже.","I want to drink water now and eat bread later.","",""],["Мой друг хочет пить кофе, но я хочу воду.","My friend wants to drink coffee but I want water.","",""],["У нас сегодня есть время заниматься английским в школе.","We have time to study English at school today.","",""],["Она хочет пойти в школу, а позже пойти домой.","She wants to go to school and go home later.","",""],["У меня нет денег, чтобы купить эту книгу.","I do not have money to buy this book.","",""],["Он может говорить по-английски, но мой друг не может.","He can speak English but my friend cannot.","",""],["Ты хочешь есть хлеб с твоим другом сейчас.","You want to eat bread with your friend now.","",""],["Я всегда хочу учить английский, но у меня никогда нет времени.","I always want to study English but I never have time.","",""],["Моему другу нужны деньги, чтобы жить в Испании.","My friend needs money to live in Spain.","",""],["Мы можем работать здесь, а потом пойти домой.","We can work here and go home later.","",""],["Я хочу приготовить кофе для моего друга и есть хлеб.","I want to make coffee for my friend and eat bread.","",""],["Я тоже хочу завтра пойти в школу.","I also want to go to school tomorrow.","",""],["Я не хочу пить кофе без моего друга.","I do not want to drink coffee without my friend.","",""],["Он хочет хорошо учить английский и работать здесь.","He wants to study English well and work here.","",""],["У моего друга есть книга, и он хочет учить английский.","My friend has a book and wants to learn English.","",""],["Ты можешь пойти в школу, но сейчас не можешь пойти домой.","You can go to school but you cannot go home now.","",""],["Они хотят пить воду сейчас и есть хлеб потом.","They want to drink water now and eat bread later.","",""],["Им нужны время и деньги, чтобы жить в Испании.","They need time and money to live in Spain.","",""],["Я хочу завтра купить эту книгу для моего друга.","I want to buy this book for my friend tomorrow.","",""],["Она всегда хочет готовить кофе, но я никогда не хочу пить кофе.","She always wants to make coffee but I never want to drink coffee.","",""],["Мы можем есть хлеб здесь и потом работать.","We can eat bread here and work later.","",""],["У тебя сейчас есть время учить английский.","You have time to learn English now.","",""],["Мне нужна вода, и я тоже хочу хлеб, пожалуйста.","I need water and I also want bread, please.","",""],["Мой друг может заниматься английским без твоей книги.","My friend can study English without your book.","",""],["Мы не хотим сегодня идти в школу.","We do not want to go to school today.","",""],["Он хочет работать в Валенсии, потому что ему нужны деньги.","He wants to work in Valencia because he needs money.","",""],["У меня есть книга, но мне нужны деньги, чтобы купить хлеб.","I have a book but I need money to buy bread.","",""],["Мы хотим приготовить кофе сейчас и пить воду потом.","We want to make coffee now and drink water later.","",""],["Мне нужна эта книга для моего друга, пожалуйста.","I need the book for my friend, please.","",""],["Мой друг хочет учить английский и говорить по-английски очень хорошо.","My friend wants to learn English and speak English very well.","",""]]}]};
+const grammar={"es":{"locale":"es-ES","forms":[["Yo quiero","Я хочу"],["Tú quieres","Ты хочешь"],["Él quiere","Он хочет"],["Ella quiere","Она хочет"],["Usted quiere","Вы хотите · вежливо"],["Nosotros queremos","Мы хотим"],["Nosotras queremos","Мы хотим"],["Vosotros queréis","Вы хотите"],["Vosotras queréis","Вы хотите"],["Ellos quieren","Они хотят"],["Ellas quieren","Они хотят"],["Ustedes quieren","Вы хотите · вежливо"]]},"en":{"locale":"en-GB","forms":[["I want","Я хочу"],["You want","Ты хочешь"],["He wants","Он хочет"],["She wants","Она хочет"],["It wants","Оно хочет"],["We want","Мы хотим"],["You want","Вы хотите"],["They want","Они хотят"]]}};
 
-
-const STORE='lingua-daily-iphone-preview-v8';
-const PREVIOUS='lingua-daily-iphone-preview-v7';
+const STORE='lingua-daily-iphone-preview-v9';
 const MAX=100;
-content.es.tasks.unshift(['Я хочу учиться.','Quiero aprender.','Quiero + инфинитив.']);
-content.en.tasks.unshift(['Я хочу учиться.','I want to learn.','I want to + verb.']);
-const fresh=()=>({slots:[],queue:[],cursor:0,turns:0,errors:0,mistakes:[],active:null,draft:'',checked:false,last:null});
-const valid=(s,l)=>{
- const len=content[l].tasks.length;
- if(!s||typeof s!=='object'||!Array.isArray(s.slots)||s.slots.length>MAX||!Array.isArray(s.queue)||!Array.isArray(s.mistakes))return false;
+const fresh=()=>({phase:'cards',slots:[],queue:[],cursor:0,turns:0,errors:0,mistakes:[],active:null,draft:'',checked:false,last:null});
+const norm=s=>String(s||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLocaleLowerCase('en');
+function valid(s,l,n){
+ const count=packs[l][n].tasks.length;
+ if(!s||typeof s!=='object'||!['cards','practice'].includes(s.phase)||!Array.isArray(s.slots)||s.slots.length>MAX||!Array.isArray(s.queue)||!Array.isArray(s.mistakes))return false;
  if(!Number.isInteger(s.cursor)||s.cursor<0||!Number.isInteger(s.turns)||s.turns<0||!Number.isInteger(s.errors)||s.errors<0||typeof s.draft!=='string'||s.draft.length>500||typeof s.checked!=='boolean')return false;
- if(!s.slots.every(x=>x&&Number.isInteger(x.task)&&x.task>=0&&x.task<len&&['green','red'].includes(x.status)))return false;
+ if(!s.slots.every(x=>x&&Number.isInteger(x.task)&&x.task>=0&&x.task<count&&['green','red'].includes(x.status)))return false;
  if(!s.queue.every(q=>q&&Number.isInteger(q.slot)&&q.slot>=0&&q.slot<s.slots.length&&q.task===s.slots[q.slot].task&&s.slots[q.slot].status==='red'&&Number.isInteger(q.due)))return false;
- if(s.active!==null&&(!s.active||!Number.isInteger(s.active.task)||s.active.task<0||s.active.task>=len||typeof s.active.review!=='boolean'||(!s.active.review&&s.slots.length>=MAX&&!s.checked)||s.active.review&&(!Number.isInteger(s.active.slot)||s.active.slot<0||s.active.slot>=s.slots.length)))return false;
+ if(s.active!==null&&(!s.active||!Number.isInteger(s.active.task)||s.active.task<0||s.active.task>=count||typeof s.active.review!=='boolean'||(!s.active.review&&s.slots.length>=MAX&&!s.checked)||(s.active.review&&(!Number.isInteger(s.active.slot)||s.active.slot<0||s.active.slot>=s.slots.length))))return false;
  if(s.checked&&(!s.active||!s.last||typeof s.last.ok!=='boolean'))return false;
  return true;
-};
-function migrateOne(old,l){
- const out=fresh(),answers=Array.isArray(old?.results)?old.results:[];
- answers.slice(0,content[l].tasks.length).forEach((r,i)=>{
-  const ok=!!r.ok;out.slots.push({task:i,status:ok?'green':'red'});
-  if(!ok){out.errors++;out.mistakes[i]=(out.mistakes[i]||0)+1;out.queue.push({slot:i,task:i,due:answers.length+1});}
- });
- out.turns=answers.length;out.cursor=answers.length;
- if(typeof old?.draft==='string')out.draft=old.draft.slice(0,500);
- return out;
 }
 let saved=null;
-try{const t=JSON.parse(localStorage.getItem(STORE)||'null');if(t&&['es','en'].includes(t.lang)&&valid(t.es,'es')&&valid(t.en,'en'))saved=t;}catch(e){}
-if(!saved){try{const old=JSON.parse(localStorage.getItem(PREVIOUS)||'null');if(old&&old.es&&old.en&&['es','en'].includes(old.lang))saved={lang:old.lang,es:migrateOne(old.es,'es'),en:migrateOne(old.en,'en')};}catch(e){}}
-if(!saved)saved={lang:'es',es:fresh(),en:fresh()};
-let lang=saved.lang,showPrompt=false,showForms=false,showRule=false;
+try{const t=JSON.parse(localStorage.getItem(STORE)||'null');if(t&&['es','en'].includes(t.lang)&&[0,1].includes(t.lesson)&&['es','en'].every(l=>Array.isArray(t[l])&&t[l].length===2&&t[l].every((s,n)=>valid(s,l,n))))saved=t;}catch(e){}
+if(!saved)saved={lang:'es',lesson:0,es:[fresh(),fresh()],en:[fresh(),fresh()]};
+let lang=saved.lang,lessonIndex=saved.lesson,showPrompt=false,showForms=false,showRule=false,showOldCards=false;
 const root=document.getElementById('app'),$=id=>document.getElementById(id);
-const data=()=>content[lang],state=()=>saved[lang];
-function store(){saved.lang=lang;try{localStorage.setItem(STORE,JSON.stringify(saved))}catch(e){$('status').textContent='Прогресс не удалось сохранить. Проверь настройки Safari.'}}
-function make(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x;}
-function button(txt,fn,cls=''){const x=make('button','btn '+cls,txt);x.type='button';x.addEventListener('click',fn);return x;}
-function cutAudio(){try{window.speechSynthesis?.cancel()}catch(e){}}
-function voiceFor(locale){try{const v=window.speechSynthesis.getVoices();return v.find(x=>x.lang?.toLowerCase()===locale.toLowerCase())||v.find(x=>x.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null}catch(e){return null}}
-function speak(text,locale,rate){cutAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве озвучка недоступна.';return}
- try{const u=new SpeechSynthesisUtterance(text);u.lang=locale;u.rate=rate;const v=voiceFor(locale);if(v)u.voice=v;window.speechSynthesis.speak(u);}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
-function normal(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLowerCase();}
-function assess(value,model,l,alternatives=[]){
- const a=normal(value),b=normal(model);
- if(!a)return {ok:false,why:'Напиши перевод полностью.'};
- if(l==='en'&&model.startsWith('I ')&&!value.trim().startsWith('I '))return {ok:false,why:'Местоимение I нужно писать с заглавной буквы.'};
- if(l==='en'&&model.includes('English')&&!value.includes('English'))return {ok:false,why:'Название языка English пишется с заглавной буквы.'};
- const models=[model,...(Array.isArray(alternatives)?alternatives:[])];
- const subj=/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i;
- if(models.some(x=>normal(x)===a||(l==='es'&&normal(x.replace(subj,''))===a)))return {ok:true,why:'Правильно.'};
- if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударения или букву ñ.'};
+const data=()=>packs[lang][lessonIndex],state=()=>saved[lang][lessonIndex];
+const locale=()=>grammar[lang].locale;
+function store(){saved.lang=lang;saved.lesson=lessonIndex;try{localStorage.setItem(STORE,JSON.stringify(saved))}catch(e){$('status').textContent='Не удалось сохранить прогресс в Safari.'}}
+function make(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
+function button(txt,fn,cls=''){const x=make('button','btn '+cls,txt);x.type='button';x.addEventListener('click',fn);return x}
+function stop(){try{window.speechSynthesis?.cancel()}catch(e){}}
+function voice(locale){try{const v=window.speechSynthesis.getVoices();return v.find(x=>x.lang?.toLowerCase()===locale.toLowerCase())||v.find(x=>x.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null}catch(e){return null}}
+function speak(text,language,rate){stop();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){$('status').textContent='На этом устройстве озвучка недоступна.';return}
+ try{const u=new SpeechSynthesisUtterance(text);u.lang=language;u.rate=rate;const v=voice(language);if(v)u.voice=v;window.speechSynthesis.speak(u)}catch(e){$('status').textContent='Не удалось воспроизвести фразу.'}}
+function versions(model,l){
+ if(l!=='es')return [model];
+ const arr=[model], pairs=[['nosotros','nosotras'],['vosotros','vosotras'],['ellos','ellas']];
+ for(const [a,b] of pairs){const re1=new RegExp('\\b'+a+'\\b','gi'),re2=new RegExp('\\b'+b+'\\b','gi');
+ if(re1.test(model))arr.push(model.replace(re1,m=>m[0]===m[0].toUpperCase()?b[0].toUpperCase()+b.slice(1):b));
+ if(re2.test(model))arr.push(model.replace(re2,m=>m[0]===m[0].toUpperCase()?a[0].toUpperCase()+a.slice(1):a));}
+ return arr;
+}
+function assess(value,model,l){
+ const a=norm(value),b=norm(model);if(!a)return {ok:false,why:'Напиши ответ целиком.'};
+ if(l==='en'&&model.includes('English')&&!String(value).includes('English'))return {ok:false,why:'Название English пишется с большой буквы.'};
+ if(l==='en'&&model.startsWith('I ')&&!String(value).trim().startsWith('I '))return {ok:false,why:'Местоимение I пишется с большой буквы.'};
+ const grammarVariants=versions(model,l);
+ if(grammarVariants.some(v=>norm(v)===a||(l==='es'&&norm(v.replace(/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i,''))===a)))return {ok:true,why:'Написано правильно.'};
+ if(a.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===b.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,why:'Проверь ударения и букву ñ.'};
  let i=0,aa=[...a],bb=[...b];while(i<aa.length&&i<bb.length&&aa[i]===bb[i])i++;
  return {ok:false,why:'Проверь написание примерно с символа '+(i+1)+'.'};
 }
 function ensureActive(){
- const s=state();if(s.active)return;
+ const s=state();if(s.phase!=='practice'||s.active)return;
  if(s.slots.length===MAX&&!s.queue.length)return;
  const due=s.queue.filter(q=>q.due<=s.turns).sort((a,b)=>a.due-b.due)[0];
- const forced=s.slots.length>=MAX ? [...s.queue].sort((a,b)=>a.due-b.due)[0] : null;
- const retry=due||forced;
- if(retry)s.active={task:retry.task,slot:retry.slot,review:true};
+ const forced=s.slots.length>=MAX?[...s.queue].sort((a,b)=>a.due-b.due)[0]:null;
+ const q=due||forced;
+ if(q)s.active={task:q.task,slot:q.slot,review:true};
  else if(s.slots.length<MAX){s.active={task:s.cursor%data().tasks.length,slot:-1,review:false};s.cursor++;}
- else throw Error('Unresolved exercise progress');
+ else throw Error('Retry state inconsistent');
  store();
 }
-function currentTask(){ensureActive();const s=state();return s.active?data().tasks[s.active.task]:null;}
-function russianPrompt(){const task=currentTask();if(!task)return;const phrase=task[0]+(task[3]?' '+task[3][0].toUpperCase()+task[3].slice(1)+'.':'');speak(phrase,'ru-RU',0.68);}
-function countGreen(s){return s.slots.filter(x=>x.status==='green').length}
+function current(){ensureActive();return state().active?data().tasks[state().active.task]:null}
+function sayQuestion(){const t=current();if(!t)return;speak(t[0]+(t[3]?' '+t[3][0].toUpperCase()+t[3].slice(1)+'.':''),'ru-RU',0.68)}
+function green(s){return s.slots.filter(x=>x.status==='green').length}
 function check(){
- const s=state(),task=currentTask();if(s.checked||!task)return;
+ const s=state(),t=current();if(!t||s.checked)return;
  const inp=$('answer');if(inp)s.draft=inp.value.slice(0,500);
- if(!s.draft.trim()){$('status').textContent='Напиши перевод в поле ответа.';return;}
- const r=assess(s.draft,task[1],lang,task[4]);
- s.turns++;
- const act=s.active;let slot=act.slot;
- if(!act.review){slot=s.slots.length;s.slots.push({task:act.task,status:r.ok?'green':'red'});}
- else {if(!s.slots[slot]||s.slots[slot].task!==act.task)throw Error('Retry slot mismatch');s.slots[slot].status=r.ok?'green':'red';}
- if(r.ok){s.queue=s.queue.filter(q=>q.slot!==slot);}
- else{
-  s.errors++;s.mistakes[act.task]=(s.mistakes[act.task]||0)+1;
-  const old=s.queue.find(q=>q.slot===slot);
-  if(old)old.due=s.turns+3;
-  else s.queue.push({slot,task:act.task,due:s.turns+3});
+ if(!s.draft.trim()){$('status').textContent='Напиши перевод, затем проверь.';return}
+ const r=assess(s.draft,t[1],lang);
+ s.turns++;const act=s.active;let slot=act.slot;
+ if(!act.review){slot=s.slots.length;s.slots.push({task:act.task,status:r.ok?'green':'red'})}
+ else {if(!s.slots[slot]||s.slots[slot].task!==act.task)throw Error('Review state mismatch');s.slots[slot].status=r.ok?'green':'red'}
+ if(r.ok)s.queue=s.queue.filter(q=>q.slot!==slot);
+ else{s.errors++;s.mistakes[act.task]=(s.mistakes[act.task]||0)+1;const q=s.queue.find(q=>q.slot===slot);if(q)q.due=s.turns+3;else s.queue.push({slot,task:act.task,due:s.turns+3})}
+ s.last={ok:r.ok,slot};s.checked=true;store();render();speak(r.ok?s.draft:t[1],locale(),lang==='es'?0.64:0.68);
+}
+function next(){const s=state();if(!s.checked)return;stop();s.draft='';s.checked=false;s.last=null;s.active=null;showPrompt=false;showRule=false;store();render()}
+function begin(){state().phase='practice';showPrompt=false;showRule=false;showForms=false;store();render()}
+function viewCards(){stop();state().phase='cards';showPrompt=false;showRule=false;showForms=false;store();render()}
+function restart(){stop();saved[lang][lessonIndex]=fresh();showPrompt=false;showForms=false;showRule=false;store();render()}
+function header(title,num,total){
+ const meta=make('div','topline');meta.append(make('span','',title),make('span','',num+' / '+total));root.append(meta);
+ const bar=make('div','meter'),fill=make('div');fill.style.width=(Math.min(num,total)/total*100)+'%';bar.append(fill);root.append(bar);
+}
+function cardsGrid(deck){
+ const grid=make('div','deck-grid');
+ deck.forEach(([foreign,ru],i)=>{const card=make('button','deck-card');card.type='button';card.lang=lang;
+ card.setAttribute('aria-label',foreign+'. '+ru+'. Нажми, чтобы услышать произношение.');
+ card.append(make('strong','',foreign),make('small','',ru),make('i','','▶'));
+ card.addEventListener('click',()=>speak(foreign.replace(/\//g,', '),locale(),lang==='es'?0.7:0.72));grid.append(card)});
+ return grid;
+}
+function renderCards(){
+ const d=data();header('Новые слова · Урок '+(lessonIndex+1),0,30);
+ root.append(make('h1','','30 слов перед тренировкой'));
+ root.append(make('p','deck-info',lessonIndex===0?'Знакомься со словами. Все предложения этого урока составлены из них.':'В этом уроке ещё 30 новых слов. Для предложений используются все 60 слов из двух уроков.'));
+ root.append(cardsGrid(d.vocab));
+ if(lessonIndex===1){
+  const previous=button(showOldCards?'Скрыть предыдущие 30 слов':'Показать слова урока 1',()=>{showOldCards=!showOldCards;render()});previous.className='lightlink deck-old';root.append(previous);
+  if(showOldCards){root.append(make('h2','deck-subhead','Повторение: урок 1'));root.append(cardsGrid(packs[lang][0].vocab))}
  }
- s.last={ok:r.ok,wasReview:act.review,slot};s.checked=true;
- store();render();
- speak(r.ok?s.draft:task[1],data().locale,lang==='es'?0.64:0.68);
+ const start=button('Начать перевод предложений →',begin,'primary deck-cta');root.append(start);
+ root.append(make('p','deck-footer','Нажми на карточку, чтобы услышать слово. Во время упражнений можно вернуться к словарю.'));
 }
-function next(){
- const s=state();if(!s.checked)return;
- cutAudio();s.draft='';s.checked=false;s.last=null;s.active=null;
- showRule=false;showPrompt=false;store();ensureActive();render();
-}
-function reset(){cutAudio();saved[lang]=fresh();showForms=false;showRule=false;showPrompt=false;store();ensureActive();render();}
 function progress(s){
- const green=countGreen(s),red=s.slots.length-green;
- const meta=make('div','topline');meta.append(make('span','','До автоматизма'),make('span','',green+' / '+MAX));root.append(meta);
- const grid=make('div','mastery');grid.setAttribute('role','progressbar');grid.setAttribute('aria-label','Выучено ответов');grid.setAttribute('aria-valuemin','0');grid.setAttribute('aria-valuemax',String(MAX));grid.setAttribute('aria-valuenow',String(green));
- for(let i=0;i<MAX;i++){const item=make('span',s.slots[i]?.status||'empty');grid.append(item);}
- root.append(grid);
- const note=make('div','mastery-stat');note.append(make('span','','Зелёных: '+green),make('span','','Красных: '+red+' · Ошибок: '+s.errors));root.append(note);
+ const count=green(s),red=s.slots.length-count;const meta=make('div','topline');meta.append(make('span','','До автоматизма · Урок '+(lessonIndex+1)),make('span','',count+' / '+MAX));root.append(meta);
+ const bar=make('div','mastery');bar.setAttribute('role','progressbar');bar.setAttribute('aria-label','Выучено ответов');bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax',String(MAX));bar.setAttribute('aria-valuenow',String(count));
+ for(let i=0;i<MAX;i++)bar.append(make('span',s.slots[i]?.status||'empty'));root.append(bar);
+ const note=make('div','mastery-stat');note.append(make('span','','Зелёных: '+count),make('span','','Красных: '+red+' · Ошибок: '+s.errors));root.append(note);
 }
-function render(){
- for(const k of ['es','en'])$('lang-'+k).classList.toggle('selected',lang===k);
- root.replaceChildren();$('status').textContent='';
+function renderPractice(){
  const s=state(),d=data();ensureActive();progress(s);
- if(s.slots.length===MAX&&countGreen(s)===MAX){
-  root.append(make('h1','','Все сто зелёные!'),make('p','instruction','Ты справилась с тренировкой. Все ошибочные предложения были повторены и исправлены.'));
-  root.append(button('Начать новую тренировку',reset,'primary'));return;
+ if(s.slots.length===MAX&&green(s)===MAX){
+  root.append(make('h1','','Все сто зелёные!'),make('p','instruction','Ошибочные предложения повторены и исправлены.'));
+  if(lessonIndex===0)root.append(button('Перейти к 30 новым словам →',()=>switchLesson(1),'primary'));
+  root.append(button('Повторить урок сначала',restart,''));return;
  }
- const task=currentTask(),act=s.active;
+ const t=current();
  root.append(make('h1','','Переведи на '+(lang==='es'?'испанский':'английский')));
- root.append(make('p','instruction',act.review?'Повтор ошибки. Вспомни предложение и напиши его правильно.':'Слушай русскую фразу, скажи перевод и напиши его полностью.'));
- const card=make('div','card'),play=make('button','play');
- play.type='button';play.append(make('span','sound','◖))'),make('span','','Слушать задание на русском'));
- play.addEventListener('click',russianPrompt);card.append(play);
- card.append(make('p','prompt-hint','Нажми, чтобы услышать фразу ещё раз.'));
- if(showPrompt)card.append(make('p','prompt-reveal',task[0]+(task[3]?' — '+task[3]:'')));
- const show=button(showPrompt?'Скрыть текст задания':'Показать текст задания',()=>{showPrompt=!showPrompt;render()},'lightlink');show.className='lightlink';card.append(show);
+ root.append(make('p','instruction',s.active.review?'Повтори предложение, в котором была ошибка.':'Слушай русскую фразу, скажи перевод и напиши его целиком.'));
+ const card=make('div','card'),play=make('button','play');play.type='button';play.append(make('span','sound','◖))'),make('span','','Слушать задание на русском'));play.addEventListener('click',sayQuestion);card.append(play);
+ card.append(make('p','prompt-hint','Нажми, чтобы услышать фразу снова.'));
+ if(showPrompt)card.append(make('p','prompt-reveal',t[0]+(t[3]?' — '+t[3]:'')));
+ const show=button(showPrompt?'Скрыть текст задания':'Показать текст задания',()=>{showPrompt=!showPrompt;render()});show.className='lightlink';card.append(show);
  const label=make('label','input-label','Твой перевод');label.htmlFor='answer';card.append(label);
  const input=make('input','answer');input.id='answer';input.type='text';input.lang=lang;input.autocomplete='off';input.spellcheck=false;input.setAttribute('autocapitalize','none');input.value=s.draft;input.readOnly=s.checked;
- input.addEventListener('input',()=>{s.draft=input.value.slice(0,500);store()});
- input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?next():check()}});
- card.append(input);
+ input.addEventListener('input',()=>{s.draft=input.value.slice(0,500);store()});input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();s.checked?next():check()}});card.append(input);
  if(s.checked){
-  const r=assess(s.draft,task[1],lang,task[4]),note=make('div','feedback'+(r.ok?' good':''));
-  note.append(make('strong','',r.ok?'Правильно! Полоска стала зелёной.':'Ошибка записана. Полоска красная.'),make('p','',r.why),make('div','foreign',task[1]));
-  if(!r.ok)note.append(make('p','retry-note','Это предложение вернётся через несколько заданий.'));
-  const answerButton=button('▶ Слушать правильный вариант',()=>speak(task[1],d.locale,lang==='es'?0.64:0.68));answerButton.className='lightlink';note.append(answerButton);
-  const ruleButton=button(showRule?'Скрыть объяснение':'Почему так?',()=>{showRule=!showRule;render()});ruleButton.className='lightlink';note.append(ruleButton);
-  if(showRule)note.append(make('div','rule',task[2]));
+  const r=assess(s.draft,t[1],lang),note=make('div','feedback'+(r.ok?' good':''));
+  note.append(make('strong','',r.ok?'Правильно! Полоска стала зелёной.':'Ошибка записана. Полоска красная.'),make('p','',r.why),make('div','foreign',t[1]));
+  if(!r.ok)note.append(make('p','retry-note','Предложение вернётся через несколько заданий.'));
+  const listen=button('▶ Слушать правильный вариант',()=>speak(t[1],locale(),lang==='es'?0.64:0.68));listen.className='lightlink';note.append(listen);
   card.append(note);
  }
  root.append(card);
- const controls=make('div','controls');if(s.checked)controls.append(button('Следующее предложение →',next,'primary'));else controls.append(button('Проверить',check,'primary'));
- root.append(controls);
- const help=button(showForms?'Скрыть формы':'? Формы глагола',()=>{showForms=!showForms;cutAudio();render()},'lightlink');help.className='lightlink';root.append(help);
- if(showForms){
-  const box=make('div','formref');box.append(make('h2','',d.word+' — все формы'));
-  const rows=make('div','formrows');d.forms.forEach(([foreign,ru])=>{const el=make('button','formrow',foreign);el.type='button';el.lang=lang;el.setAttribute('title',ru);el.addEventListener('click',()=>speak(foreign,d.locale,lang==='es'?0.64:0.68));rows.append(el);});
-  box.append(rows);root.append(box);
- }
- root.append(make('p','small-note','Опечатки тоже считаются ошибками. Проблемные фразы будут повторяться, пока все сто полосок не станут зелёными.'));
+ const controls=make('div','controls');controls.append(s.checked?button('Следующее предложение →',next,'primary'):button('Проверить',check,'primary'));root.append(controls);
+ const vocab=button('30 слов урока',viewCards);vocab.className='lightlink';root.append(vocab);
+ const forms=button(showForms?'Скрыть формы глагола':'? Формы глагола',()=>{showForms=!showForms;stop();render()});forms.className='lightlink';root.append(forms);
+ if(showForms){const box=make('div','formref'),rows=make('div','formrows');box.append(make('h2','',lang==='es'?'Querer — все формы':'Want — все формы'));grammar[lang].forms.forEach(([foreign,ru])=>{const b=make('button','formrow',foreign);b.type='button';b.lang=lang;b.setAttribute('title',ru);b.addEventListener('click',()=>speak(foreign,locale(),0.70));rows.append(b)});box.append(rows);root.append(box)}
+ root.append(make('p','small-note','Опечатка считается ошибкой. Красные полоски вернутся на повторение, пока все сто не станут зелёными.'));
 }
-for(const k of ['es','en'])$('lang-'+k).addEventListener('click',()=>{if(lang===k)return;cutAudio();lang=k;showPrompt=false;showForms=false;showRule=false;store();ensureActive();render();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)cutAudio()});window.addEventListener('pagehide',cutAudio);
-window.LinguaPreviewQA={content,assess,state:()=>saved,ensureActive,check,next,countGreen,reset,MAX};
-ensureActive();store();render();
+function render(){
+ for(const l of ['es','en'])$('lang-'+l).classList.toggle('selected',lang===l);
+ for(const i of [0,1])$('lesson-'+(i+1)).classList.toggle('active',lessonIndex===i);
+ root.replaceChildren();$('status').textContent='';
+ state().phase==='cards'?renderCards():renderPractice();
+}
+function switchLesson(n){stop();lessonIndex=n;showPrompt=false;showForms=false;showRule=false;showOldCards=false;store();render()}
+for(const l of ['es','en'])$('lang-'+l).addEventListener('click',()=>{if(lang===l)return;stop();lang=l;showPrompt=false;showForms=false;showOldCards=false;store();render()});
+for(const i of [0,1])$('lesson-'+(i+1)).addEventListener('click',()=>switchLesson(i));
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});window.addEventListener('pagehide',stop);
+window.LinguaPreviewQA={packs,grammar,state:()=>saved,assess,ensureActive,check,next,green,switchLesson,begin,MAX};
+store();render();
 </script></body></html>
