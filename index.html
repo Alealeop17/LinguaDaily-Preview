@@ -61,7 +61,7 @@ function el(t,cls,txt){const n=document.createElement(t);if(cls)n.className=cls;
 function button(txt,cb,cls=''){const n=el('button','btn '+cls,txt);n.type='button';n.addEventListener('click',cb);return n}
 function cancelAudio(){try{window.speechSynthesis?.cancel()}catch(e){}}
 function voice(locale){try{const x=window.speechSynthesis.getVoices();return x.find(v=>v.lang?.toLowerCase()===locale.toLowerCase())||x.find(v=>v.lang?.toLowerCase().startsWith(locale.slice(0,2)))||null;}catch(e){return null;}}
-function speak(txt,l,rate){cancelAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){elid('status').textContent='Озвучка недоступна.';return}try{const u=new SpeechSynthesisUtterance(txt);u.lang=l;u.rate=rate;const installed=window.speechSynthesis.getVoices();const chosen=installed.find(x=>(x.voiceURI||x.name)===(chosenVoices[l.startsWith('es')?'es':'en']||''));const v=chosen||voice(l);if(v)u.voice=v;window.speechSynthesis.speak(u)}catch(e){elid('status').textContent='Ошибка воспроизведения.'}}
+function speak(txt,l,rate){cancelAudio();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){elid('status').textContent='Озвучка недоступна.';return}try{const u=new SpeechSynthesisUtterance(txt);u.lang=l;u.rate=l==='ru-RU'?rate:Math.max(0.48,Math.min(1.2,rate*(Number(chosenVoices.speed)||0.86)));const installed=window.speechSynthesis.getVoices();const chosen=installed.find(x=>(x.voiceURI||x.name)===(chosenVoices[l.startsWith('es')?'es':'en']||''));const v=chosen||voice(l);if(v)u.voice=v;window.speechSynthesis.speak(u)}catch(e){elid('status').textContent='Ошибка воспроизведения.'}}
 function normalize(v){return String(v||'').normalize('NFC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?¡¿]+$/g,'').toLocaleLowerCase('en')}
 function variants(model,l){
  if(l!=='es')return [model];
@@ -170,7 +170,7 @@ function toggleQuick(which){quickRef=quickRef===which?null:which;stopRecognition
 function showQuickReference(){
  const backdrop=el('div','sheet-overlay'),sheet=el('section','sheet');
  sheet.setAttribute('aria-label','Быстрая справка');
- const head=el('div','sheet-header'),title=el('strong','',quickRef==='words'?'Слова урока':quickRef==='forms'?'Спряжение':'Озвучка');
+ const head=el('div','sheet-header'),title=el('strong','',quickRef==='words'?'Слова урока':quickRef==='oldwords'?'Слова первого урока':quickRef==='forms'?'Спряжение':'Озвучка');
  const close=el('button','sheet-close','✕');close.type='button';close.setAttribute('aria-label','Закрыть справку');close.addEventListener('click',()=>{quickRef=null;render()});head.append(title,close);sheet.append(head);
  if(quickRef==='words'){
   sheet.append(vocabList([['Существительные',cur().nouns],['Прилагательные',cur().adjectives],['Глаголы',cur().verbs]]));
@@ -193,6 +193,11 @@ function showQuickReference(){
   select.value=chosenVoices[lang]||'';
   select.addEventListener('change',()=>{chosenVoices[lang]=select.value;saveVoices()});
   sheet.append(select);
+  const speed=el('select','voice-picker');speed.setAttribute('aria-label','Скорость иностранной речи');
+  [['0.75','Очень медленно'],['0.86','Медленно'],['1','Обычно']].forEach(([value,label])=>{const o=el('option','',label);o.value=value;speed.append(o)});
+  speed.value=String(chosenVoices.speed||0.86);
+  speed.addEventListener('change',()=>{chosenVoices.speed=Number(speed.value);saveVoices()});
+  sheet.append(speed);
   const example=lang==='es'?'Quiero aprender español.':'I want to learn English.';
   sheet.append(button('▶ Послушать пример',()=>speak(example,locale(),0.58),'primary'));
   sheet.append(el('p','note','Это голоса iOS. Новая нейросетевая озвучка пока не подключена.'));
