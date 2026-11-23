@@ -317,11 +317,10 @@ function offerVoiceMistake(data){
 function confirmVoiceProposal(index){
  const item=pendingVoiceProposals[index];if(!item)return;
  const items=voiceMistakes[lang];
- if(!items.some(m=>m.correct===item.correct&&m.russian===item.russian)){
-  items.push({...item,done:false});
-  if(items.length>40)items.shift();
-  saveVoiceMistakes();
- }
+ const prior=items.find(m=>m.correct===item.correct&&m.russian===item.russian);
+ if(prior){prior.done=false;prior.incorrect=item.incorrect;prior.explanation=item.explanation}
+ else{items.push({...item,done:false});if(items.length>40)items.shift()}
+ saveVoiceMistakes();
  pendingVoiceProposals.splice(index,1);render();
 }
 function dismissVoiceProposal(index){pendingVoiceProposals.splice(index,1);render()}
@@ -340,6 +339,12 @@ function nextVoiceReview(){
   if(i>=0)entries.push(...entries.splice(i,1));
  }
  saveVoiceMistakes();voiceReviewCurrent=null;voiceReviewResult=null;voiceReviewDraft='';render();
+}
+function deleteVoiceReview(){
+ if(!voiceReviewCurrent)return;
+ const entries=voiceMistakes[lang],index=entries.indexOf(voiceReviewCurrent);
+ if(index>=0){entries.splice(index,1);saveVoiceMistakes()}
+ voiceReviewCurrent=null;voiceReviewDraft='';voiceReviewResult=null;render();
 }
 function renderVoiceReview(){
  let pending=voiceMistakes[lang].filter(m=>!m.done);
@@ -366,6 +371,7 @@ function renderVoiceReview(){
  }
  root.append(card);
  root.append(button(voiceReviewResult?'Дальше →':'Проверить',voiceReviewResult?nextVoiceReview:checkVoiceReview,'primary'));
+ root.append(button('Удалить эту ошибку',deleteVoiceReview,'minilink'));
  root.append(button('← К упражнениям',()=>{voiceReviewMode=false;voiceReviewCurrent=null;voiceReviewDraft='';voiceReviewResult=null;render()},'minilink'));
 }
 const TUTOR_PREF_KEY='lingua-daily-realtime-tutor-pref-v1';
@@ -570,7 +576,7 @@ function renderDialogue(){
 elid('mode-write').addEventListener('click',()=>toggleOral(false));
 elid('mode-speak').addEventListener('click',()=>toggleOral(true));
 
-window.LinguaPreviewQA={curriculum,state:()=>saved,assess,ensureActive,check,next,count,setPhase,switchLesson,MAX,renderDialogue,showQuickReference,pendingVoiceCount,offerVoiceMistake,confirmVoiceProposal,checkVoiceReview,nextVoiceReview,startVoiceReview};
+window.LinguaPreviewQA={curriculum,state:()=>saved,assess,ensureActive,check,next,count,setPhase,switchLesson,MAX,renderDialogue,showQuickReference,pendingVoiceCount,offerVoiceMistake,confirmVoiceProposal,checkVoiceReview,nextVoiceReview,startVoiceReview,deleteVoiceReview};
 persist();render();
 
 </script></body></html>
