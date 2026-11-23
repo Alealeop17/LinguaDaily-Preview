@@ -74,6 +74,7 @@ function buildInstructions(lang, lessonIndex, errors = [], mastered = 0, style =
     "Первое обращение: поприветствуй на изучаемом языке и задай вопрос по уровню ученика о " + lesson.focus + ". Не повторяй давно освоенные элементарные задания.",
     "Вводи новую лексику только при необходимости и тогда сразу коротко объясняй смысл на русском отдельной фразой.",
     "Когда ученик ошибается, сначала дай короткую корректировку с правильным примером, затем попроси повторить. Если не понял, объясни иначе или приведи другой пример. Не исправляй каждую мелочь, не прерывай постоянно.",
+    "Если заметил явную грамматическую или лексическую ошибку ученика, при необходимости вызови record_language_error с короткой исправленной фразой и русским переводом. Не сохраняй имена, личные подробности, контактные данные. Не вызывай инструмент из-за оговорки, акцента или неопределённой расшифровки. Продолжай естественный разговор и исправляй ошибку голосом.",
     "Для русского объяснения говори целую фразу по-русски, затем отдельную фразу на изучаемом языке. Никогда не произноси испанские или английские слова внутри русской фразы.",
     "Если ученик молчит или подбирает слова, жди терпеливо; избегай скороговорки.",
     "Реальная ситуация разговора важнее механического повторения двадцати предложений.",
@@ -97,6 +98,23 @@ function sessionParams({lang, lesson, errors, mastered, style, voice, pace}) {
       model,
       instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : [], Number.isInteger(mastered) ? Math.max(0,Math.min(100,mastered)) : 0, safeStyle),
       max_output_tokens: 320,
+      tool_choice: "auto",
+      tools: [{
+        type: "function",
+        name: "record_language_error",
+        description: "Offer a clear learner language error as an optional written practice item. The user must confirm it before it is stored.",
+        parameters: {
+          type: "object",
+          properties: {
+            incorrect: { type: "string", description: "Short incorrect sentence in the learning language, with no sensitive details" },
+            correct: { type: "string", description: "Corrected sentence in the learning language" },
+            russian: { type: "string", description: "Natural Russian translation of the correct sentence" },
+            explanation: { type: "string", description: "One short Russian explanation of the error" }
+          },
+          required: ["incorrect","correct","russian","explanation"],
+          additionalProperties: false
+        }
+      }],
       audio: {
         input: {
           noise_reduction: { type: "near_field" },
