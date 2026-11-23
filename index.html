@@ -224,9 +224,19 @@ function renderPractice(){
  root.append(el('p','note','Небольшая опечатка — зелёный результат с замечанием. Ошибки в грамматике повторяются.'));if(quickRef)showQuickReference();}
 function render(){elid('pick-lang').value=lang;elid('pick-lesson').value=String(idx);root.replaceChildren();elid('status').textContent='';
  elid('mode-write').classList.toggle('selected',!oralMode);elid('mode-speak').classList.toggle('selected',oralMode);
- const s=state();if(oralMode)renderDialogue();else if(s.phase==='words')renderWords();else if(s.phase==='forms')renderForms();else renderPractice();}
-function switchLesson(n){endDialogue();cancelAudio();idx=n;showPrompt=false;showForms=false;quickRef=null;heardResult='';oralError='';persist();render()}
-elid('pick-lang').addEventListener('change',e=>{endDialogue();cancelAudio();lang=elid('pick-lang').value;showPrompt=false;quickRef=null;heardResult='';oralError='';persist();render()});
+ const s=state();
+ if(oralMode){renderDialogue();return}
+ if(voiceReviewMode){renderVoiceReview();return}
+ const pending=pendingVoiceCount();
+ if(pending){
+  const panel=el('div','panel');
+  panel.append(el('strong','','Ошибки из разговора: '+pending));
+  panel.append(button('Повторить письменно →',startVoiceReview,'primary'));
+  root.append(panel);
+ }
+ if(s.phase==='words')renderWords();else if(s.phase==='forms')renderForms();else renderPractice();}
+function switchLesson(n){endDialogue();cancelAudio();idx=n;showPrompt=false;showForms=false;quickRef=null;heardResult='';oralError='';pendingVoiceProposals=[];voiceReviewMode=false;persist();render()}
+elid('pick-lang').addEventListener('change',e=>{endDialogue();cancelAudio();lang=elid('pick-lang').value;showPrompt=false;quickRef=null;heardResult='';oralError='';pendingVoiceProposals=[];voiceReviewMode=false;persist();render()});
 elid('pick-lesson').addEventListener('change',()=>switchLesson(Number(elid('pick-lesson').value)));
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAudio();if(dialogueCall||dialogueJoining){endDialogue();dialogueStatus='Разговор завершён при сворачивании приложения.';render()}}});window.addEventListener('pagehide',()=>{cancelAudio();endDialogue()});
 
@@ -279,6 +289,85 @@ function showQuickReference(){
 
 let dialogueCall=null,dialogueAttempt=0,dialogueJoining=false,dialogueError='',dialogueStatus='';
 let previewPasscode='',dialogueTranscript=[],dialogueMuted=false;
+const VOICE_MISTAKES_KEY='lingua-daily-reviewed-voice-errors-v1';
+let voiceMistakes={es:[],en:[]},pendingVoiceProposals=[];
+let voiceReviewMode=false,voiceReviewCurrent=null,voiceReviewDraft='',voiceReviewResult=null;
+try {
+ const x=JSON.parse(localStorage.getItem(VOICE_MISTAKES_KEY)||'null');
+ if(x&&['es','en'].every(l=>Array.isArray(x[l]))){
+  for(const l of ['es','en']){
+   voiceMistakes[l]=x[l].filter(m=>m&&['incorrect','correct','russian','explanation'].every(k=>typeof m[k]==='string'&&m[k].length<=220)&&typeof m.done==='boolean').slice(-40);
+  }
+ }
+}catch(e){}
+function saveVoiceMistakes(){
+ try{localStorage.setItem(VOICE_MISTAKES_KEY,JSON.stringify(voiceMistakes))}
+ catch(e){elid('status').textContent='Не удалось сохранить ошибки для повторения.'}
+}
+function pendingVoiceCount(l=lang){return voiceMistakes[l].filter(m=>!m.done).length}
+function offerVoiceMistake(data){
+ if(!data||!['incorrect','correct','russian','explanation'].every(k=>typeof data[k]==='string'&&data[k].trim()&&data[k].length<=220))return false;
+ if(normalize(data.incorrect)===normalize(data.correct))return false;
+ const proposal={incorrect:data.incorrect.trim(),correct:data.correct.trim(),russian:data.russian.trim(),explanation:data.explanation.trim()};
+ if(pendingVoiceProposals.some(m=>m.incorrect===proposal.incorrect&&m.correct===proposal.correct))return true;
+ pendingVoiceProposals.push(proposal);
+ pendingVoiceProposals=pendingVoiceProposals.slice(-5);
+ return true;
+}
+function confirmVoiceProposal(index){
+ const item=pendingVoiceProposals[index];if(!item)return;
+ const items=voiceMistakes[lang];
+ if(!items.some(m=>m.correct===item.correct&&m.russian===item.russian)){
+  items.push({...item,done:false});
+  if(items.length>40)items.shift();
+  saveVoiceMistakes();
+ }
+ pendingVoiceProposals.splice(index,1);render();
+}
+function dismissVoiceProposal(index){pendingVoiceProposals.splice(index,1);render()}
+function startVoiceReview(){voiceReviewMode=true;voiceReviewCurrent=null;voiceReviewDraft='';voiceReviewResult=null;render()}
+function checkVoiceReview(){
+ if(voiceReviewResult||!voiceReviewCurrent)return;
+ const input=elid('review-answer');if(input)voiceReviewDraft=input.value.slice(0,220);
+ if(!voiceReviewDraft.trim()){elid('status').textContent='Напиши перевод.';return}
+ voiceReviewResult=assess(voiceReviewDraft,voiceReviewCurrent.correct,lang);render();
+}
+function nextVoiceReview(){
+ if(!voiceReviewCurrent||!voiceReviewResult)return;
+ if(voiceReviewResult.ok)voiceReviewCurrent.done=true;
+ else{
+  const entries=voiceMistakes[lang],i=entries.indexOf(voiceReviewCurrent);
+  if(i>=0)entries.push(...entries.splice(i,1));
+ }
+ saveVoiceMistakes();voiceReviewCurrent=null;voiceReviewResult=null;voiceReviewDraft='';render();
+}
+function renderVoiceReview(){
+ let pending=voiceMistakes[lang].filter(m=>!m.done);
+ if(!pending.length){
+  voiceReviewMode=false;voiceReviewCurrent=null;voiceReviewResult=null;
+  root.append(el('h1','','Ошибки из диалога повторены'));
+  root.append(button('Вернуться к упражнениям',()=>{voiceReviewMode=false;render()},'primary'));
+  return;
+ }
+ if(!voiceReviewCurrent||voiceReviewCurrent.done)voiceReviewCurrent=pending[0];
+ sectionHeading('Повторение из диалога',pending.length+' осталось');
+ root.append(el('h1','','Переведи на '+(lang==='es'?'испанский':'английский')));
+ const card=el('div','panel');
+ card.append(el('div','text-prompt',voiceReviewCurrent.russian));
+ const label=el('label','answer-label','Твой перевод');label.htmlFor='review-answer';card.append(label);
+ const input=el('input','answer');input.id='review-answer';input.lang=lang;input.autocomplete='off';input.value=voiceReviewDraft;input.readOnly=!!voiceReviewResult;
+ input.addEventListener('input',()=>{voiceReviewDraft=input.value.slice(0,220)});
+ input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();voiceReviewResult?nextVoiceReview():checkVoiceReview()}});
+ card.append(input);
+ if(voiceReviewResult){
+  const fb=el('div','feedback'+(voiceReviewResult.ok?' good':''));
+  fb.append(el('strong','',voiceReviewResult.kind==='typo'?'Засчитано с замечанием':voiceReviewResult.ok?'Правильно':'Попробуй ещё раз позже'),el('p','',voiceReviewResult.why),el('div','foreign',voiceReviewCurrent.correct));
+  fb.append(el('p','note',voiceReviewCurrent.explanation));card.append(fb);
+ }
+ root.append(card);
+ root.append(button(voiceReviewResult?'Дальше →':'Проверить',voiceReviewResult?nextVoiceReview:checkVoiceReview,'primary'));
+ root.append(button('← К упражнениям',()=>{voiceReviewMode=false;voiceReviewCurrent=null;voiceReviewDraft='';voiceReviewResult=null;render()},'minilink'));
+}
 const TUTOR_PREF_KEY='lingua-daily-realtime-tutor-pref-v1';
 let tutorPrefs={style:'calm',voice:'marin',pace:'slow'};
 try{
@@ -330,6 +419,19 @@ function endDialogue(){
 function onDialogueEvent(e,attempt){
  if(attempt!==dialogueAttempt)return;
  let data;try{data=JSON.parse(e.data)}catch{return}
+ if(data.type==='response.function_call_arguments.done'&&data.name==='record_language_error'){
+  let accepted=false;
+  try{
+   if(typeof data.arguments==='string'&&data.arguments.length<=1800)accepted=offerVoiceMistake(JSON.parse(data.arguments));
+  }catch(e){}
+  const channel=dialogueCall?.channel;
+  if(typeof data.call_id==='string'&&/^[a-zA-Z0-9_-]{1,32}$/.test(data.call_id)&&channel?.readyState==='open'){
+   channel.send(JSON.stringify({type:'conversation.item.create',item:{type:'function_call_output',call_id:data.call_id,output:JSON.stringify({ok:accepted,needs_user_confirmation:true})}}));
+   channel.send(JSON.stringify({type:'response.create',response:{}}));
+  }
+  if(accepted)render();
+  return;
+ }
  if(data.type==='error'){dialogueError='Ошибка голосовой сессии. Заверши разговор и попробуй снова.';render();return}
  let text='',who='';
  if(data.type==='conversation.item.input_audio_transcription.completed'){text=data.transcript||'';who='Ты'}
@@ -413,8 +515,8 @@ function toggleDialogueMic(){
 }
 function toggleOral(on){
  if(oralMode===on)return; // Tapping an already-selected tab must not hang up a call.
- endDialogue();cancelAudio();oralMode=on;quickRef=null;showPrompt=false;
- dialogueTranscript=[];render();
+ endDialogue();cancelAudio();oralMode=on;quickRef=null;showPrompt=false;voiceReviewMode=false;
+ pendingVoiceProposals=[];dialogueTranscript=[];render();
 }
 function renderDialogue(){
  sectionHeading('Свободный диалог · урок '+(idx+1),'OpenAI Realtime');
@@ -446,6 +548,18 @@ function renderDialogue(){
   if(dialogueJoining)card.append(button('Отмена',()=>{endDialogue();render()}));
  }
  root.append(card);
+ if(pendingVoiceProposals.length){
+  const proposals=el('div','panel');
+  proposals.append(el('strong','','Преподаватель предложил исправления'));
+  pendingVoiceProposals.forEach((item,index)=>{
+   proposals.append(el('p','note','Было: '+item.incorrect+' · Правильно: '+item.correct));
+   proposals.append(el('p','note','Перевод: '+item.russian+' · '+item.explanation));
+   proposals.append(button('Добавить в «Пишу»',()=>confirmVoiceProposal(index)));
+   proposals.append(button('Пропустить',()=>dismissVoiceProposal(index),'minilink'));
+  });
+  proposals.append(el('p','note','Проверь исправление: распознавание речи и ИИ иногда ошибаются. Без подтверждения ничего не сохраняется.'));
+  root.append(proposals);
+ }
  if(dialogueTranscript.length){
   const transcript=el('div','panel');transcript.append(el('strong','','Последние реплики'));
   for(const line of dialogueTranscript)transcript.append(el('p','note',line.who+': '+line.text));
@@ -456,7 +570,7 @@ function renderDialogue(){
 elid('mode-write').addEventListener('click',()=>toggleOral(false));
 elid('mode-speak').addEventListener('click',()=>toggleOral(true));
 
-window.LinguaPreviewQA={curriculum,state:()=>saved,assess,ensureActive,check,next,count,setPhase,switchLesson,MAX,renderDialogue,showQuickReference};
+window.LinguaPreviewQA={curriculum,state:()=>saved,assess,ensureActive,check,next,count,setPhase,switchLesson,MAX,renderDialogue,showQuickReference,pendingVoiceCount,offerVoiceMistake,confirmVoiceProposal,checkVoiceReview,nextVoiceReview,startVoiceReview};
 persist();render();
 
 </script></body></html>
