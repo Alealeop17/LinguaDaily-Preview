@@ -83,14 +83,22 @@ function lessonDictionary(l){
 }
 const knownWords={es:lessonDictionary('es'),en:lessonDictionary('en')};
 function singleLetterEdit(a,b){
- const x=[...a],y=[...b];if(Math.abs(x.length-y.length)>1||a===b)return false;
- let i=0,j=0,edits=0;
- while(i<x.length&&j<y.length){
-  if(x[i]===y[j]){i++;j++;continue}
-  if(++edits>1)return false;
-  if(x.length>y.length)i++;else if(y.length>x.length)j++;else{i++;j++}
- }
- return edits+(x.length-i)+(y.length-j)===1;
+ // Conservative typo detection: only a missing or duplicated INTERNAL letter.
+ // Changing a verb ending, another dictionary word, or tense is never auto-accepted.
+ const x=[...a],y=[...b];
+ if(Math.abs(x.length-y.length)!==1)return false;
+ const shorter=x.length<y.length?x:y,longer=x.length>y.length?x:y;
+ let i=0;
+ while(i<shorter.length&&shorter[i]===longer[i])i++;
+ if(i<2||i>longer.length-3)return false;
+ return shorter.slice(i).join('')===longer.slice(i+1).join('');
+}
+function adjacentTransposition(a,b){
+ const x=[...a],y=[...b];
+ if(x.length!==y.length||x.length<5)return false;
+ let i=0;while(i<x.length&&x[i]===y[i])i++;
+ if(i<2||i>=x.length-3)return false;
+ return x[i]===y[i+1]&&x[i+1]===y[i]&&x.slice(i+2).join('')===y.slice(i+2).join('');
 }
 function typoSuggestion(answer,model,l){
  const possibilities=[];
@@ -107,7 +115,7 @@ function typoSuggestion(answer,model,l){
   if([...correct].length<5||knownWords[l].has(typed))continue;
   // A plural ending or other valid word is a grammatical/lexical change, not a typo.
   if(typed+'s'===correct||correct+'s'===typed)continue;
-  if(singleLetterEdit(typed,correct))return {typed,correct};
+  if(singleLetterEdit(typed,correct)||adjacentTransposition(typed,correct))return {typed,correct};
  }
  return null;
 }
@@ -198,7 +206,7 @@ function render(){elid('pick-lang').value=lang;elid('pick-lesson').value=String(
 function switchLesson(n){endDialogue();cancelAudio();idx=n;showPrompt=false;showForms=false;quickRef=null;heardResult='';oralError='';persist();render()}
 elid('pick-lang').addEventListener('change',e=>{endDialogue();cancelAudio();lang=elid('pick-lang').value;showPrompt=false;quickRef=null;heardResult='';oralError='';persist();render()});
 elid('pick-lesson').addEventListener('change',()=>switchLesson(Number(elid('pick-lesson').value)));
-document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAudio()});window.addEventListener('pagehide',()=>{cancelAudio();endDialogue()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAudio();if(dialogueCall||dialogueJoining){endDialogue();dialogueStatus='Разговор завершён при сворачивании приложения.';render()}}});window.addEventListener('pagehide',()=>{cancelAudio();endDialogue()});
 
 // Speech practice is independent from written one-hundred-bar mastery.
 const VOICE_SETTINGS_KEY='lingua-daily-voice-choice-v1',ORAL_KEY='lingua-daily-oral-v1';
@@ -249,6 +257,8 @@ function showQuickReference(){
 
 let dialogueCall=null,dialogueAttempt=0,dialogueJoining=false,dialogueError='',dialogueStatus='';
 let previewPasscode='',dialogueTranscript=[],dialogueMuted=false;
+const MAX_PREVIEW_CALL_MS=10*60*1000;
+let dialogueTimeout=null,pendingDialogueStream=null,dialogueSoundBlocked=false;
 const remoteDialogueAudio=document.createElement('audio');
 remoteDialogueAudio.autoplay=true;remoteDialogueAudio.playsInline=true;
 remoteDialogueAudio.setAttribute('aria-hidden','true');
@@ -261,7 +271,14 @@ function cleanCall(c){
  remoteDialogueAudio.srcObject=null;
 }
 function endDialogue(){
- ++dialogueAttempt;cleanCall(dialogueCall);dialogueCall=null;dialogueJoining=false;
+ ++dialogueAttempt;
+ if(dialogueTimeout!==null){clearTimeout(dialogueTimeout);dialogueTimeout=null}
+ const connectedStream=dialogueCall?.stream;
+ cleanCall(dialogueCall);dialogueCall=null;
+ if(pendingDialogueStream&&pendingDialogueStream!==connectedStream){
+  try{pendingDialogueStream.getTracks().forEach(track=>track.stop())}catch(e){}
+ }
+ pendingDialogueStream=null;dialogueJoining=false;dialogueSoundBlocked=false;
  dialogueMuted=false;dialogueStatus='';dialogueError='';
 }
 function onDialogueEvent(e,attempt){
@@ -279,12 +296,14 @@ async function startDialogue(){
  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia||!window.RTCPeerConnection){
   dialogueError='Для голосового разговора нужен HTTPS и браузер с WebRTC и доступом к микрофону.';render();return;
  }
- const attempt=++dialogueAttempt;dialogueJoining=true;dialogueError='';dialogueStatus='Подключаем преподавателя…';render();
+ const attempt=++dialogueAttempt;dialogueJoining=true;dialogueError='';dialogueStatus='Подключаем преподавателя…';
+ dialogueSoundBlocked=false;render();
  let pc=null,stream=null,channel=null;
  try{
   // Ask permission before requesting a 60-second token, which might expire while iOS waits for microphone approval.
   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
   if(attempt!==dialogueAttempt){stream.getTracks().forEach(t=>t.stop());return}
+  pendingDialogueStream=stream;
   const errors=[...new Set(state().queue.map(q=>q.task))].slice(0,6);
   const mastered=state().slots.filter(slot=>slot.status==='green').length;
   const tokenResponse=await fetch('/api/realtime/token',{
@@ -298,8 +317,8 @@ async function startDialogue(){
   const token=await tokenResponse.json();
   if(!token.value||typeof token.value!=='string')throw Error('Сервер не вернул временный ключ.');
   if(attempt!==dialogueAttempt)return;
-  pc=new RTCPeerConnection();dialogueCall={pc,stream,channel:null};
-  pc.ontrack=e=>{if(attempt===dialogueAttempt){remoteDialogueAudio.srcObject=e.streams[0];remoteDialogueAudio.play().catch(()=>{dialogueStatus='Разреши воспроизведение звука в браузере.';render()})}};
+  pc=new RTCPeerConnection();dialogueCall={pc,stream,channel:null};pendingDialogueStream=null;
+  pc.ontrack=e=>{if(attempt===dialogueAttempt){remoteDialogueAudio.srcObject=e.streams[0];remoteDialogueAudio.play().then(()=>{dialogueSoundBlocked=false}).catch(()=>{dialogueSoundBlocked=true;dialogueStatus='Браузер заблокировал звук. Нажми «Включить звук преподавателя».';render()})}};
   pc.onconnectionstatechange=()=>{
    if(attempt!==dialogueAttempt)return;
    if(pc.connectionState==='failed'||pc.connectionState==='closed'){
@@ -312,6 +331,12 @@ async function startDialogue(){
   channel.onopen=()=>{
    if(attempt!==dialogueAttempt)return;
    dialogueJoining=false;dialogueStatus='На связи. Преподаватель слушает тебя.';render();
+   if(dialogueTimeout!==null)clearTimeout(dialogueTimeout);
+   dialogueTimeout=setTimeout(()=>{
+    if(attempt!==dialogueAttempt)return;
+    endDialogue();dialogueStatus='Пробные десять минут закончились. Можно начать следующий разговор.';render();
+   },MAX_PREVIEW_CALL_MS);
+   dialogueTimeout?.unref?.();
    channel.send(JSON.stringify({type:'response.create',response:{}}));
   };
   const offer=await pc.createOffer();await pc.setLocalDescription(offer);
@@ -324,10 +349,15 @@ async function startDialogue(){
   await pc.setRemoteDescription({type:'answer',sdp});
  }catch(e){
   if(attempt!==dialogueAttempt){cleanCall({pc,stream,channel});return}
-  cleanCall({pc,stream,channel});
+  if(!dialogueCall)cleanCall({pc,stream,channel});
   endDialogue();dialogueError=e?.name==='NotAllowedError'?'Разреши доступ к микрофону для этого сайта.':(e?.message||'Не удалось подключиться.');
   render();
  }
+}
+function enableDialogueAudio(){
+ remoteDialogueAudio.play().then(()=>{
+  dialogueSoundBlocked=false;dialogueStatus='Звук преподавателя включён.';render()
+ }).catch(()=>{dialogueSoundBlocked=true;dialogueError='Не удалось включить звук. Проверь режим звука и разрешения браузера.';render()});
 }
 function toggleDialogueMic(){
  if(!dialogueCall)return;
@@ -352,6 +382,7 @@ function renderDialogue(){
  if(dialogueStatus)card.append(el('p','lead',dialogueStatus));
  if(dialogueError)card.append(el('p','retry',dialogueError));
  if(dialogueCall){
+  if(dialogueSoundBlocked)card.append(button('Включить звук преподавателя',enableDialogueAudio,'primary'));
   card.append(button(dialogueMuted?'Включить микрофон':'Выключить микрофон',toggleDialogueMic));
   card.append(button('Завершить разговор',()=>{endDialogue();render()},'primary'));
  }else{
@@ -364,7 +395,7 @@ function renderDialogue(){
   for(const line of dialogueTranscript)transcript.append(el('p','note',line.who+': '+line.text));
   root.append(transcript);
  }
- root.append(el('p','note','Используется микрофон. Голосовой режим требует подключения сервера OpenAI и расходует оплачиваемые API-токены. Текст последних реплик хранится только до закрытия страницы.'));
+ root.append(el('p','note','Используется микрофон. Пробный разговор длится максимум 10 минут. OpenAI API оплачивается отдельно. Реплики не сохраняются в браузере после закрытия страницы.'));
 }
 elid('mode-write').addEventListener('click',()=>toggleOral(false));
 elid('mode-speak').addEventListener('click',()=>toggleOral(true));
