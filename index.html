@@ -82,16 +82,20 @@ function lessonDictionary(l){
  return known;
 }
 const knownWords={es:lessonDictionary('es'),en:lessonDictionary('en')};
-function singleLetterEdit(a,b){
- // Conservative typo detection: only a missing or duplicated INTERNAL letter.
- // Changing a verb ending, another dictionary word, or tense is never auto-accepted.
+function singleLetterEdit(a,b,l){
+ // A typo is accepted only if the intended word remains clear.
+ // Conjugated endings and legitimate alternative words must remain red.
  const x=[...a],y=[...b];
  if(Math.abs(x.length-y.length)!==1)return false;
  const shorter=x.length<y.length?x:y,longer=x.length>y.length?x:y;
  let i=0;
  while(i<shorter.length&&shorter[i]===longer[i])i++;
- if(i<2||i>longer.length-3)return false;
- return shorter.slice(i).join('')===longer.slice(i+1).join('');
+ if(i<2)return false;
+ if(shorter.slice(i).join('')!==longer.slice(i+1).join(''))return false;
+ if(i<=longer.length-3)return true;
+ // In Spanish infinitives, "bebr" for "beber" is an obvious omitted vowel.
+ return l==='es'&&x.length<y.length&&/^[a-záéíóúñü]+(?:ar|er|ir)$/.test(b)
+  &&i===y.length-2&&a.endsWith('r');
 }
 function adjacentTransposition(a,b){
  const x=[...a],y=[...b];
@@ -115,7 +119,7 @@ function typoSuggestion(answer,model,l){
   if([...correct].length<5||knownWords[l].has(typed))continue;
   // A plural ending or other valid word is a grammatical/lexical change, not a typo.
   if(typed+'s'===correct||correct+'s'===typed)continue;
-  if(singleLetterEdit(typed,correct)||adjacentTransposition(typed,correct))return {typed,correct};
+  if(singleLetterEdit(typed,correct,l)||adjacentTransposition(typed,correct))return {typed,correct};
  }
  return null;
 }
@@ -372,8 +376,8 @@ async function startDialogue(){
   if(attempt!==dialogueAttempt)return;
   await pc.setRemoteDescription({type:'answer',sdp});
  }catch(e){
-  if(attempt!==dialogueAttempt){cleanCall({pc,stream,channel});return}
-  if(!dialogueCall)cleanCall({pc,stream,channel});
+  if(attempt!==dialogueAttempt){if(pendingDialogueStream===stream||dialogueCall?.stream===stream)cleanCall({pc,stream,channel});return}
+  if(!dialogueCall){cleanCall({pc,stream,channel});pendingDialogueStream=null}
   endDialogue();dialogueError=e?.name==='NotAllowedError'?'Разреши доступ к микрофону для этого сайта.':(e?.message||'Не удалось подключиться.');
   render();
  }
