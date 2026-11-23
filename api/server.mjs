@@ -25,13 +25,23 @@ function json(res, code, obj) {
 
 function jsonBody(req) {
   return new Promise((resolve, reject) => {
-    const parts = []; let total = 0;
+    const parts = []; let total = 0; let tooLarge = false;
     req.on("data", chunk => {
+      if (tooLarge) return;
       total += chunk.length;
-      if (total > maxBody) { reject(Object.assign(new Error("Large payload"), { status: 413 })); req.destroy(); return; }
+      if (total > maxBody) {
+        tooLarge = true;parts.length=0;
+        reject(Object.assign(new Error("Large payload"), { status: 413 }));
+        // Keep the socket alive so the client receives the 413 JSON response.
+        req.resume();return;
+      }
       parts.push(chunk);
     });
-    req.on("end", () => { try { resolve(JSON.parse(Buffer.concat(parts).toString("utf8") || "{}")); } catch { reject(Object.assign(new Error("Bad JSON"), { status: 400 })); } });
+    req.on("end", () => {
+      if (tooLarge) return;
+      try { resolve(JSON.parse(Buffer.concat(parts).toString("utf8") || "{}")); }
+      catch { reject(Object.assign(new Error("Bad JSON"), { status: 400 })); }
+    });
     req.on("error", reject);
   });
 }
@@ -123,7 +133,9 @@ export function makeHandler(opts = {}) {
         "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",
-        "Referrer-Policy": "no-referrer"
+        "Referrer-Policy": "no-referrer",
+        "Permissions-Policy": "camera=(), geolocation=(), microphone=(self)",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com; media-src 'self' blob:; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
       });
       res.end(readFileSync(new URL("../index.html", import.meta.url)));
       return;
