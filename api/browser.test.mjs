@@ -23,7 +23,7 @@ function runApp({ store = new Map(), tokenOk = true, playbackBlocked = false, to
  }
  class Peer {
   addTrack() {}
-  createDataChannel() { this.channel={send:data=>events.push(JSON.parse(data)),close(){}};return this.channel; }
+  createDataChannel() { this.channel={readyState:"open",send:data=>events.push(JSON.parse(data)),close(){this.readyState="closed"}};stats.channel=this.channel;return this.channel; }
   async createOffer() { return {sdp:"v=0 mock offer"}; }
   async setLocalDescription() {}
   async setRemoteDescription() {
@@ -248,4 +248,41 @@ test("tapping the active dialogue tab does not end a connected session", async (
  assert.ok(a.findText(a.nodes.app,"Завершить разговор"));
  a.findText(a.nodes.app,"Завершить разговор").listeners.click();
  assert.equal(a.stats.stopped,1);
+});
+
+test("Realtime grammar tool requires confirmation before writing practice", async () => {
+ const store=new Map(),a=runApp({store});
+ a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ const phrase={incorrect:"Ella quiero aprender español.",correct:"Ella quiere aprender español.",russian:"Она хочет изучать испанский.",explanation:"С ella используется quiere."};
+ a.stats.channel.onmessage({data:JSON.stringify({
+  type:"response.function_call_arguments.done",name:"record_language_error",
+  call_id:"call_1",arguments:JSON.stringify(phrase)
+ })});
+ assert.equal(a.qa.pendingVoiceCount(),0,"Suggestions must not be persisted without consent");
+ assert.ok(a.findText(a.nodes.app,"Добавить в «Пишу»"));
+ assert.ok(a.events.some(e=>e.type==="conversation.item.create"&&e.item.call_id==="call_1"));
+ a.findText(a.nodes.app,"Добавить в «Пишу»").listeners.click();
+ assert.equal(a.qa.pendingVoiceCount(),1);
+ a.nodes["mode-write"].listeners.click();
+ assert.ok(a.findText(a.nodes.app,"Повторить письменно →"));
+ a.findText(a.nodes.app,"Повторить письменно →").listeners.click();
+ a.nodes["review-answer"].value="Ella quiero aprender español.";a.qa.checkVoiceReview();
+ assert.ok(a.findText(a.nodes.app,"Попробуй ещё раз позже"));
+ a.qa.nextVoiceReview();
+ a.nodes["review-answer"].value="Ella quiere aprender español.";a.qa.checkVoiceReview();a.qa.nextVoiceReview();
+ assert.equal(a.qa.pendingVoiceCount(),0);
+ assert.equal(a.qa.state().es[0].slots.length,0,"Voice reviews must not overwrite the original 100-slot lesson");
+ assert.equal(runApp({store}).qa.pendingVoiceCount(),0,"Voice review completion must persist");
+});
+test("invalid or discarded voice corrections are not saved", () => {
+ const a=runApp();
+ assert.equal(a.qa.offerVoiceMistake({incorrect:"Ella quiero",correct:"Ella quiero",russian:"Она хочет",explanation:"."}),false);
+ assert.equal(a.qa.offerVoiceMistake({incorrect:"x".repeat(250),correct:"y",russian:"Она хочет",explanation:"."}),false);
+ assert.equal(a.qa.pendingVoiceCount(),0);
+ const valid={incorrect:"Ella quiero aprender.",correct:"Ella quiere aprender.",russian:"Она хочет учиться.",explanation:"Нужно quiere."};
+ assert.equal(a.qa.offerVoiceMistake(valid),true);
+ a.qa.confirmVoiceProposal(0);
+ assert.equal(a.qa.pendingVoiceCount(),1);
 });
