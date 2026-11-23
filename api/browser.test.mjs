@@ -286,3 +286,21 @@ test("invalid or discarded voice corrections are not saved", () => {
  a.qa.confirmVoiceProposal(0);
  assert.equal(a.qa.pendingVoiceCount(),1);
 });
+
+test("learner can remove an accidentally saved voice error", () => {
+ const a=runApp();
+ const phrase={incorrect:"Ella quiero.",correct:"Ella quiere.",russian:"Она хочет.",explanation:"Нужно quiere."};
+ a.qa.offerVoiceMistake(phrase);a.qa.confirmVoiceProposal(0);
+ assert.equal(a.qa.pendingVoiceCount(),1);
+ a.qa.startVoiceReview();a.qa.deleteVoiceReview();
+ assert.equal(a.qa.pendingVoiceCount(),0);
+ assert.equal(a.qa.state().es[0].slots.length,0);
+});
+test("a reappearing mistake reopens completed voice practice", () => {
+ const a=runApp(),phrase={incorrect:"Ella quiero aprender.",correct:"Ella quiere aprender.",russian:"Она хочет учиться.",explanation:"Нужно quiere."};
+ a.qa.offerVoiceMistake(phrase);a.qa.confirmVoiceProposal(0);a.qa.startVoiceReview();
+ a.nodes["review-answer"].value=phrase.correct;a.qa.checkVoiceReview();a.qa.nextVoiceReview();
+ assert.equal(a.qa.pendingVoiceCount(),0);
+ a.qa.offerVoiceMistake(phrase);a.qa.confirmVoiceProposal(0);
+ assert.equal(a.qa.pendingVoiceCount(),1);
+});
