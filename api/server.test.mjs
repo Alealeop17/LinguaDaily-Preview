@@ -49,7 +49,7 @@ test("creates scoped short-lived realtime credential and never returns secret AP
   return {ok:true,json:async()=>({value:"ek_test_client_only",expires_at:1730000000})};
  };
  await withServer({OPENAI_API_KEY:"test-key",PREVIEW_ACCESS_CODE:"demo-passphrase"}, async url=>{
-  const response=await post(url,{lang:"es",lesson:1,errors:[0,2,999]});
+  const response=await post(url,{lang:"es",lesson:1,errors:[0,2,999],mastered:83});
   assert.equal(response.status,200);const output=await response.json();
   assert.equal(output.value,"ek_test_client_only");assert.equal(JSON.stringify(output).includes("test-key"),false);
  },fakeFetch);
@@ -59,6 +59,9 @@ test("creates scoped short-lived realtime credential and never returns secret AP
  assert.equal(body.expires_after.seconds,60);
  assert.equal(body.session.audio.output.voice,"marin");
  assert.match(body.session.instructions,/poder/i);
+ assert.match(body.session.instructions,/83 из 100/);
+ assert.match(body.session.instructions,/Используй более сложные ситуации/);
+ assert.match(body.session.instructions,/объясни иначе/);
  assert.doesNotMatch(body.session.instructions,/Quiero.*absolutely-no-such/i);
  assert.equal(calls[0].opts.headers.Authorization,"Bearer test-key");
 });
