@@ -9,7 +9,7 @@ Standalone learning preview for Spanish and English. Changes are developed on a 
 
 The written mode does not speak Russian prompts or auto-play the answer. Manual playback of foreign-language words remains available. The red feedback gives a precise conjugation hint when the answer contains a known wrong form (`ella quiero` → `ella quiere`, `she want` → `she wants`).
 
-The voice tutor offers three styles (calm, energetic, demanding), two built-in OpenAI voices (Marin, Cedar), and slow/normal speed. These preferences are saved separately from lesson progress. The access code is kept in page memory only and is never persisted.
+The voice tutor offers three styles (calm, energetic, demanding), two built-in OpenAI voices (Marin, Cedar), and slow/normal speed. These preferences are saved separately from lesson progress. The access code is kept in page memory only and is never persisted. Explicitly confirmed mistake cards are stored locally under a distinct key; they can be reviewed, removed, or reopened. Unconfirmed suggestions stay in memory and vanish when leaving the dialogue.
 
 ## Local verification
 
@@ -33,9 +33,9 @@ The server and client must run on the same HTTPS origin. Configure these **serve
 
 The browser POSTs to the same-origin `/api/realtime/token`, receives a short-lived client credential, then establishes WebRTC with OpenAI. The long-lived API key stays on the server. There is an explicit preview code, hourly server rate limit, and ten-minute client-side preview cap. API usage may incur separate costs. The page applies browser CSP, frame restrictions, and same-origin microphone policy.
 
-**Verification:** 30 frontend/browser test cases have been exercised in an isolated JavaScript harness and passed. Another 13 server security/response scenarios passed with mocked Node interfaces. The repository contains 41 Node test definitions. **The complete `npm test` suite has not yet run directly under Node.js.**
+**Verification:** 34 frontend/browser test cases have been exercised in an isolated JavaScript harness and passed. Another 13 server security/response scenarios passed with mocked Node interfaces. The repository contains 46 Node test definitions. **The complete `npm test` suite has not yet run directly under Node.js.**
 
-**Not yet verified:** live audio with an actual OpenAI API key, real microphone permission and playback on iPhone Safari, and service deployment settings. Voice-generated mistakes are not yet automatically converted into new writing exercises; the existing bridge sends written mistakes and mastery into the voice tutor. Passing mock tests does not verify live audio or billing.
+**Not yet verified:** live audio with an actual OpenAI API key, real microphone permission and playback on iPhone Safari, and service deployment settings. Voice-generated mistake suggestions can be returned by a Realtime function tool, reviewed and explicitly confirmed by the learner, and then studied in a separate written review without touching the existing 100-slot lesson progress. The end-to-end *live model* function-call path remains unverified; mock event tests have passed. Passing mock tests does not verify live audio or billing.
 
 Do not deploy or merge this preview branch into an existing production site until reviewed.
 
