@@ -14,6 +14,18 @@ const post=(url,payload,code="demo-passphrase",site=origin) =>
  fetch(url+"/api/realtime/token",{method:"POST",headers:{"content-type":"application/json","origin":site,"x-preview-access":code},body:JSON.stringify(payload)});
 const lesson={lang:"es",lesson:0,errors:[]};
 
+test("preview HTML is served from the same origin as its API", async () => {
+ await withServer({}, async url=>{
+  const response=await fetch(url+"/");
+  assert.equal(response.status,200);
+  assert.match(response.headers.get("content-type"),/text\/html/);
+  assert.equal(response.headers.get("cache-control"),"no-store");
+  const page=await response.text();
+  assert.match(page,/Свободный диалог/);
+  assert.doesNotMatch(page,/OPENAI_API_KEY/);
+ });
+});
+
 test("health returns configuration without secrets", async () => {
  await withServer({}, async url => {
   const r=await fetch(url+"/health");
