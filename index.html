@@ -257,6 +257,30 @@ function showQuickReference(){
 
 let dialogueCall=null,dialogueAttempt=0,dialogueJoining=false,dialogueError='',dialogueStatus='';
 let previewPasscode='',dialogueTranscript=[],dialogueMuted=false;
+const TUTOR_PREF_KEY='lingua-daily-realtime-tutor-pref-v1';
+let tutorPrefs={style:'calm',voice:'marin',pace:'slow'};
+try{
+ const savedPrefs=JSON.parse(localStorage.getItem(TUTOR_PREF_KEY)||'null');
+ if(savedPrefs){
+  if(['calm','energetic','demanding'].includes(savedPrefs.style))tutorPrefs.style=savedPrefs.style;
+  if(['marin','cedar'].includes(savedPrefs.voice))tutorPrefs.voice=savedPrefs.voice;
+  if(['slow','normal'].includes(savedPrefs.pace))tutorPrefs.pace=savedPrefs.pace;
+ }
+}catch(e){}
+function saveTutorPrefs(){
+ try{localStorage.setItem(TUTOR_PREF_KEY,JSON.stringify(tutorPrefs))}
+ catch(e){elid('status').textContent='Не удалось сохранить настройки преподавателя.'}
+}
+function tutorChoice(card,labelText,id,key,options){
+ const label=el('label','answer-label',labelText);label.htmlFor=id;card.append(label);
+ const select=el('select','voice-picker');select.id=id;select.setAttribute('aria-label',labelText);
+ for(const [value,title] of options){const option=el('option','',title);option.value=value;select.append(option)}
+ select.value=tutorPrefs[key];
+ select.addEventListener('change',()=>{
+  tutorPrefs[key]=select.value;saveTutorPrefs();
+ });
+ card.append(select);
+}
 const MAX_PREVIEW_CALL_MS=10*60*1000;
 let dialogueTimeout=null,pendingDialogueStream=null,dialogueSoundBlocked=false;
 const remoteDialogueAudio=document.createElement('audio');
@@ -308,7 +332,7 @@ async function startDialogue(){
   const mastered=state().slots.filter(slot=>slot.status==='green').length;
   const tokenResponse=await fetch('/api/realtime/token',{
    method:'POST',headers:{'Content-Type':'application/json','X-Preview-Access':previewPasscode},
-   body:JSON.stringify({lang,lesson:idx,errors,mastered})
+   body:JSON.stringify({lang,lesson:idx,errors,mastered,...tutorPrefs})
   });
   if(!tokenResponse.ok){
    const hints={401:'Неверный код доступа.',403:'Сайт не допущен к голосовому серверу.',429:'Лимит голосовых подключений исчерпан.',503:'Голосовой сервер ещё не настроен.'};
@@ -378,6 +402,15 @@ function renderDialogue(){
   const label=el('label','answer-label','Код доступа к пробной версии');label.htmlFor='preview-code';card.append(label);
   const access=el('input','answer');access.id='preview-code';access.type='password';access.autocomplete='off';access.value=previewPasscode;
   access.addEventListener('input',()=>{previewPasscode=access.value.slice(0,180)});card.append(access);
+  tutorChoice(card,'Стиль преподавателя','tutor-style','style',[
+   ['calm','Спокойный'],['energetic','Энергичный'],['demanding','Требовательный']
+  ]);
+  tutorChoice(card,'Голос преподавателя','tutor-voice','voice',[
+   ['marin','Marin'],['cedar','Cedar']
+  ]);
+  tutorChoice(card,'Скорость речи','tutor-pace','pace',[
+   ['slow','Медленно'],['normal','Обычная']
+  ]);
  }
  if(dialogueStatus)card.append(el('p','lead',dialogueStatus));
  if(dialogueError)card.append(el('p','retry',dialogueError));
