@@ -5,9 +5,11 @@ Standalone learning preview for Spanish and English. Changes are developed on a 
 ## Two practice modes
 
 - **Пишу** — displays the Russian sentence immediately. Exact answers are green; one clear typographical mistake in an otherwise correct sentence is green with a warning; grammatical and conjugation mistakes are red and scheduled for review. Answers and review queues keep using the existing `lingua-daily-iphone-preview-v10` browser storage key.
-- **Свободный диалог** — live voice tutoring through OpenAI Realtime and WebRTC, including microphone mute, stop/cleanup, Russian explanations on request, recent turn transcripts for the current page only, and adapting the tutor to written mastery/errors. No separate `Говорю` mode.
+- **Свободный диалог** — live voice tutoring through OpenAI Realtime and WebRTC, including microphone mute, stop/cleanup, Russian explanations on request, recent turn transcripts for the current page only, and adapting the tutor to written mastery/errors. No separate `Говорю` mode. The preview has a ten-minute session cap, a user-gesture sound recovery action for Safari, and auto-stop when the app is backgrounded.
 
-The written mode does not speak Russian prompts or auto-play the answer. Manual playback of foreign-language words remains available.
+The written mode does not speak Russian prompts or auto-play the answer. Manual playback of foreign-language words remains available. The red feedback gives a precise conjugation hint when the answer contains a known wrong form (`ella quiero` → `ella quiere`, `she want` → `she wants`).
+
+The voice tutor offers three styles (calm, energetic, demanding), two built-in OpenAI voices (Marin, Cedar), and slow/normal speed. These preferences are saved separately from lesson progress. The access code is kept in page memory only and is never persisted.
 
 ## Local verification
 
@@ -29,8 +31,12 @@ The server and client must run on the same HTTPS origin. Configure these **serve
 - `ALLOWED_ORIGIN` — public HTTPS origin of the preview, e.g. `https://lingua-daily-iphone-preview.onrender.com` (this URL is also the default).
 - `OPENAI_REALTIME_MODEL` — optional model override (default `gpt-realtime-2.1`).
 
-The browser POSTs to the same-origin `/api/realtime/token`, receives a short-lived client credential, then establishes WebRTC with OpenAI. The long-lived API key stays on the server. There is an explicit preview code and session rate limit. API usage may incur separate costs.
+The browser POSTs to the same-origin `/api/realtime/token`, receives a short-lived client credential, then establishes WebRTC with OpenAI. The long-lived API key stays on the server. There is an explicit preview code, hourly server rate limit, and ten-minute client-side preview cap. API usage may incur separate costs. The page applies browser CSP, frame restrictions, and same-origin microphone policy.
 
-**Not yet verified:** end-to-end audio with a live API key, microphone approval and playback on iPhone Safari, and service deployment settings. Passing code checks does not verify those capabilities.
+**Verification:** 30 frontend/browser test cases have been exercised in an isolated JavaScript harness and passed. Another 13 server security/response scenarios passed with mocked Node interfaces. The repository contains 41 Node test definitions. **The complete `npm test` suite has not yet run directly under Node.js.**
+
+**Not yet verified:** live audio with an actual OpenAI API key, real microphone permission and playback on iPhone Safari, and service deployment settings. Voice-generated mistakes are not yet automatically converted into new writing exercises; the existing bridge sends written mistakes and mastery into the voice tutor. Passing mock tests does not verify live audio or billing.
 
 Do not deploy or merge this preview branch into an existing production site until reviewed.
+
+Browser progress is tied to its website origin; the preview does not migrate Netlify localStorage to Render or back. Do not replace the production origin without an explicit progress-migration plan.
