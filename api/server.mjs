@@ -25,13 +25,23 @@ function json(res, code, obj) {
 
 function jsonBody(req) {
   return new Promise((resolve, reject) => {
-    const parts = []; let total = 0;
+    const parts = []; let total = 0; let tooLarge = false;
     req.on("data", chunk => {
+      if (tooLarge) return;
       total += chunk.length;
-      if (total > maxBody) { reject(Object.assign(new Error("Large payload"), { status: 413 })); req.destroy(); return; }
+      if (total > maxBody) {
+        tooLarge = true;parts.length=0;
+        reject(Object.assign(new Error("Large payload"), { status: 413 }));
+        // Keep the socket alive so the client receives the 413 JSON response.
+        req.resume();return;
+      }
       parts.push(chunk);
     });
-    req.on("end", () => { try { resolve(JSON.parse(Buffer.concat(parts).toString("utf8") || "{}")); } catch { reject(Object.assign(new Error("Bad JSON"), { status: 400 })); } });
+    req.on("end", () => {
+      if (tooLarge) return;
+      try { resolve(JSON.parse(Buffer.concat(parts).toString("utf8") || "{}")); }
+      catch { reject(Object.assign(new Error("Bad JSON"), { status: 400 })); }
+    });
     req.on("error", reject);
   });
 }
@@ -42,48 +52,76 @@ function limit(map, id, windowMs, allowed) {
   hits.push(now()); map.set(id, hits); return true;
 }
 
-function buildInstructions(lang, lessonIndex, errors = []) {
+function buildInstructions(lang, lessonIndex, errors = [], mastered = 0, style = 'calm') {
   const lesson = curriculum[lang][lessonIndex];
   const previous = lessonIndex === 1 ? curriculum[lang][0] : null;
   const target = lang === "es" ? "испанском" : "английском";
   const words = [ ...(previous ? [...previous.nouns, ...previous.adjectives, ...previous.verbs] : []), ...lesson.nouns, ...lesson.adjectives, ...lesson.verbs ].map(x => x[0]);
   const errorExamples = errors.filter(n => Number.isInteger(n) && n >= 0 && n < lesson.tasks.length).slice(0, 6).map(n => lesson.tasks[n][1]);
+  const styleInstruction = {
+    calm: "Манера спокойная, внимательная, доброжелательная. Давай время подумать.",
+    energetic: "Манера энергичная и дружелюбная, поощряй свободную речь и поддерживай темп.",
+    demanding: "Манера требовательная, но уважительная. Проверяй владение формами, проси исправить важные ошибки без давления."
+  }[style] || "Манера спокойная, внимательная, доброжелательная.";
   return [
+    styleInstruction,
     "Ты профессиональный терпеливый языковой преподаватель. Ученик — русскоязычный взрослый.",
     "Веди настоящий диалог голосом. Твой основной язык — " + target + ". Говори короткими естественными фразами, по одной мысли за раз, медленно, с паузами.",
     "Урок " + (lessonIndex + 1) + ". Тема: " + lesson.title + ". Сегодня тренируем спряжение глагола " + lesson.focus + ".",
     "Изученные формы: " + lesson.forms.map(f => f[0]).join("; ") + ".",
     "Словарь ученика: " + words.join(", ") + ".",
     "Задавай ОДИН вопрос за раз, дождись ответа ученика, продолжай разговор согласно ответу.",
-    "Первое обращение: поприветствуй на изучаемом языке, коротко объясни, что поговорим о " + lesson.focus + ", и задай очень простой вопрос с изученными словами.",
+    "Первое обращение: поприветствуй на изучаемом языке и задай вопрос по уровню ученика о " + lesson.focus + ". Не повторяй давно освоенные элементарные задания.",
     "Вводи новую лексику только при необходимости и тогда сразу коротко объясняй смысл на русском отдельной фразой.",
-    "Когда ученик ошибается, сначала дай короткую корректировку с правильным примером, затем попроси повторить. Не исправляй каждую мелочь, не прерывай постоянно. Не говори длинными лекциями.",
+    "Когда ученик ошибается, сначала дай короткую корректировку с правильным примером, затем попроси повторить. Если не понял, объясни иначе или приведи другой пример. Не исправляй каждую мелочь, не прерывай постоянно.",
+    "Если заметил явную грамматическую или лексическую ошибку ученика, при необходимости вызови record_language_error с короткой исправленной фразой и русским переводом. Не сохраняй имена, личные подробности, контактные данные. Не вызывай инструмент из-за оговорки, акцента или неопределённой расшифровки. Продолжай естественный разговор и исправляй ошибку голосом.",
     "Для русского объяснения говори целую фразу по-русски, затем отдельную фразу на изучаемом языке. Никогда не произноси испанские или английские слова внутри русской фразы.",
     "Если ученик молчит или подбирает слова, жди терпеливо; избегай скороговорки.",
     "Реальная ситуация разговора важнее механического повторения двадцати предложений.",
+    "В письменной практике уже верно выполнено " + mastered + " из 100 заданий этого урока. " + (mastered >= 70 ? "Используй более сложные ситуации и не повторяй освоенные вводные конструкции без необходимости." : "Сохраняй доступную сложность; усложняй, если ученик справляется."),
     errorExamples.length ? "Стоит аккуратно повторить прежние трудные конструкции: " + errorExamples.join(" | ") : "",
     "Не называй себя ChatGPT из этой беседы, не обещай точности оценки акцента и не утверждай, что распознавание всегда безошибочно."
   ].filter(Boolean).join("\n");
 }
 
-function sessionParams({lang, lesson, errors}) {
+function sessionParams({lang, lesson, errors, mastered, style, voice, pace}) {
   const safeLang = ["es","en"].includes(lang) ? lang : "es";
   const n = lesson === 1 ? 1 : 0;
   const model = process.env.OPENAI_REALTIME_MODEL || "gpt-realtime-2.1";
+  const safeStyle = ['calm','energetic','demanding'].includes(style) ? style : 'calm';
+  const safeVoice = ['marin','cedar'].includes(voice) ? voice : 'marin';
+  const safeSpeed = pace==='normal' ? 1 : 0.84;
   return {
     expires_after: { anchor: "created_at", seconds: 60 },
     session: {
       type: "realtime",
       model,
-      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : []),
+      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : [], Number.isInteger(mastered) ? Math.max(0,Math.min(100,mastered)) : 0, safeStyle),
       max_output_tokens: 320,
+      tool_choice: "auto",
+      tools: [{
+        type: "function",
+        name: "record_language_error",
+        description: "Offer a clear learner language error as an optional written practice item. The user must confirm it before it is stored.",
+        parameters: {
+          type: "object",
+          properties: {
+            incorrect: { type: "string", description: "Short incorrect sentence in the learning language, with no sensitive details" },
+            correct: { type: "string", description: "Corrected sentence in the learning language" },
+            russian: { type: "string", description: "Natural Russian translation of the correct sentence" },
+            explanation: { type: "string", description: "One short Russian explanation of the error" }
+          },
+          required: ["incorrect","correct","russian","explanation"],
+          additionalProperties: false
+        }
+      }],
       audio: {
         input: {
           noise_reduction: { type: "near_field" },
           transcription: { model: "gpt-4o-mini-transcribe", language: safeLang },
           turn_detection: { type: "semantic_vad", eagerness: "low", create_response: true, interrupt_response: true }
         },
-        output: { voice: "marin", speed: 0.84 }
+        output: { voice: safeVoice, speed: safeSpeed }
       }
     }
   };
@@ -106,6 +144,20 @@ export function makeHandler(opts = {}) {
       if (origin !== allowedOrigin) return json(res, 403, { error: "origin_denied" });
       res.writeHead(204); res.end(); return;
     }
+    // Serve the standalone preview from the same origin as the protected token endpoint.
+    if ((req.url === "/" || req.url === "/index.html") && req.method === "GET") {
+      res.writeHead(200, {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "Referrer-Policy": "no-referrer",
+        "Permissions-Policy": "camera=(), geolocation=(), microphone=(self)",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com; media-src 'self' blob:; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+      });
+      res.end(readFileSync(new URL("../index.html", import.meta.url)));
+      return;
+    }
     if (req.url === "/health" && req.method === "GET") return json(res, 200, { ok: true, configured: Boolean(getEnv().OPENAI_API_KEY && getEnv().PREVIEW_ACCESS_CODE) });
     if (req.url !== "/api/realtime/token" || req.method !== "POST") return json(res, 404, { error: "not_found" });
     if (origin !== allowedOrigin) return json(res, 403, { error: "origin_denied" });
@@ -118,12 +170,13 @@ export function makeHandler(opts = {}) {
       if (!limit(badAttempts, client, 15 * 60_000, 5)) return json(res, 429, { error: "too_many_attempts" });
       return json(res, 401, { error: "invalid_access_code" });
     }
-    if (!limit(recentSessions, "sessions:" + client, 60 * 60_000, maxTokensPerHour)) return json(res, 429, { error: "session_limit" });
     let body;
     try { body = await jsonBody(req); } catch(e) { return json(res, e.status || 400, { error: "invalid_body" }); }
-    if (!["es","en"].includes(body.lang) || ![0,1].includes(body.lesson)) return json(res, 400, { error: "invalid_lesson" });
+    if (!body || !["es","en"].includes(body.lang) || ![0,1].includes(body.lesson)) return json(res, 400, { error: "invalid_lesson" });
+    if (!limit(recentSessions, "sessions:" + client, 60 * 60_000, maxTokensPerHour)) return json(res, 429, { error: "session_limit" });
     const safeErrors = Array.isArray(body.errors) ? body.errors.slice(0, 6) : [];
-    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors });
+    const safeMastered = Number.isInteger(body.mastered) ? Math.max(0,Math.min(100,body.mastered)) : 0;
+    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors, mastered: safeMastered, style: body.style, voice: body.voice, pace: body.pace });
 
     try {
       const safetyId = createHash("sha256").update("lingua-preview-user:" + PREVIEW_ACCESS_CODE).digest("hex");

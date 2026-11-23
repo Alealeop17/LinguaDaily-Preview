@@ -8,6 +8,6 @@
   },
   "scripts": {
     "start": "node api/server.mjs",
-    "test": "node --test api/server.test.mjs"
+    "test": "node --test api/server.test.mjs api/frontend.test.mjs api/browser.test.mjs"
   }
 }
