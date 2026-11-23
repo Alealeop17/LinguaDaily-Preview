@@ -96,17 +96,17 @@ function check(){const s=state(),t=task();if(s.checked||!t)return;const inp=elid
 function next(){const s=state();if(!s.checked)return;cancelAudio();s.draft='';s.checked=false;s.last=null;s.active=null;showPrompt=false;persist();render()}
 function setPhase(phase){cancelAudio();state().phase=phase;showPrompt=false;showForms=false;persist();render()}
 function restart(){cancelAudio();saved[lang][idx]=initial();persist();render()}
-function top(label,number){const line=el('div','step');line.append(el('span','',label),el('span','',number));root.append(line)}
+function sectionHeading(label,number){const line=el('div','step');line.append(el('span','',label),el('span','',number));root.append(line)}
 function speaker(word,langCode,description){const b=el('button','sound-btn','▶');b.type='button';b.setAttribute('aria-label','Послушать: '+(description||word));b.addEventListener('click',()=>speak(word,langCode,0.68));return b}
 function vocabList(groups){const scroll=el('div','vocab-scroll');for(const [title,words] of groups){scroll.append(el('div','group-label',title));
  for(const [foreign,ru] of words){const row=el('div','vocab-row');const w=el('span','vocab-word',foreign);w.lang=lang;row.append(w,el('span','vocab-meaning',ru),speaker(foreign,locale()));scroll.append(row)}}
  return scroll}
-function renderWords(){const d=cur();top('Урок '+(idx+1)+' · знакомимся со словами','30 слов');root.append(el('h1','','Слова урока'));root.append(el('p','lead','10 существительных, 10 прилагательных, 10 глаголов. Слушай слова по значку справа.'));const card=el('div','panel');
+function renderWords(){const d=cur();sectionHeading('Урок '+(idx+1)+' · знакомимся со словами','30 слов');root.append(el('h1','','Слова урока'));root.append(el('p','lead','10 существительных, 10 прилагательных, 10 глаголов. Слушай слова по значку справа.'));const card=el('div','panel');
  card.append(vocabList([['Существительные · 10',d.nouns],['Прилагательные · 10',d.adjectives],['Глаголы · 10',d.verbs]]));root.append(card);
  root.append(button('К спряжению '+d.focus+' →',()=>setPhase('forms'),'primary'));
  root.append(el('p','note',idx===1?'В упражнениях используются слова обоих уроков.':'Следующий шаг — спряжение одного глагола, а затем перевод предложений.'));}
 function renderForms(){
- const d=cur();top('Урок '+(idx+1)+' · глагол','1 из 10');root.append(el('h1','',d.focus));root.append(el('p','lead','Изучаем формы только этого глагола. Другие глаголы пока остаются в начальной форме.'));
+ const d=cur();sectionHeading('Урок '+(idx+1)+' · глагол','1 из 10');root.append(el('h1','',d.focus));root.append(el('p','lead','Изучаем формы только этого глагола. Другие глаголы пока остаются в начальной форме.'));
  const card=el('div','panel'),list=el('div','form-list');
  const grouping=lang==='es'?[[0],[1],[2,3,4],[5,6],[7,8],[9,10,11]]:[[0],[1],[2,3],[4],[5]];
  for(const ids of grouping){const pairs=ids.map(i=>d.forms[i]);if(pairs.some(v=>!v))continue;const formWord=pairs[0][0].trim().split(/\s+/).slice(-1)[0];const names=pairs.map(x=>x[0].trim().split(/\s+/).slice(0,-1).join(' ')).join(' · ');
@@ -120,7 +120,7 @@ function renderForms(){
  root.append(button('← К 30 словам',()=>setPhase('words'),'minilink'));}
 function renderProgress(s){
  const green=count(s),red=s.slots.length-green;
- top('До автоматизма · урок '+(idx+1),green+' / '+MAX);
+ sectionHeading('До автоматизма · урок '+(idx+1),green+' / '+MAX);
  const grid=el('div','mastery');grid.setAttribute('role','progressbar');grid.setAttribute('aria-label','Зелёных ответов');grid.setAttribute('aria-valuemin','0');grid.setAttribute('aria-valuemax',String(MAX));grid.setAttribute('aria-valuenow',String(green));
  for(let i=0;i<MAX;i++)grid.append(el('span',s.slots[i]?.status||''));root.append(grid);
  const notes=el('div','stats');notes.append(el('span','','Зелёных: '+green),el('span','','Красных: '+red+' · Ошибок: '+s.errors));root.append(notes);}
