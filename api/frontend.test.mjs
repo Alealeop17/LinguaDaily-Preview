@@ -67,3 +67,30 @@ test("temporary Realtime credential flow never embeds the long-lived key in fron
   assert.doesNotMatch(html,/OPENAI_API_KEY/);
   assert.doesNotMatch(html,/localStorage\.setItem\([^)]*previewPasscode/);
 });
+
+test("accepts common internal transposition with warning", () => {
+ const r=assess("Ella quiere aprneder español y trabajar.","Ella quiere aprender español y trabajar.","es");
+ assert.equal(r.kind,"typo");
+});
+test("rejects truncated verb ending even when one character away", () => {
+ assert.equal(assess("Ella quier aprender español.","Ella quiere aprender español.","es").kind,"error");
+ assert.equal(assess("Ella quierex aprender español.","Ella quiere aprender español.","es").kind,"error");
+ assert.equal(assess("Ella quieres aprender español.","Ella quiere aprender español.","es").kind,"error");
+});
+test("does not accept a different tense as an English typo", () => {
+ assert.equal(assess("I went to learn English.","I want to learn English.","en").kind,"error");
+ assert.equal(assess("She want to learn English.","She wants to learn English.","en").kind,"error");
+});
+test("preview call has a cap, a user-gesture audio fallback and pending microphone cleanup", () => {
+ assert.match(html,/MAX_PREVIEW_CALL_MS=10\*60\*1000/);
+ assert.match(html,/pendingDialogueStream=stream/);
+ assert.match(html,/if\(pendingDialogueStream&&pendingDialogueStream!==connectedStream\)/);
+ assert.match(html,/Включить звук преподавателя/);
+});
+test("teacher preferences are allowlisted and stored separately from learner progress", () => {
+ assert.match(html,/TUTOR_PREF_KEY='lingua-daily-realtime-tutor-pref-v1'/);
+ assert.match(html,/tutorChoice\(card,'Стиль преподавателя'/);
+ assert.match(html,/tutorChoice\(card,'Голос преподавателя'/);
+ assert.match(html,/tutorChoice\(card,'Скорость речи'/);
+ assert.match(html,/body:JSON\.stringify\(\{lang,lesson:idx,errors,mastered,\.\.\.tutorPrefs\}\)/);
+});
