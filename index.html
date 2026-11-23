@@ -123,6 +123,22 @@ function typoSuggestion(answer,model,l){
  }
  return null;
 }
+function conjugationHint(answer,model,l){
+ const got=answer.split(' '),expected=model.split(' ');
+ if(got.length!==expected.length)return null;
+ for(let i=0;i<got.length-1;i++){
+  if(got[i]!==expected[i]||got[i+1]===expected[i+1])continue;
+  const subject=expected[i],correct=expected[i+1],wrong=got[i+1];
+  for(const lesson of curriculum[l]){
+   const forms=lesson.forms.map(pair=>normalize(pair[0]).split(' '));
+   if(forms.some(parts=>parts[0]===subject&&parts[1]===correct)
+      &&forms.some(parts=>parts[1]===wrong)){
+    return 'С «'+subject+'» используется форма «'+correct+'», а не «'+wrong+'».';
+   }
+  }
+ }
+ return null;
+}
 function assess(value,model,l){
  const answer=normalize(value),expected=normalize(model);
  if(!answer)return {ok:false,kind:'error',why:'Напиши полный перевод.'};
@@ -131,6 +147,8 @@ function assess(value,model,l){
  if(variants(model,l).some(x=>normalize(x)===answer||(l==='es'&&normalize(x.replace(/^(yo|tú|él|ella|usted|nosotros|nosotras|vosotros|vosotras|ellos|ellas|ustedes) /i,''))===answer)))return {ok:true,kind:'correct',why:'Правильно.'};
  const typo=typoSuggestion(answer,model,l);
  if(typo)return {ok:true,kind:'typo',why:'Засчитано с замечанием: '+typo.typed+' → '+typo.correct+'.'};
+ const verbError=conjugationHint(answer,expected,l);
+ if(verbError)return {ok:false,kind:'error',why:verbError};
  if(answer.normalize('NFD').replace(/[\u0300-\u036f]/g,'')===expected.normalize('NFD').replace(/[\u0300-\u036f]/g,''))return {ok:false,kind:'error',why:'Проверь ударения или букву ñ.'};
  let i=0;const a=[...answer],b=[...expected];while(i<a.length&&i<b.length&&a[i]===b[i])i++;
  return {ok:false,kind:'error',why:'Проверь перевод и формы слов примерно с символа '+(i+1)+'.'};
