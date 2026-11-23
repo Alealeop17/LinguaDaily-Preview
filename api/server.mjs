@@ -42,7 +42,7 @@ function limit(map, id, windowMs, allowed) {
   hits.push(now()); map.set(id, hits); return true;
 }
 
-function buildInstructions(lang, lessonIndex, errors = []) {
+function buildInstructions(lang, lessonIndex, errors = [], mastered = 0) {
   const lesson = curriculum[lang][lessonIndex];
   const previous = lessonIndex === 1 ? curriculum[lang][0] : null;
   const target = lang === "es" ? "испанском" : "английском";
@@ -55,18 +55,19 @@ function buildInstructions(lang, lessonIndex, errors = []) {
     "Изученные формы: " + lesson.forms.map(f => f[0]).join("; ") + ".",
     "Словарь ученика: " + words.join(", ") + ".",
     "Задавай ОДИН вопрос за раз, дождись ответа ученика, продолжай разговор согласно ответу.",
-    "Первое обращение: поприветствуй на изучаемом языке, коротко объясни, что поговорим о " + lesson.focus + ", и задай очень простой вопрос с изученными словами.",
+    "Первое обращение: поприветствуй на изучаемом языке и задай вопрос по уровню ученика о " + lesson.focus + ". Не повторяй давно освоенные элементарные задания.",
     "Вводи новую лексику только при необходимости и тогда сразу коротко объясняй смысл на русском отдельной фразой.",
-    "Когда ученик ошибается, сначала дай короткую корректировку с правильным примером, затем попроси повторить. Не исправляй каждую мелочь, не прерывай постоянно. Не говори длинными лекциями.",
+    "Когда ученик ошибается, сначала дай короткую корректировку с правильным примером, затем попроси повторить. Если не понял, объясни иначе или приведи другой пример. Не исправляй каждую мелочь, не прерывай постоянно.",
     "Для русского объяснения говори целую фразу по-русски, затем отдельную фразу на изучаемом языке. Никогда не произноси испанские или английские слова внутри русской фразы.",
     "Если ученик молчит или подбирает слова, жди терпеливо; избегай скороговорки.",
     "Реальная ситуация разговора важнее механического повторения двадцати предложений.",
+    "В письменной практике уже верно выполнено " + mastered + " из 100 заданий этого урока. " + (mastered >= 70 ? "Используй более сложные ситуации и не повторяй освоенные вводные конструкции без необходимости." : "Сохраняй доступную сложность; усложняй, если ученик справляется."),
     errorExamples.length ? "Стоит аккуратно повторить прежние трудные конструкции: " + errorExamples.join(" | ") : "",
     "Не называй себя ChatGPT из этой беседы, не обещай точности оценки акцента и не утверждай, что распознавание всегда безошибочно."
   ].filter(Boolean).join("\n");
 }
 
-function sessionParams({lang, lesson, errors}) {
+function sessionParams({lang, lesson, errors, mastered}) {
   const safeLang = ["es","en"].includes(lang) ? lang : "es";
   const n = lesson === 1 ? 1 : 0;
   const model = process.env.OPENAI_REALTIME_MODEL || "gpt-realtime-2.1";
@@ -75,7 +76,7 @@ function sessionParams({lang, lesson, errors}) {
     session: {
       type: "realtime",
       model,
-      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : []),
+      instructions: buildInstructions(safeLang, n, Array.isArray(errors) ? errors : [], Number.isInteger(mastered) ? Math.max(0,Math.min(100,mastered)) : 0),
       max_output_tokens: 320,
       audio: {
         input: {
@@ -135,7 +136,8 @@ export function makeHandler(opts = {}) {
     try { body = await jsonBody(req); } catch(e) { return json(res, e.status || 400, { error: "invalid_body" }); }
     if (!["es","en"].includes(body.lang) || ![0,1].includes(body.lesson)) return json(res, 400, { error: "invalid_lesson" });
     const safeErrors = Array.isArray(body.errors) ? body.errors.slice(0, 6) : [];
-    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors });
+    const safeMastered = Number.isInteger(body.mastered) ? Math.max(0,Math.min(100,body.mastered)) : 0;
+    const params = sessionParams({ lang: body.lang, lesson: body.lesson, errors: safeErrors, mastered: safeMastered });
 
     try {
       const safetyId = createHash("sha256").update("lingua-preview-user:" + PREVIEW_ACCESS_CODE).digest("hex");
