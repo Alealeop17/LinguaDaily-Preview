@@ -94,3 +94,14 @@ test("teacher preferences are allowlisted and stored separately from learner pro
  assert.match(html,/tutorChoice\(card,'Скорость речи'/);
  assert.match(html,/body:JSON\.stringify\(\{lang,lesson:idx,errors,mastered,\.\.\.tutorPrefs\}\)/);
 });
+
+test("red conjugation error explains the exact correct Spanish form", () => {
+ const r=assess("Ella quiero aprender español y trabajar.","Ella quiere aprender español y trabajar.","es");
+ assert.equal(r.kind,"error");
+ assert.match(r.why,/ella.*quiere.*quiero/);
+});
+test("red conjugation error explains the exact correct English form", () => {
+ const r=assess("She want to learn English.","She wants to learn English.","en");
+ assert.equal(r.kind,"error");
+ assert.match(r.why,/she.*wants.*want/);
+});
