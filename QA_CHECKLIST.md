@@ -27,7 +27,8 @@
 - [ ] Confirm mobile UI spacing, keyboard overlap and hardware mute controls
 - [ ] Confirm language settings, style, voice, and speed persist on iPhone after refresh
 - [ ] Make a progress-backup/migration plan before changing the origin of the user's deployed site
-- [ ] Test voice-to-writing error capture separately; current prototype only sends written errors to voice tutor
+- [x] Test opt-in voice-to-writing card creation, deletion, reactivation and separate review using mock Realtime tool events
+- [ ] Test the full voice-to-writing function call path with a live OpenAI session, including model quality and transcription accuracy
 - [ ] Obtain explicit review approval before merging or publishing
 
 ## Practical release gate
