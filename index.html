@@ -394,6 +394,7 @@ function toggleDialogueMic(){
  render();
 }
 function toggleOral(on){
+ if(oralMode===on)return; // Tapping an already-selected tab must not hang up a call.
  endDialogue();cancelAudio();oralMode=on;quickRef=null;showPrompt=false;
  dialogueTranscript=[];render();
 }
