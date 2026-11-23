@@ -1,51 +1,100 @@
 {
   "es": [
     {
-      "title": "Querer: желания и планы",
-      "vocab": [
+      "title": "Хотеть · querer",
+      "focus": "querer",
+      "nouns": [
         [
-          "yo",
-          "я"
+          "agua",
+          "вода"
         ],
         [
-          "tú",
-          "ты"
+          "café",
+          "кофе"
         ],
         [
-          "él",
-          "он"
+          "pan",
+          "хлеб"
         ],
         [
-          "ella",
-          "она"
+          "libro",
+          "книга"
         ],
         [
-          "usted",
-          "Вы вежливо"
+          "casa",
+          "дом"
         ],
         [
-          "nosotros/nosotras",
-          "мы"
+          "música",
+          "музыка"
         ],
         [
-          "vosotros/vosotras",
-          "вы неформально"
+          "clase",
+          "урок"
         ],
         [
-          "ellos/ellas",
-          "они"
+          "trabajo",
+          "работа"
         ],
         [
-          "ustedes",
-          "вы во множественном числе"
+          "tiempo",
+          "время"
         ],
+        [
+          "español",
+          "испанский язык"
+        ]
+      ],
+      "adjectives": [
+        [
+          "caliente",
+          "горячий"
+        ],
+        [
+          "grande",
+          "большой"
+        ],
+        [
+          "interesante",
+          "интересный"
+        ],
+        [
+          "fácil",
+          "лёгкий"
+        ],
+        [
+          "difícil",
+          "сложный"
+        ],
+        [
+          "importante",
+          "важный"
+        ],
+        [
+          "útil",
+          "полезный"
+        ],
+        [
+          "agradable",
+          "приятный"
+        ],
+        [
+          "excelente",
+          "отличный"
+        ],
+        [
+          "libre",
+          "свободный"
+        ]
+      ],
+      "verbs": [
         [
           "querer",
           "хотеть"
         ],
         [
           "aprender",
-          "учить"
+          "учить, изучать"
         ],
         [
           "hablar",
@@ -68,311 +117,293 @@
           "покупать"
         ],
         [
-          "español",
-          "испанский"
-        ],
-        [
-          "libro",
-          "книга"
-        ],
-        [
-          "un",
-          "артикль"
-        ],
-        [
-          "en",
-          "в"
-        ],
-        [
-          "España",
-          "Испания"
-        ],
-        [
-          "Valencia",
-          "Валенсия"
-        ],
-        [
-          "aquí",
-          "здесь"
-        ],
-        [
-          "mañana",
-          "завтра"
-        ],
-        [
-          "hoy",
-          "сегодня"
-        ],
-        [
-          "no",
-          "не"
-        ],
-        [
-          "porque",
-          "потому что"
-        ],
-        [
-          "pero",
-          "но"
-        ],
-        [
-          "con",
-          "с"
-        ],
-        [
-          "y",
-          "и"
-        ]
-      ],
-      "tasks": [
-        [
-          "Я хочу учить испанский и работать здесь.",
-          "Quiero aprender español y trabajar aquí.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь заниматься испанским сегодня, но завтра хочешь работать.",
-          "Tú quieres estudiar español hoy, pero mañana quieres trabajar.",
-          "",
-          ""
-        ],
-        [
-          "Она хочет жить в Испании и говорить по-испански.",
-          "Ella quiere vivir en España y hablar español.",
-          "",
-          ""
-        ],
-        [
-          "Он хочет купить книгу и заниматься испанским.",
-          "Él quiere comprar un libro y estudiar español.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим жить в Валенсии и работать здесь.",
-          "Nosotros queremos vivir en Valencia y trabajar aquí.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите учить испанский, но сегодня не хотите заниматься.",
-          "Vosotros queréis aprender español, pero hoy no queréis estudiar.",
-          "",
-          "неформально"
-        ],
-        [
-          "Они хотят купить книгу и учить испанский.",
-          "Ellos quieren comprar un libro y aprender español.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите работать в Валенсии и учить испанский.",
-          "Usted quiere trabajar en Valencia y aprender español.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Вы хотите жить в Испании и говорить по-испански.",
-          "Ustedes quieren vivir en España y hablar español.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Я хочу говорить по-испански, но сегодня не хочу работать.",
-          "Yo quiero hablar español, pero hoy no quiero trabajar.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь купить книгу и учить испанский завтра.",
-          "Tú quieres comprar un libro y aprender español mañana.",
-          "",
-          ""
-        ],
-        [
-          "Она и он хотят жить в Испании и работать здесь.",
-          "Ella y él quieren vivir en España y trabajar aquí.",
-          "",
-          ""
-        ],
-        [
-          "Мы не хотим работать сегодня, но хотим учить испанский.",
-          "Nosotros no queremos trabajar hoy, pero queremos aprender español.",
-          "",
-          ""
-        ],
-        [
-          "Они хотят заниматься испанским, потому что хотят жить в Валенсии.",
-          "Ellos quieren estudiar español porque quieren vivir en Valencia.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу работать с ней завтра и заниматься с ним сегодня.",
-          "Yo quiero trabajar con ella mañana y estudiar con él hoy.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите купить книгу, но не хотите работать здесь.",
-          "Usted quiere comprar un libro, pero no quiere trabajar aquí.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Вы хотите говорить по-испански и жить в Испании.",
-          "Vosotros queréis hablar español y vivir en España.",
-          "",
-          "неформально"
-        ],
-        [
-          "Вы не хотите работать сегодня, потому что хотите учить испанский.",
-          "Ustedes no quieren trabajar hoy porque quieren aprender español.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Я хочу учить испанский и завтра говорить по-испански.",
-          "Quiero aprender español y hablar español mañana.",
-          "",
-          ""
-        ],
-        [
-          "Она хочет купить книгу и жить в Валенсии.",
-          "Ella quiere comprar un libro y vivir en Valencia.",
-          "",
-          ""
-        ],
-        [
-          "Он не хочет учиться сегодня, но завтра хочет работать.",
-          "Él no quiere estudiar hoy, pero mañana quiere trabajar.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим говорить по-испански с ними.",
-          "Nosotros queremos hablar español con ellos.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу жить в Испании, потому что хочу работать здесь.",
-          "Yo quiero vivir en España porque quiero trabajar aquí.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь учить испанский и работать с ней.",
-          "Tú quieres aprender español y trabajar con ella.",
-          "",
-          ""
-        ],
-        [
-          "Они хотят заниматься в Валенсии и говорить по-испански здесь.",
-          "Ellos quieren estudiar en Valencia y hablar español aquí.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите работать в Испании, но они хотят заниматься в Валенсии.",
-          "Vosotros queréis trabajar en España, pero ellos quieren estudiar en Valencia.",
-          "",
-          "неформально"
-        ],
-        [
-          "Я хочу купить книгу с ней и заниматься испанским.",
-          "Yo quiero comprar un libro con ella y estudiar español.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите учить испанский, потому что хотите жить в Испании.",
-          "Ustedes quieren aprender español porque quieren vivir en España.",
-          "",
-          "вежливо"
-        ]
-      ]
-    },
-    {
-      "title": "Действия и повседневная жизнь",
-      "vocab": [
-        [
-          "poder",
-          "мочь"
-        ],
-        [
-          "tener",
-          "иметь"
-        ],
-        [
-          "ir",
-          "идти ехать"
-        ],
-        [
-          "comer",
-          "есть"
+          "leer",
+          "читать"
         ],
         [
           "beber",
           "пить"
         ],
         [
-          "agua",
-          "вода"
+          "comer",
+          "есть"
+        ]
+      ],
+      "forms": [
+        [
+          "yo quiero",
+          "я хочу"
         ],
         [
-          "café",
-          "кофе"
+          "tú quieres",
+          "ты хочешь"
         ],
         [
-          "pan",
-          "хлеб"
+          "él quiere",
+          "он хочет"
         ],
         [
-          "casa",
-          "дом"
+          "ella quiere",
+          "она хочет"
         ],
         [
-          "escuela",
-          "школа"
+          "usted quiere",
+          "Вы хотите (вежливо)"
         ],
         [
-          "tiempo",
-          "время"
+          "nosotros queremos",
+          "мы хотим"
         ],
         [
-          "ahora",
-          "сейчас"
+          "nosotras queremos",
+          "мы хотим"
         ],
         [
-          "después",
-          "потом"
+          "vosotros queréis",
+          "вы хотите (Испания)"
         ],
         [
-          "siempre",
-          "всегда"
+          "vosotras queréis",
+          "вы хотите (Испания)"
         ],
         [
-          "nunca",
-          "никогда"
+          "ellos quieren",
+          "они хотят"
+        ],
+        [
+          "ellas quieren",
+          "они хотят"
+        ],
+        [
+          "ustedes quieren",
+          "Вы хотите (вежливо, мн.ч.)"
+        ]
+      ],
+      "helpers": [
+        [
+          "un",
+          "артикль для мужского рода"
+        ],
+        [
+          "una",
+          "артикль для женского рода"
+        ],
+        [
+          "en",
+          "в"
+        ],
+        [
+          "y",
+          "и"
+        ],
+        [
+          "con",
+          "с"
         ],
         [
           "para",
           "чтобы"
         ],
         [
-          "sin",
-          "без"
+          "no",
+          "не"
         ],
         [
-          "mi",
-          "мой"
+          "pero",
+          "но"
         ],
         [
-          "tu",
-          "твой"
+          "el",
+          "определённый артикль"
+        ],
+        [
+          "la",
+          "определённый артикль"
+        ]
+      ],
+      "note": "Спрягаем только querer. Другие глаголы используем в начальной форме: quiero comer, quieres leer. Прилагательные в этом наборе не меняются по роду.",
+      "tasks": [
+        [
+          "Я хочу пить горячий кофе и есть хлеб.",
+          "Yo quiero beber café caliente y comer pan.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь купить интересную книгу и читать дома.",
+          "Tú quieres comprar un libro interesante y leer en casa.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет изучать испанский и работать.",
+          "Ella quiere aprender español y trabajar.",
+          "",
+          ""
+        ],
+        [
+          "Он хочет жить в большом доме и пить кофе.",
+          "Él quiere vivir en una casa grande y beber café.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим заниматься испанским на интересном уроке.",
+          "Nosotros queremos estudiar español en una clase interesante.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите читать полезную книгу и изучать испанский.",
+          "Vosotros queréis leer un libro útil y aprender español.",
+          "",
+          "неформально"
+        ],
+        [
+          "Они хотят есть хлеб и пить горячую воду.",
+          "Ellos quieren comer pan y beber agua caliente.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите купить отличную книгу и читать.",
+          "Usted quiere comprar un libro excelente y leer.",
+          "",
+          "вежливо"
+        ],
+        [
+          "Вы хотите пить кофе и читать важную книгу.",
+          "Ustedes quieren beber café y leer un libro importante.",
+          "",
+          "вежливо"
+        ],
+        [
+          "Я хочу лёгкий урок и свободное время.",
+          "Yo quiero una clase fácil y tiempo libre.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь сложную работу, но приятную музыку.",
+          "Tú quieres un trabajo difícil, pero música agradable.",
+          "",
+          ""
+        ],
+        [
+          "Он хочет большой дом и интересную книгу.",
+          "Él quiere una casa grande y un libro interesante.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет заниматься испанским и читать полезную книгу.",
+          "Ella quiere estudiar español y leer un libro útil.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим есть хлеб и читать в большом доме.",
+          "Nosotros queremos comer pan y leer en una casa grande.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите учить испанский и читать отличную книгу.",
+          "Vosotros queréis aprender español y leer un libro excelente.",
+          "",
+          "неформально"
+        ],
+        [
+          "Они хотят важную работу и свободное время.",
+          "Ellos quieren un trabajo importante y tiempo libre.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу пить воду и есть хлеб, но не хочу кофе.",
+          "Yo quiero beber agua y comer pan, pero no quiero café.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь читать дома и заниматься испанским.",
+          "Tú quieres leer en casa y estudiar español.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет интересную музыку и отличный кофе.",
+          "Ella quiere música interesante y café excelente.",
+          "",
+          ""
+        ],
+        [
+          "Он хочет лёгкую работу и большую книгу.",
+          "Él quiere un trabajo fácil y un libro grande.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим важную работу и приятную музыку.",
+          "Nosotros queremos un trabajo importante y música agradable.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите изучать испанский, чтобы работать.",
+          "Usted quiere aprender español para trabajar.",
+          "",
+          "вежливо"
+        ],
+        [
+          "Они хотят читать и говорить по-испански.",
+          "Ellos quieren leer y hablar español.",
+          "",
+          ""
+        ],
+        [
+          "Вы не хотите есть хлеб, но хотите пить кофе.",
+          "Ustedes no quieren comer pan, pero quieren beber café.",
+          "",
+          "вежливо"
+        ],
+        [
+          "Ты хочешь учить испанский с интересной книгой.",
+          "Tú quieres aprender español con un libro interesante.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим читать полезную книгу и заниматься испанским.",
+          "Nosotros queremos leer un libro útil y estudiar español.",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "title": "Мочь · poder",
+      "focus": "poder",
+      "nouns": [
+        [
+          "ciudad",
+          "город"
+        ],
+        [
+          "tienda",
+          "магазин"
+        ],
+        [
+          "escuela",
+          "школа"
+        ],
+        [
+          "oficina",
+          "офис"
+        ],
+        [
+          "dinero",
+          "деньги"
         ],
         [
           "amigo",
@@ -383,220 +414,353 @@
           "подруга"
         ],
         [
-          "bien",
-          "хорошо"
+          "tren",
+          "поезд"
         ],
         [
-          "también",
-          "тоже"
+          "coche",
+          "машина"
         ],
         [
-          "a",
-          "в к"
+          "comida",
+          "еда"
+        ]
+      ],
+      "adjectives": [
+        [
+          "enorme",
+          "огромный"
         ],
         [
-          "la",
-          "артикль"
+          "elegante",
+          "элегантный"
         ],
         [
-          "este",
-          "этот"
+          "especial",
+          "особенный"
+        ],
+        [
+          "diferente",
+          "другой, необычный"
+        ],
+        [
+          "simple",
+          "простой"
+        ],
+        [
+          "suficiente",
+          "достаточный"
+        ],
+        [
+          "popular",
+          "популярный"
+        ],
+        [
+          "amable",
+          "добрый, любезный"
+        ],
+        [
+          "normal",
+          "обычный"
+        ],
+        [
+          "inteligente",
+          "умный"
+        ]
+      ],
+      "verbs": [
+        [
+          "poder",
+          "мочь"
+        ],
+        [
+          "ir",
+          "идти, ехать"
+        ],
+        [
+          "venir",
+          "приходить"
+        ],
+        [
+          "tener",
+          "иметь"
         ],
         [
           "hacer",
-          "делать"
+          "делать, готовить"
         ],
         [
-          "ciudad",
-          "город"
+          "buscar",
+          "искать"
         ],
         [
-          "dinero",
-          "деньги"
+          "pagar",
+          "платить"
+        ],
+        [
+          "llevar",
+          "нести, брать с собой"
+        ],
+        [
+          "salir",
+          "выходить"
         ],
         [
           "necesitar",
           "нуждаться"
         ]
       ],
+      "forms": [
+        [
+          "yo puedo",
+          "я могу"
+        ],
+        [
+          "tú puedes",
+          "ты можешь"
+        ],
+        [
+          "él puede",
+          "он может"
+        ],
+        [
+          "ella puede",
+          "она может"
+        ],
+        [
+          "usted puede",
+          "Вы можете (вежливо)"
+        ],
+        [
+          "nosotros podemos",
+          "мы можем"
+        ],
+        [
+          "nosotras podemos",
+          "мы можем"
+        ],
+        [
+          "vosotros podéis",
+          "вы можете (Испания)"
+        ],
+        [
+          "vosotras podéis",
+          "вы можете (Испания)"
+        ],
+        [
+          "ellos pueden",
+          "они могут"
+        ],
+        [
+          "ellas pueden",
+          "они могут"
+        ],
+        [
+          "ustedes pueden",
+          "Вы можете (вежливо, мн.ч.)"
+        ]
+      ],
+      "helpers": [
+        [
+          "a",
+          "в, к"
+        ],
+        [
+          "de",
+          "из"
+        ],
+        [
+          "mi",
+          "мой, моя"
+        ],
+        [
+          "tu",
+          "твой, твоя"
+        ],
+        [
+          "sin",
+          "без"
+        ]
+      ],
+      "note": "Новый глагол — poder: puedo, puedes, puede, podemos, podéis, pueden. Глаголы ir, tener, hacer и другие пока только в начальной форме. Формы querer из прошлого урока можно повторять.",
       "tasks": [
         [
-          "Я хочу пить воду и есть хлеб сейчас.",
-          "Quiero beber agua y comer pan ahora.",
+          "Я могу пойти в школу и купить интересную книгу.",
+          "Yo puedo ir a la escuela y comprar un libro interesante.",
           "",
           ""
         ],
         [
-          "Моя подруга хочет пить кофе, но я хочу воду.",
-          "Mi amiga quiere beber café, pero yo quiero agua.",
+          "Ты можешь прийти в офис и работать.",
+          "Tú puedes venir a la oficina y trabajar.",
           "",
           ""
         ],
         [
-          "У нас сегодня есть время учить испанский.",
-          "Nosotros tenemos tiempo para aprender español hoy.",
+          "Она может искать умного друга и читать.",
+          "Ella puede buscar un amigo inteligente y leer.",
           "",
           ""
         ],
         [
-          "Она хочет пойти в школу и потом пойти домой.",
-          "Ella quiere ir a la escuela y después ir a casa.",
+          "Он может заплатить за кофе и еду.",
+          "Él puede pagar café y comida.",
           "",
           ""
         ],
         [
-          "У меня нет денег, чтобы купить эту книгу.",
-          "No tengo dinero para comprar este libro.",
+          "Мы можем взять книгу в школу и читать.",
+          "Nosotros podemos llevar un libro a la escuela y leer.",
           "",
           ""
         ],
         [
-          "Я могу говорить по-испански, но мой друг не может.",
-          "Yo puedo hablar español, pero mi amigo no puede.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь есть хлеб с твоей подругой сейчас.",
-          "Tú quieres comer pan con tu amiga ahora.",
-          "",
-          ""
-        ],
-        [
-          "Я всегда хочу заниматься испанским, но у меня никогда нет времени.",
-          "Siempre quiero estudiar español, pero nunca tengo tiempo.",
-          "",
-          ""
-        ],
-        [
-          "Моему другу нужны деньги, чтобы жить в городе.",
-          "Mi amigo necesita dinero para vivir en la ciudad.",
-          "",
-          ""
-        ],
-        [
-          "Мы можем работать здесь, а потом пойти домой.",
-          "Nosotros podemos trabajar aquí y después ir a casa.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу приготовить кофе для моей подруги и есть хлеб.",
-          "Quiero hacer café para mi amiga y comer pan.",
-          "",
-          ""
-        ],
-        [
-          "Я тоже хочу завтра пойти в школу.",
-          "Yo también quiero ir a la escuela mañana.",
-          "",
-          ""
-        ],
-        [
-          "Я не хочу пить кофе без моей подруги.",
-          "No quiero beber café sin mi amiga.",
-          "",
-          ""
-        ],
-        [
-          "Он хочет хорошо заниматься испанским, чтобы работать здесь.",
-          "Él quiere estudiar español bien para trabajar aquí.",
-          "",
-          ""
-        ],
-        [
-          "У моей подруги есть книга, и она хочет учить испанский.",
-          "Mi amiga tiene un libro y quiere aprender español.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите пойти в школу, но сегодня не можете.",
-          "Vosotros queréis ir a la escuela, pero hoy no podéis.",
+          "Вы можете выйти из офиса и прийти домой.",
+          "Vosotros podéis salir de la oficina y venir a casa.",
           "",
           "неформально"
         ],
         [
-          "Вы хотите пить воду сейчас и есть хлеб потом.",
-          "Ustedes quieren beber agua ahora y comer pan después.",
+          "Они могут купить элегантную машину и жить в большом городе.",
+          "Ellos pueden comprar un coche elegante y vivir en una ciudad grande.",
+          "",
+          ""
+        ],
+        [
+          "Вы можете приготовить особенную еду и пить кофе.",
+          "Usted puede hacer comida especial y beber café.",
           "",
           "вежливо"
         ],
         [
-          "Им нужны время и деньги, чтобы жить в Испании.",
-          "Ellos necesitan tiempo y dinero para vivir en España.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу завтра купить эту книгу для моего друга.",
-          "Yo quiero comprar este libro para mi amigo mañana.",
-          "",
-          ""
-        ],
-        [
-          "Она всегда хочет готовить кофе, но я никогда не хочу пить кофе.",
-          "Ella siempre quiere hacer café, pero yo nunca quiero beber café.",
-          "",
-          ""
-        ],
-        [
-          "Мы можем есть хлеб здесь, а потом работать.",
-          "Nosotros podemos comer pan aquí y después trabajar.",
-          "",
-          ""
-        ],
-        [
-          "У тебя сейчас есть время учить испанский.",
-          "Tú tienes tiempo para aprender español ahora.",
-          "",
-          ""
-        ],
-        [
-          "Мне нужна вода, и я тоже хочу хлеб.",
-          "Yo necesito agua y también quiero pan.",
-          "",
-          ""
-        ],
-        [
-          "Моя подруга может заниматься испанским без твоей книги.",
-          "Mi amiga puede estudiar español sin tu libro.",
-          "",
-          ""
-        ],
-        [
-          "Мы сегодня не хотим идти в школу.",
-          "Nosotros no queremos ir a la escuela hoy.",
-          "",
-          ""
-        ],
-        [
-          "Мой друг хочет учить испанский, чтобы работать в Валенсии.",
-          "Mi amigo quiere aprender español para trabajar en Valencia.",
-          "",
-          ""
-        ],
-        [
-          "У меня есть книга, но мне нужны деньги, чтобы купить хлеб.",
-          "Tengo un libro, pero necesito dinero para comprar pan.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим приготовить кофе сейчас и пить воду потом.",
-          "Nosotros queremos hacer café ahora y beber agua después.",
-          "",
-          ""
-        ],
-        [
-          "Вы можете жить в Испании и работать здесь.",
-          "Ustedes pueden vivir en España y trabajar aquí.",
+          "Вы можете искать магазин и купить книгу.",
+          "Ustedes pueden buscar una tienda y comprar un libro.",
           "",
           "вежливо"
         ],
         [
-          "Я могу хорошо учить испанский без этой книги.",
-          "Yo puedo aprender español bien sin este libro.",
+          "Мне могут понадобиться деньги, чтобы заплатить за машину.",
+          "Yo puedo necesitar dinero para pagar un coche.",
+          "",
+          ""
+        ],
+        [
+          "Моя подруга может изучать испанский и работать в офисе.",
+          "Mi amiga puede aprender español y trabajar en una oficina.",
+          "",
+          ""
+        ],
+        [
+          "Твой друг может купить огромную машину и жить в популярном городе.",
+          "Tu amigo puede comprar un coche enorme y vivir en una ciudad popular.",
+          "",
+          ""
+        ],
+        [
+          "Мы можем иметь достаточно денег на машину.",
+          "Nosotros podemos tener dinero suficiente para un coche.",
+          "",
+          ""
+        ],
+        [
+          "Они могут пойти в необычный магазин и купить хлеб.",
+          "Ellos pueden ir a una tienda diferente y comprar pan.",
+          "",
+          ""
+        ],
+        [
+          "Ты можешь есть обычную еду и пить горячую воду.",
+          "Tú puedes comer comida normal y beber agua caliente.",
+          "",
+          ""
+        ],
+        [
+          "Она может прийти с добрым другом и купить книгу.",
+          "Ella puede venir con un amigo amable y comprar un libro.",
+          "",
+          ""
+        ],
+        [
+          "Я могу приготовить простую еду и читать книгу.",
+          "Yo puedo hacer comida simple y leer un libro.",
+          "",
+          ""
+        ],
+        [
+          "Он может искать офис и школу в городе.",
+          "Él puede buscar una oficina y una escuela en la ciudad.",
+          "",
+          ""
+        ],
+        [
+          "Вы можете купить популярную музыку и интересную книгу.",
+          "Vosotros podéis comprar música popular y un libro interesante.",
+          "",
+          "неформально"
+        ],
+        [
+          "Мы можем заниматься испанским на необычном уроке.",
+          "Nosotros podemos estudiar español en una clase diferente.",
+          "",
+          ""
+        ],
+        [
+          "Они могут взять кофе и хлеб в офис.",
+          "Ellos pueden llevar café y pan a la oficina.",
+          "",
+          ""
+        ],
+        [
+          "Я могу выйти из офиса и пойти в школу.",
+          "Yo puedo salir de la oficina y ir a la escuela.",
+          "",
+          ""
+        ],
+        [
+          "Ты можешь заплатить за книгу и еду.",
+          "Tú puedes pagar un libro y comida.",
+          "",
+          ""
+        ],
+        [
+          "Она может иметь особенную работу и свободное время.",
+          "Ella puede tener un trabajo especial y tiempo libre.",
+          "",
+          ""
+        ],
+        [
+          "Мой умный друг может заниматься испанским под приятную музыку.",
+          "Mi amigo inteligente puede estudiar español con música agradable.",
+          "",
+          ""
+        ],
+        [
+          "Мне может понадобиться умная подруга, чтобы учить испанский.",
+          "Yo puedo necesitar una amiga inteligente para aprender español.",
+          "",
+          ""
+        ],
+        [
+          "Вы можете иметь обычную работу и элегантную машину.",
+          "Ustedes pueden tener un trabajo normal y un coche elegante.",
+          "",
+          "вежливо"
+        ],
+        [
+          "Я могу пойти в популярный город и искать магазин.",
+          "Yo puedo ir a una ciudad popular y buscar una tienda.",
+          "",
+          ""
+        ],
+        [
+          "Ты можешь приготовить обычную еду и взять её в офис.",
+          "Tú puedes hacer comida normal y llevar comida a la oficina.",
+          "",
+          ""
+        ],
+        [
+          "Мы можем платить за книгу и читать дома.",
+          "Nosotros podemos pagar un libro y leer en casa.",
           "",
           ""
         ]
@@ -605,15 +769,168 @@
   ],
   "en": [
     {
-      "title": "Want: желания и планы",
-      "vocab": [
+      "title": "Хотеть · want",
+      "focus": "want",
+      "nouns": [
+        [
+          "water",
+          "вода"
+        ],
+        [
+          "coffee",
+          "кофе"
+        ],
+        [
+          "bread",
+          "хлеб"
+        ],
+        [
+          "book",
+          "книга"
+        ],
+        [
+          "house",
+          "дом"
+        ],
+        [
+          "music",
+          "музыка"
+        ],
+        [
+          "class",
+          "урок"
+        ],
+        [
+          "job",
+          "работа"
+        ],
+        [
+          "time",
+          "время"
+        ],
+        [
+          "English",
+          "английский язык"
+        ]
+      ],
+      "adjectives": [
+        [
+          "hot",
+          "горячий"
+        ],
+        [
+          "big",
+          "большой"
+        ],
+        [
+          "interesting",
+          "интересный"
+        ],
+        [
+          "easy",
+          "лёгкий"
+        ],
+        [
+          "difficult",
+          "сложный"
+        ],
+        [
+          "important",
+          "важный"
+        ],
+        [
+          "useful",
+          "полезный"
+        ],
+        [
+          "pleasant",
+          "приятный"
+        ],
+        [
+          "excellent",
+          "отличный"
+        ],
+        [
+          "free",
+          "свободный"
+        ]
+      ],
+      "verbs": [
+        [
+          "want",
+          "хотеть"
+        ],
+        [
+          "learn",
+          "учить"
+        ],
+        [
+          "speak",
+          "говорить"
+        ],
+        [
+          "work",
+          "работать"
+        ],
+        [
+          "study",
+          "заниматься"
+        ],
+        [
+          "live",
+          "жить"
+        ],
+        [
+          "buy",
+          "покупать"
+        ],
+        [
+          "read",
+          "читать"
+        ],
+        [
+          "drink",
+          "пить"
+        ],
+        [
+          "eat",
+          "есть"
+        ]
+      ],
+      "forms": [
+        [
+          "I want",
+          "я хочу"
+        ],
+        [
+          "you want",
+          "ты хочешь / вы хотите"
+        ],
+        [
+          "he wants",
+          "он хочет"
+        ],
+        [
+          "she wants",
+          "она хочет"
+        ],
+        [
+          "we want",
+          "мы хотим"
+        ],
+        [
+          "they want",
+          "они хотят"
+        ]
+      ],
+      "helpers": [
         [
           "I",
           "я"
         ],
         [
           "you",
-          "ты вы"
+          "ты, вы"
         ],
         [
           "he",
@@ -632,557 +949,516 @@
           "они"
         ],
         [
-          "want",
-          "хотеть"
-        ],
-        [
           "to",
-          "перед глаголом"
-        ],
-        [
-          "learn",
-          "учить"
-        ],
-        [
-          "English",
-          "английский"
-        ],
-        [
-          "speak",
-          "говорить"
-        ],
-        [
-          "work",
-          "работать"
-        ],
-        [
-          "tomorrow",
-          "завтра"
-        ],
-        [
-          "today",
-          "сегодня"
-        ],
-        [
-          "here",
-          "здесь"
-        ],
-        [
-          "study",
-          "заниматься"
-        ],
-        [
-          "live",
-          "жить"
-        ],
-        [
-          "in",
-          "в"
-        ],
-        [
-          "Spain",
-          "Испания"
-        ],
-        [
-          "Valencia",
-          "Валенсия"
-        ],
-        [
-          "buy",
-          "покупать"
+          "частица перед глаголом"
         ],
         [
           "a",
           "артикль"
         ],
         [
-          "book",
-          "книга"
-        ],
-        [
-          "not",
-          "не"
-        ],
-        [
-          "do",
-          "вспомогательный глагол"
-        ],
-        [
-          "with",
-          "с"
-        ],
-        [
-          "me",
-          "мной"
+          "an",
+          "артикль"
         ],
         [
           "and",
           "и"
         ],
         [
-          "because",
-          "потому что"
+          "in",
+          "в"
         ],
         [
-          "but",
-          "но"
-        ]
-      ],
-      "tasks": [
-        [
-          "Я хочу учить английский и работать здесь.",
-          "I want to learn English and work here.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь учить английский сегодня и работать завтра.",
-          "You want to study English today and work tomorrow.",
-          "",
-          ""
-        ],
-        [
-          "Она хочет жить в Испании и говорить по-английски.",
-          "She wants to live in Spain and speak English.",
-          "",
-          ""
-        ],
-        [
-          "Он хочет купить книгу и заниматься английским.",
-          "He wants to buy a book and study English.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим жить в Валенсии и работать здесь.",
-          "We want to live in Valencia and work here.",
-          "",
-          ""
-        ],
-        [
-          "Они хотят учить английский, потому что хотят работать в Испании.",
-          "They want to learn English because they want to work in Spain.",
-          "",
-          ""
-        ],
-        [
-          "Я не хочу работать сегодня, потому что хочу заниматься английским.",
-          "I do not want to work today because I want to study English.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь говорить со мной по-английски.",
-          "You want to speak English with me.",
-          "",
-          ""
-        ],
-        [
-          "Он хочет заниматься здесь и жить в Испании.",
-          "He wants to study here and live in Spain.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим купить книгу и учить английский.",
-          "We want to buy a book and learn English.",
-          "",
-          ""
-        ],
-        [
-          "Она хочет работать завтра и заниматься английским сегодня.",
-          "She wants to work tomorrow and study English today.",
-          "",
-          ""
-        ],
-        [
-          "Они не хотят работать здесь, но хотят учить английский.",
-          "They do not want to work here but want to learn English.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу жить в Валенсии, потому что хочу учить английский.",
-          "I want to live in Valencia because I want to learn English.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь купить книгу и говорить со мной по-английски.",
-          "You want to buy a book and speak English with me.",
-          "",
-          ""
-        ],
-        [
-          "Мы не хотим работать завтра, но хотим заниматься сегодня.",
-          "We do not want to work tomorrow but want to study today.",
-          "",
-          ""
-        ],
-        [
-          "Она хочет учить английский и работать здесь.",
-          "She wants to learn English and work here.",
-          "",
-          ""
-        ],
-        [
-          "Он хочет говорить по-английски, потому что хочет жить в Испании.",
-          "He wants to speak English because he wants to live in Spain.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим заниматься английским здесь и работать завтра.",
-          "We want to study English here and work tomorrow.",
-          "",
-          ""
-        ],
-        [
-          "Они хотят купить книгу, но не хотят учить английский сегодня.",
-          "They want to buy a book but do not want to study English today.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу учить английский и говорить по-английски с тобой.",
-          "I want to learn English and speak English with you.",
-          "",
-          ""
-        ],
-        [
-          "Ты хочешь говорить по-английски, потому что хочешь работать в Валенсии.",
-          "You want to speak English because you want to work in Valencia.",
-          "",
-          ""
-        ],
-        [
-          "Они хотят жить здесь и учить английский.",
-          "They want to live here and learn English.",
-          "",
-          ""
-        ],
-        [
-          "Она не хочет покупать книгу завтра.",
-          "She does not want to buy a book tomorrow.",
-          "",
-          ""
-        ],
-        [
-          "Я хочу заниматься сегодня и работать завтра.",
-          "I want to study today and work tomorrow.",
-          "",
-          ""
-        ],
-        [
-          "Вы хотите говорить по-английски со мной и учиться здесь.",
-          "You want to speak English with me and study here.",
-          "",
-          ""
-        ]
-      ]
-    },
-    {
-      "title": "Действия и повседневная жизнь",
-      "vocab": [
-        [
-          "can",
-          "мочь"
-        ],
-        [
-          "have",
-          "иметь"
-        ],
-        [
-          "go",
-          "идти ехать"
-        ],
-        [
-          "make",
-          "делать готовить"
-        ],
-        [
-          "eat",
-          "есть"
-        ],
-        [
-          "drink",
-          "пить"
-        ],
-        [
-          "water",
-          "вода"
-        ],
-        [
-          "coffee",
-          "кофе"
-        ],
-        [
-          "bread",
-          "хлеб"
-        ],
-        [
-          "home",
-          "домой"
-        ],
-        [
-          "school",
-          "школа"
-        ],
-        [
-          "time",
-          "время"
-        ],
-        [
-          "now",
-          "сейчас"
-        ],
-        [
-          "later",
-          "позже"
-        ],
-        [
-          "always",
-          "всегда"
-        ],
-        [
-          "never",
-          "никогда"
+          "with",
+          "с"
         ],
         [
           "for",
           "для"
         ],
         [
-          "without",
-          "без"
+          "but",
+          "но"
+        ]
+      ],
+      "note": "Спрягаем только want. С he/she/it используется wants. Другие глаголы пока стоят после to в начальной форме; прилагательное обычно перед существительным.",
+      "tasks": [
+        [
+          "Я хочу пить горячий кофе и есть хлеб.",
+          "I want to drink hot coffee and eat bread.",
+          "",
+          ""
         ],
         [
-          "my",
-          "мой"
+          "Ты хочешь купить интересную книгу и читать дома.",
+          "You want to buy an interesting book and read in a house.",
+          "",
+          ""
         ],
         [
-          "your",
-          "твой"
+          "Она хочет учить английский и работать.",
+          "She wants to learn English and work.",
+          "",
+          ""
         ],
         [
-          "friend",
-          "друг подруга"
+          "Он хочет жить в большом доме и пить кофе.",
+          "He wants to live in a big house and drink coffee.",
+          "",
+          ""
         ],
         [
-          "well",
-          "хорошо"
+          "Мы хотим заниматься английским на интересном уроке.",
+          "We want to study English in an interesting class.",
+          "",
+          ""
         ],
         [
-          "also",
-          "тоже"
+          "Вы хотите читать полезную книгу и учить английский.",
+          "You want to read a useful book and learn English.",
+          "",
+          ""
         ],
         [
-          "at",
-          "в у"
+          "Они хотят есть хлеб и пить горячую воду.",
+          "They want to eat bread and drink hot water.",
+          "",
+          ""
         ],
         [
-          "please",
-          "пожалуйста"
+          "Она хочет купить отличную книгу и читать.",
+          "She wants to buy an excellent book and read.",
+          "",
+          ""
         ],
         [
-          "the",
-          "артикль"
+          "Он хочет важную работу и свободное время.",
+          "He wants an important job and free time.",
+          "",
+          ""
         ],
         [
-          "this",
-          "этот"
+          "Я хочу лёгкий урок и интересную книгу.",
+          "I want an easy class and an interesting book.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь сложную работу, но приятную музыку.",
+          "You want a difficult job but pleasant music.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет большой дом и полезную книгу.",
+          "She wants a big house and a useful book.",
+          "",
+          ""
+        ],
+        [
+          "Он хочет заниматься английским и читать полезную книгу.",
+          "He wants to study English and read a useful book.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим есть хлеб и читать в большом доме.",
+          "We want to eat bread and read in a big house.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите учить английский и читать отличную книгу.",
+          "You want to learn English and read an excellent book.",
+          "",
+          ""
+        ],
+        [
+          "Они хотят важную работу и свободное время.",
+          "They want an important job and free time.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу пить воду и есть хлеб, но хочу горячий кофе.",
+          "I want to drink water and eat bread but I want hot coffee.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь читать в доме и заниматься английским.",
+          "You want to read in a house and study English.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет интересную музыку и отличный кофе.",
+          "She wants interesting music and excellent coffee.",
+          "",
+          ""
+        ],
+        [
+          "Он хочет лёгкую работу и большую книгу.",
+          "He wants an easy job and a big book.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим важную работу и приятную музыку.",
+          "We want an important job and pleasant music.",
+          "",
+          ""
+        ],
+        [
+          "Она хочет изучать английский, чтобы работать.",
+          "She wants to learn English to work.",
+          "",
+          ""
+        ],
+        [
+          "Они хотят читать и говорить по-английски.",
+          "They want to read and speak English.",
+          "",
+          ""
+        ],
+        [
+          "Вы хотите пить горячий кофе и есть хлеб.",
+          "You want to drink hot coffee and eat bread.",
+          "",
+          ""
+        ],
+        [
+          "Мы хотим читать полезную книгу и заниматься английским.",
+          "We want to read a useful book and study English.",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "title": "Иметь, нужно · have",
+      "focus": "have",
+      "nouns": [
+        [
+          "city",
+          "город"
+        ],
+        [
+          "shop",
+          "магазин"
+        ],
+        [
+          "school",
+          "школа"
+        ],
+        [
+          "office",
+          "офис"
         ],
         [
           "money",
           "деньги"
         ],
         [
-          "need",
-          "нуждаться"
+          "friend",
+          "друг, подруга"
         ],
         [
-          "very",
-          "очень"
+          "train",
+          "поезд"
+        ],
+        [
+          "car",
+          "машина"
+        ],
+        [
+          "food",
+          "еда"
+        ],
+        [
+          "ticket",
+          "билет"
         ]
       ],
+      "adjectives": [
+        [
+          "enormous",
+          "огромный"
+        ],
+        [
+          "elegant",
+          "элегантный"
+        ],
+        [
+          "special",
+          "особенный"
+        ],
+        [
+          "different",
+          "другой"
+        ],
+        [
+          "simple",
+          "простой"
+        ],
+        [
+          "safe",
+          "безопасный"
+        ],
+        [
+          "normal",
+          "обычный"
+        ],
+        [
+          "enough",
+          "достаточно"
+        ],
+        [
+          "popular",
+          "популярный"
+        ],
+        [
+          "kind",
+          "добрый"
+        ]
+      ],
+      "verbs": [
+        [
+          "have",
+          "иметь"
+        ],
+        [
+          "go",
+          "идти, ехать"
+        ],
+        [
+          "come",
+          "приходить"
+        ],
+        [
+          "make",
+          "делать, готовить"
+        ],
+        [
+          "find",
+          "находить"
+        ],
+        [
+          "pay",
+          "платить"
+        ],
+        [
+          "bring",
+          "приносить"
+        ],
+        [
+          "leave",
+          "уходить"
+        ],
+        [
+          "visit",
+          "посещать"
+        ],
+        [
+          "choose",
+          "выбирать"
+        ]
+      ],
+      "forms": [
+        [
+          "I have",
+          "у меня есть / я должен"
+        ],
+        [
+          "you have",
+          "у тебя есть / ты должен"
+        ],
+        [
+          "he has",
+          "у него есть / он должен"
+        ],
+        [
+          "she has",
+          "у неё есть / она должна"
+        ],
+        [
+          "we have",
+          "у нас есть / мы должны"
+        ],
+        [
+          "they have",
+          "у них есть / они должны"
+        ]
+      ],
+      "helpers": [
+        [
+          "the",
+          "определённый артикль"
+        ],
+        [
+          "at",
+          "в, у"
+        ],
+        [
+          "please",
+          "пожалуйста"
+        ]
+      ],
+      "note": "Новый глагол — have. С he/she/it форма has. Конструкция have to + глагол означает необходимость: I have to go — мне нужно идти. Остальные глаголы используются в начальной форме.",
       "tasks": [
         [
-          "Я хочу пить воду сейчас и есть хлеб позже.",
-          "I want to drink water now and eat bread later.",
+          "У меня есть элегантная машина и большой дом.",
+          "I have an elegant car and a big house.",
           "",
           ""
         ],
         [
-          "Мой друг хочет пить кофе, но я хочу воду.",
-          "My friend wants to drink coffee but I want water.",
+          "У тебя есть добрый друг и интересная книга.",
+          "You have a kind friend and an interesting book.",
           "",
           ""
         ],
         [
-          "У нас сегодня есть время заниматься английским в школе.",
-          "We have time to study English at school today.",
+          "У него достаточно денег, чтобы купить билет на поезд.",
+          "He has enough money to buy a train ticket.",
           "",
           ""
         ],
         [
-          "Она хочет пойти в школу, а позже пойти домой.",
-          "She wants to go to school and go home later.",
+          "У неё есть особенная еда и горячий кофе.",
+          "She has special food and hot coffee.",
           "",
           ""
         ],
         [
-          "У меня нет денег, чтобы купить эту книгу.",
-          "I do not have money to buy this book.",
+          "У нас огромный офис в популярном городе.",
+          "We have an enormous office in a popular city.",
           "",
           ""
         ],
         [
-          "Он может говорить по-английски, но мой друг не может.",
-          "He can speak English but my friend cannot.",
+          "У них есть другая книга и простая работа.",
+          "They have a different book and a simple job.",
           "",
           ""
         ],
         [
-          "Ты хочешь есть хлеб с твоим другом сейчас.",
-          "You want to eat bread with your friend now.",
+          "Мне нужно пойти в школу и принести полезную книгу.",
+          "I have to go to school and bring a useful book.",
           "",
           ""
         ],
         [
-          "Я всегда хочу учить английский, но у меня никогда нет времени.",
-          "I always want to study English but I never have time.",
+          "Тебе нужно прийти в офис с другом.",
+          "You have to come to the office with a friend.",
           "",
           ""
         ],
         [
-          "Моему другу нужны деньги, чтобы жить в Испании.",
-          "My friend needs money to live in Spain.",
+          "Ему нужно приготовить особенную еду для друга.",
+          "He has to make special food for a friend.",
           "",
           ""
         ],
         [
-          "Мы можем работать здесь, а потом пойти домой.",
-          "We can work here and go home later.",
+          "Ей нужно найти безопасную машину и выбрать другой магазин.",
+          "She has to find a safe car and choose a different shop.",
           "",
           ""
         ],
         [
-          "Я хочу приготовить кофе для моего друга и есть хлеб.",
-          "I want to make coffee for my friend and eat bread.",
+          "Нам нужно заплатить за билет на поезд и пойти в школу.",
+          "We have to pay for a train ticket and go to school.",
           "",
           ""
         ],
         [
-          "Я тоже хочу завтра пойти в школу.",
-          "I also want to go to school tomorrow.",
+          "Им нужно уйти из офиса и посетить популярный город.",
+          "They have to leave the office and visit a popular city.",
           "",
           ""
         ],
         [
-          "Я не хочу пить кофе без моего друга.",
-          "I do not want to drink coffee without my friend.",
+          "Мне нужно принести важную книгу на урок.",
+          "I have to bring an important book to class.",
           "",
           ""
         ],
         [
-          "Он хочет хорошо учить английский и работать здесь.",
-          "He wants to study English well and work here.",
+          "Тебе нужно выбрать книгу для доброго друга.",
+          "You have to choose a book for a kind friend.",
           "",
           ""
         ],
         [
-          "У моего друга есть книга, и он хочет учить английский.",
-          "My friend has a book and wants to learn English.",
+          "У него обычная работа и свободное время.",
+          "He has a normal job and free time.",
           "",
           ""
         ],
         [
-          "Ты можешь пойти в школу, но сейчас не можешь пойти домой.",
-          "You can go to school but you cannot go home now.",
+          "У неё есть отличная книга и большой дом.",
+          "She has an excellent book and a big house.",
           "",
           ""
         ],
         [
-          "Они хотят пить воду сейчас и есть хлеб потом.",
-          "They want to drink water now and eat bread later.",
+          "Нам нужно посетить друга и найти магазин.",
+          "We have to visit a friend and find a shop.",
           "",
           ""
         ],
         [
-          "Им нужны время и деньги, чтобы жить в Испании.",
-          "They need time and money to live in Spain.",
+          "Им нужно купить кофе и воду для друга.",
+          "They have to buy coffee and water for a friend.",
           "",
           ""
         ],
         [
-          "Я хочу завтра купить эту книгу для моего друга.",
-          "I want to buy this book for my friend tomorrow.",
+          "Ему нужно читать полезную книгу и учить английский.",
+          "He has to read a useful book and learn English.",
           "",
           ""
         ],
         [
-          "Она всегда хочет готовить кофе, но я никогда не хочу пить кофе.",
-          "She always wants to make coffee but I never want to drink coffee.",
+          "Ей нужно жить в безопасном городе и учить английский.",
+          "She has to live in a safe city and study English.",
           "",
           ""
         ],
         [
-          "Мы можем есть хлеб здесь и потом работать.",
-          "We can eat bread here and work later.",
+          "Мне нужно уйти из магазина и прийти в школу.",
+          "I have to leave the shop and come to school.",
           "",
           ""
         ],
         [
-          "У тебя сейчас есть время учить английский.",
-          "You have time to learn English now.",
+          "У них достаточно денег на билет на поезд.",
+          "They have enough money for a train ticket.",
           "",
           ""
         ],
         [
-          "Мне нужна вода, и я тоже хочу хлеб, пожалуйста.",
-          "I need water and I also want bread, please.",
+          "У нас есть особенная еда, и мы хотим пить кофе.",
+          "We have special food and we want to drink coffee.",
           "",
           ""
         ],
         [
-          "Мой друг может заниматься английским без твоей книги.",
-          "My friend can study English without your book.",
+          "Ей нужно выбрать безопасную машину и купить книгу.",
+          "She has to choose a safe car and buy a book.",
           "",
           ""
         ],
         [
-          "Мы не хотим сегодня идти в школу.",
-          "We do not want to go to school today.",
+          "У тебя есть добрый друг и простой билет.",
+          "You have a kind friend and a simple ticket.",
           "",
           ""
         ],
         [
-          "Он хочет работать в Валенсии, потому что ему нужны деньги.",
-          "He wants to work in Valencia because he needs money.",
-          "",
-          ""
-        ],
-        [
-          "У меня есть книга, но мне нужны деньги, чтобы купить хлеб.",
-          "I have a book but I need money to buy bread.",
-          "",
-          ""
-        ],
-        [
-          "Мы хотим приготовить кофе сейчас и пить воду потом.",
-          "We want to make coffee now and drink water later.",
-          "",
-          ""
-        ],
-        [
-          "Мне нужна эта книга для моего друга, пожалуйста.",
-          "I need the book for my friend, please.",
-          "",
-          ""
-        ],
-        [
-          "Мой друг хочет учить английский и говорить по-английски очень хорошо.",
-          "My friend wants to learn English and speak English very well.",
+          "Мне нужно приготовить обычную еду и принести её в офис.",
+          "I have to make normal food and bring food to the office.",
           "",
           ""
         ]
