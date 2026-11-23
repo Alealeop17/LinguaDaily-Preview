@@ -111,7 +111,7 @@ function renderForms(){
  const card=el('div','panel'),list=el('div','form-list');
  const grouping=lang==='es'?[[0],[1],[2,3,4],[5,6],[7,8],[9,10,11]]:[[0],[1],[2,3],[4],[5]];
  for(const ids of grouping){const pairs=ids.map(i=>d.forms[i]);if(pairs.some(v=>!v))continue;const formWord=pairs[0][0].trim().split(/\s+/).slice(-1)[0];const names=pairs.map(x=>x[0].trim().split(/\s+/).slice(0,-1).join(' ')).join(' · ');
-  const row=el('div','form-row');row.append(el('div','form-person',names),el('div','form-ending',formWord),speaker(pairs[0][0],locale(),pairs[0][0]));list.append(row)}
+  const row=el('div','form-row');row.append(el('div','form-person',names),el('div','form-ending',formWord),speaker(pairs.map(p=>p[0]).join('. ')+'.',locale(),names+' '+formWord));list.append(row)}
  card.append(list);
  const helpers=el('div','helper-strip');helpers.append(el('span','helper-title','Слова-связки для предложений'));
  const all=[...(idx===1?curriculum[lang][0].helpers:[]),...d.helpers];
