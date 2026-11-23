@@ -121,3 +121,15 @@ test("CORS preflight allows only the configured trusted origin", async () => {
   assert.equal(blocked.headers.get("access-control-allow-origin"),null);
  });
 });
+
+test("Realtime token defines a small optional grammar logging function", async () => {
+ let payload;
+ await withServer({OPENAI_API_KEY:"test-key",PREVIEW_ACCESS_CODE:"demo-passphrase"}, async url=>{
+  assert.equal((await post(url,{lang:"es",lesson:0})).status,200);
+ },async (_url,opts)=>{payload=JSON.parse(opts.body);return {ok:true,json:async()=>({value:"ek_preview_test"})}});
+ assert.equal(payload.session.tool_choice,"auto");
+ const tool=payload.session.tools.find(t=>t.name==="record_language_error");
+ assert.equal(tool.type,"function");
+ assert.deepEqual(tool.parameters.required,["incorrect","correct","russian","explanation"]);
+ assert.equal(tool.parameters.additionalProperties,false);
+});
