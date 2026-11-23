@@ -282,10 +282,14 @@ async function startDialogue(){
  const attempt=++dialogueAttempt;dialogueJoining=true;dialogueError='';dialogueStatus='Подключаем преподавателя…';render();
  let pc=null,stream=null,channel=null;
  try{
+  // Ask permission before requesting a 60-second token, which might expire while iOS waits for microphone approval.
+  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
+  if(attempt!==dialogueAttempt){stream.getTracks().forEach(t=>t.stop());return}
   const errors=[...new Set(state().queue.map(q=>q.task))].slice(0,6);
+  const mastered=state().slots.filter(slot=>slot.status==='green').length;
   const tokenResponse=await fetch('/api/realtime/token',{
    method:'POST',headers:{'Content-Type':'application/json','X-Preview-Access':previewPasscode},
-   body:JSON.stringify({lang,lesson:idx,errors})
+   body:JSON.stringify({lang,lesson:idx,errors,mastered})
   });
   if(!tokenResponse.ok){
    const hints={401:'Неверный код доступа.',403:'Сайт не допущен к голосовому серверу.',429:'Лимит голосовых подключений исчерпан.',503:'Голосовой сервер ещё не настроен.'};
@@ -294,8 +298,6 @@ async function startDialogue(){
   const token=await tokenResponse.json();
   if(!token.value||typeof token.value!=='string')throw Error('Сервер не вернул временный ключ.');
   if(attempt!==dialogueAttempt)return;
-  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
-  if(attempt!==dialogueAttempt){stream.getTracks().forEach(t=>t.stop());return}
   pc=new RTCPeerConnection();dialogueCall={pc,stream,channel:null};
   pc.ontrack=e=>{if(attempt===dialogueAttempt){remoteDialogueAudio.srcObject=e.streams[0];remoteDialogueAudio.play().catch(()=>{dialogueStatus='Разреши воспроизведение звука в браузере.';render()})}};
   pc.onconnectionstatechange=()=>{
@@ -322,6 +324,7 @@ async function startDialogue(){
   await pc.setRemoteDescription({type:'answer',sdp});
  }catch(e){
   if(attempt!==dialogueAttempt){cleanCall({pc,stream,channel});return}
+  cleanCall({pc,stream,channel});
   endDialogue();dialogueError=e?.name==='NotAllowedError'?'Разреши доступ к микрофону для этого сайта.':(e?.message||'Не удалось подключиться.');
   render();
  }
