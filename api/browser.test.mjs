@@ -203,3 +203,49 @@ test("muting microphone changes track state without closing the call", async () 
  assert.equal(a.track.enabled,true);
  a.findText(a.nodes.app,"Завершить разговор").listeners.click();
 });
+
+test("a wrong answer gets reviewed and all one hundred slots eventually become green", () => {
+ const a=runApp(),s=(()=>{a.qa.setPhase("practice");return a.qa.state().es[0]})();
+ let steps=0;
+ while((s.slots.length<100||s.queue.length)&&steps<160){
+  if(!s.active)a.qa.ensureActive();
+  const model=a.qa.curriculum.es[0].tasks[s.active.task][1];
+  a.nodes.answer.value=steps===0?"bad answer":model;
+  a.qa.check();
+  if(steps===0)assert.equal(s.slots[0].status,"red");
+  a.qa.next();
+  steps++;
+ }
+ assert.ok(steps<=160,"Review scheduling should terminate");
+ assert.equal(s.slots.length,100);
+ assert.equal(s.slots.filter(slot=>slot.status==="green").length,100);
+ assert.equal(s.queue.length,0);
+ assert.equal(s.errors,1);
+ assert.ok(a.findText(a.nodes.app,"Все сто зелёные!"));
+});
+test("Spanish and English progress remain separate across lesson switches", () => {
+ const a=runApp(),state=a.qa.state();
+ a.qa.setPhase("practice");
+ a.nodes.answer.value=a.qa.curriculum.es[0].tasks[state.es[0].active.task][1];
+ a.qa.check();
+ a.qa.switchLesson(1);a.qa.setPhase("practice");
+ a.nodes.answer.value="obviously wrong";a.qa.check();
+ a.nodes["pick-lang"].value="en";a.nodes["pick-lang"].listeners.change();
+ a.qa.switchLesson(0);a.qa.setPhase("practice");
+ a.nodes.answer.value=a.qa.curriculum.en[0].tasks[state.en[0].active.task][1];
+ a.qa.check();
+ assert.equal(state.es[0].slots[0].status,"green");
+ assert.equal(state.es[1].slots[0].status,"red");
+ assert.equal(state.en[0].slots[0].status,"green");
+ assert.equal(state.en[1].slots.length,0);
+});
+test("tapping the active dialogue tab does not end a connected session", async () => {
+ const a=runApp();a.nodes["mode-speak"].listeners.click();
+ a.nodes["preview-code"].value="preview";a.nodes["preview-code"].listeners.input();
+ await a.findText(a.nodes.app,"Начать разговор").listeners.click();
+ a.nodes["mode-speak"].listeners.click();
+ assert.equal(a.stats.stopped,0);
+ assert.ok(a.findText(a.nodes.app,"Завершить разговор"));
+ a.findText(a.nodes.app,"Завершить разговор").listeners.click();
+ assert.equal(a.stats.stopped,1);
+});
