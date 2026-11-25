@@ -1,62 +1,138 @@
 {
   "es": [
     {
-      "title": "Хотеть · querer",
+      "title": "Базовые действия и описания",
       "focus": "querer",
       "nouns": [
         [
-          "agua",
-          "вода"
+          "persona",
+          "человек"
         ],
         [
-          "café",
-          "кофе"
+          "hombre",
+          "мужчина"
         ],
         [
-          "pan",
-          "хлеб"
+          "mujer",
+          "женщина"
         ],
         [
-          "libro",
-          "книга"
+          "niño",
+          "мальчик, ребёнок"
+        ],
+        [
+          "niña",
+          "девочка"
+        ],
+        [
+          "amigo",
+          "друг"
+        ],
+        [
+          "amiga",
+          "подруга"
+        ],
+        [
+          "familia",
+          "семья"
+        ],
+        [
+          "madre",
+          "мать"
+        ],
+        [
+          "padre",
+          "отец"
+        ],
+        [
+          "hermano",
+          "брат"
+        ],
+        [
+          "hermana",
+          "сестра"
         ],
         [
           "casa",
           "дом"
         ],
         [
-          "música",
-          "музыка"
+          "ciudad",
+          "город"
         ],
         [
-          "clase",
-          "урок"
+          "calle",
+          "улица"
+        ],
+        [
+          "parque",
+          "парк"
+        ],
+        [
+          "tienda",
+          "магазин"
         ],
         [
           "trabajo",
           "работа"
         ],
         [
+          "día",
+          "день"
+        ],
+        [
+          "noche",
+          "ночь"
+        ],
+        [
+          "mañana",
+          "утро"
+        ],
+        [
+          "tarde",
+          "вторая половина дня, вечер"
+        ],
+        [
           "tiempo",
           "время"
         ],
         [
-          "español",
-          "испанский язык"
+          "dinero",
+          "деньги"
         ]
       ],
       "adjectives": [
         [
-          "caliente",
-          "горячий"
+          "bueno",
+          "хороший"
+        ],
+        [
+          "malo",
+          "плохой"
         ],
         [
           "grande",
           "большой"
         ],
         [
-          "interesante",
-          "интересный"
+          "pequeño",
+          "маленький"
+        ],
+        [
+          "nuevo",
+          "новый"
+        ],
+        [
+          "viejo",
+          "старый"
+        ],
+        [
+          "bonito",
+          "красивый"
+        ],
+        [
+          "feo",
+          "некрасивый"
         ],
         [
           "fácil",
@@ -64,41 +140,73 @@
         ],
         [
           "difícil",
-          "сложный"
+          "трудный"
         ],
         [
-          "importante",
-          "важный"
+          "caro",
+          "дорогой"
         ],
         [
-          "útil",
-          "полезный"
-        ],
-        [
-          "agradable",
-          "приятный"
-        ],
-        [
-          "excelente",
-          "отличный"
-        ],
-        [
-          "libre",
-          "свободный"
+          "barato",
+          "дешёвый"
         ]
       ],
       "verbs": [
+        [
+          "ser",
+          "быть (постоянный признак)"
+        ],
+        [
+          "estar",
+          "быть, находиться (состояние, место)"
+        ],
+        [
+          "tener",
+          "иметь"
+        ],
         [
           "querer",
           "хотеть"
         ],
         [
-          "aprender",
-          "учить, изучать"
+          "poder",
+          "мочь"
+        ],
+        [
+          "ir",
+          "идти, ехать"
+        ],
+        [
+          "venir",
+          "приходить"
+        ],
+        [
+          "hacer",
+          "делать"
         ],
         [
           "hablar",
           "говорить"
+        ],
+        [
+          "escuchar",
+          "слушать"
+        ],
+        [
+          "ver",
+          "видеть"
+        ],
+        [
+          "mirar",
+          "смотреть"
+        ],
+        [
+          "comprar",
+          "покупать"
+        ],
+        [
+          "vivir",
+          "жить"
         ],
         [
           "trabajar",
@@ -106,27 +214,15 @@
         ],
         [
           "estudiar",
-          "заниматься"
+          "учиться"
         ],
         [
-          "vivir",
-          "жить"
+          "aprender",
+          "изучать"
         ],
         [
-          "comprar",
-          "покупать"
-        ],
-        [
-          "leer",
-          "читать"
-        ],
-        [
-          "beber",
-          "пить"
-        ],
-        [
-          "comer",
-          "есть"
+          "necesitar",
+          "нуждаться, нуждаться в"
         ]
       ],
       "forms": [
@@ -221,163 +317,633 @@
           "определённый артикль"
         ]
       ],
-      "note": "Спрягаем только querer. Другие глаголы используем в начальной форме: quiero comer, quieres leer. Прилагательные в этом наборе не меняются по роду.",
+      "note": "60 слов, 100 предложений, настоящее и простое прошедшее время.",
       "tasks": [
         [
-          "Я хочу пить горячий кофе и есть хлеб.",
-          "Yo quiero beber café caliente y comer pan.",
+          "Сегодня я хочу учиться дома.",
+          "Hoy quiero estudiar en casa.",
           "",
           ""
         ],
         [
-          "Ты хочешь купить интересную книгу и читать дома.",
-          "Tú quieres comprar un libro interesante y leer en casa.",
+          "Я живу в красивом городе.",
+          "Vivo en una ciudad bonita.",
           "",
           ""
         ],
         [
-          "Она хочет изучать испанский и работать.",
-          "Ella quiere aprender español y trabajar.",
+          "Мой брат работает в магазине.",
+          "Mi hermano trabaja en una tienda.",
           "",
           ""
         ],
         [
-          "Он хочет жить в большом доме и пить кофе.",
-          "Él quiere vivir en una casa grande y beber café.",
+          "Моя сестра хочет работать здесь.",
+          "Mi hermana quiere trabajar aquí.",
           "",
           ""
         ],
         [
-          "Мы хотим заниматься испанским на интересном уроке.",
-          "Nosotros queremos estudiar español en una clase interesante.",
+          "Сейчас я могу говорить с тобой.",
+          "Ahora puedo hablar contigo.",
           "",
           ""
         ],
         [
-          "Вы хотите читать полезную книгу и изучать испанский.",
-          "Vosotros queréis leer un libro útil y aprender español.",
-          "",
-          "неформально"
-        ],
-        [
-          "Они хотят есть хлеб и пить горячую воду.",
-          "Ellos quieren comer pan y beber agua caliente.",
+          "Мне нужны деньги на дом.",
+          "Necesito dinero para una casa.",
           "",
           ""
         ],
         [
-          "Вы хотите купить отличную книгу и читать.",
-          "Usted quiere comprar un libro excelente y leer.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Вы хотите пить кофе и читать важную книгу.",
-          "Ustedes quieren beber café y leer un libro importante.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Я хочу лёгкий урок и свободное время.",
-          "Yo quiero una clase fácil y tiempo libre.",
+          "Сегодня у меня есть время для семьи.",
+          "Hoy tengo tiempo para mi familia.",
           "",
           ""
         ],
         [
-          "Ты хочешь сложную работу, но приятную музыку.",
-          "Tú quieres un trabajo difícil, pero música agradable.",
+          "У тебя очень красивый дом.",
+          "Tienes una casa muy bonita.",
           "",
           ""
         ],
         [
-          "Он хочет большой дом и интересную книгу.",
-          "Él quiere una casa grande y un libro interesante.",
+          "Мы хотим учиться вместе дома.",
+          "Queremos estudiar juntos en casa.",
           "",
           ""
         ],
         [
-          "Она хочет заниматься испанским и читать полезную книгу.",
-          "Ella quiere estudiar español y leer un libro útil.",
+          "Мои родители живут в маленьком городе.",
+          "Mis padres viven en una ciudad pequeña.",
           "",
           ""
         ],
         [
-          "Мы хотим есть хлеб и читать в большом доме.",
-          "Nosotros queremos comer pan y leer en una casa grande.",
+          "Я вижу мужчину в парке.",
+          "Veo a un hombre en el parque.",
           "",
           ""
         ],
         [
-          "Вы хотите учить испанский и читать отличную книгу.",
-          "Vosotros queréis aprender español y leer un libro excelente.",
-          "",
-          "неформально"
-        ],
-        [
-          "Они хотят важную работу и свободное время.",
-          "Ellos quieren un trabajo importante y tiempo libre.",
+          "Я слушаю женщину в магазине.",
+          "Escucho a una mujer en la tienda.",
           "",
           ""
         ],
         [
-          "Я хочу пить воду и есть хлеб, но не хочу кофе.",
-          "Yo quiero beber agua y comer pan, pero no quiero café.",
+          "Моя мать смотрит на девочку.",
+          "Mi madre mira a la niña.",
           "",
           ""
         ],
         [
-          "Ты хочешь читать дома и заниматься испанским.",
-          "Tú quieres leer en casa y estudiar español.",
+          "Моя подруга видит мальчика на улице.",
+          "Mi amiga ve a un niño en la calle.",
           "",
           ""
         ],
         [
-          "Она хочет интересную музыку и отличный кофе.",
-          "Ella quiere música interesante y café excelente.",
+          "Сегодня я иду в парк.",
+          "Hoy voy al parque.",
           "",
           ""
         ],
         [
-          "Он хочет лёгкую работу и большую книгу.",
-          "Él quiere un trabajo fácil y un libro grande.",
+          "Моя сестра идёт в новый магазин.",
+          "Mi hermana va a la tienda nueva.",
           "",
           ""
         ],
         [
-          "Мы хотим важную работу и приятную музыку.",
-          "Nosotros queremos un trabajo importante y música agradable.",
+          "Мой брат приходит домой вечером.",
+          "Mi hermano viene a casa por la tarde.",
           "",
           ""
         ],
         [
-          "Вы хотите изучать испанский, чтобы работать.",
-          "Usted quiere aprender español para trabajar.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Они хотят читать и говорить по-испански.",
-          "Ellos quieren leer y hablar español.",
+          "Моя сестра всегда учится дома.",
+          "Mi hermana siempre estudia en casa.",
           "",
           ""
         ],
         [
-          "Вы не хотите есть хлеб, но хотите пить кофе.",
-          "Ustedes no quieren comer pan, pero quieren beber café.",
-          "",
-          "вежливо"
-        ],
-        [
-          "Ты хочешь учить испанский с интересной книгой.",
-          "Tú quieres aprender español con un libro interesante.",
+          "Мой отец работает в большом городе.",
+          "Mi padre trabaja en una ciudad grande.",
           "",
           ""
         ],
         [
-          "Мы хотим читать полезную книгу и заниматься испанским.",
-          "Nosotros queremos leer un libro útil y estudiar español.",
+          "Моя мать сейчас в магазине.",
+          "Mi madre está ahora en la tienda.",
           "",
           ""
+        ],
+        [
+          "Я хочу научиться говорить с тобой.",
+          "Quiero aprender a hablar contigo.",
+          "",
+          ""
+        ],
+        [
+          "Мой друг хочет купить дом.",
+          "Mi amigo quiere comprar una casa.",
+          "",
+          ""
+        ],
+        [
+          "Сегодня мы идём в парк.",
+          "Hoy vamos al parque.",
+          "",
+          ""
+        ],
+        [
+          "Моя подруга работает по утрам.",
+          "Mi amiga trabaja por la mañana.",
+          "",
+          ""
+        ],
+        [
+          "Я всегда слушаю мою сестру.",
+          "Siempre escucho a mi hermana.",
+          "",
+          ""
+        ],
+        [
+          "У моей сестры большой красивый дом.",
+          "Mi hermana tiene una casa grande y bonita.",
+          "",
+          ""
+        ],
+        [
+          "Мой друг — хороший человек.",
+          "Mi amigo es una buena persona.",
+          "",
+          ""
+        ],
+        [
+          "У моего отца трудная работа.",
+          "Mi padre tiene un trabajo difícil.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу купить маленький дом.",
+          "Quiero comprar una casa pequeña.",
+          "",
+          ""
+        ],
+        [
+          "Этот магазин новый и большой.",
+          "Esta tienda es nueva y grande.",
+          "",
+          ""
+        ],
+        [
+          "Моя семья живёт на красивой улице.",
+          "Mi familia vive en una calle bonita.",
+          "",
+          ""
+        ],
+        [
+          "У моей подруги хорошая работа.",
+          "Mi amiga tiene un buen trabajo.",
+          "",
+          ""
+        ],
+        [
+          "Этот дом старый, но красивый.",
+          "Esta casa es vieja, pero bonita.",
+          "",
+          ""
+        ],
+        [
+          "Я не хочу покупать дорогой дом.",
+          "No quiero comprar una casa cara.",
+          "",
+          ""
+        ],
+        [
+          "Моя сестра хочет купить дешёвый дом.",
+          "Mi hermana quiere comprar una casa barata.",
+          "",
+          ""
+        ],
+        [
+          "Сегодня у меня плохой день.",
+          "Hoy tengo un mal día.",
+          "",
+          ""
+        ],
+        [
+          "Мой брат живёт в новом доме.",
+          "Mi hermano vive en una casa nueva.",
+          "",
+          ""
+        ],
+        [
+          "У моего друга маленькая семья.",
+          "Mi amigo tiene una familia pequeña.",
+          "",
+          ""
+        ],
+        [
+          "Этот парк большой и красивый.",
+          "Este parque es grande y bonito.",
+          "",
+          ""
+        ],
+        [
+          "Я не хочу жить на некрасивой улице.",
+          "No quiero vivir en una calle fea.",
+          "",
+          ""
+        ],
+        [
+          "Моя мать не работает ночью.",
+          "Mi madre no trabaja por la noche.",
+          "",
+          ""
+        ],
+        [
+          "Сегодня я не хочу идти в магазин.",
+          "Hoy no quiero ir a la tienda.",
+          "",
+          ""
+        ],
+        [
+          "Сейчас у меня нет времени учиться.",
+          "Ahora no tengo tiempo para estudiar.",
+          "",
+          ""
+        ],
+        [
+          "Мой брат не хочет работать здесь.",
+          "Mi hermano no quiere trabajar aquí.",
+          "",
+          ""
+        ],
+        [
+          "Моя сестра не может прийти сегодня.",
+          "Mi hermana no puede venir hoy.",
+          "",
+          ""
+        ],
+        [
+          "У моего друга нет денег на дом.",
+          "Mi amigo no tiene dinero para una casa.",
+          "",
+          ""
+        ],
+        [
+          "Я не вижу мою подругу в парке.",
+          "No veo a mi amiga en el parque.",
+          "",
+          ""
+        ],
+        [
+          "Моя мать не хочет жить там.",
+          "Mi madre no quiere vivir allí.",
+          "",
+          ""
+        ],
+        [
+          "Сегодня мы не можем пойти в парк.",
+          "Hoy no podemos ir al parque.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу иметь лёгкую работу.",
+          "Quiero tener un trabajo fácil.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я работала в магазине.",
+          "Ayer trabajé en una tienda.",
+          "",
+          ""
+        ],
+        [
+          "Вчера утром я училась дома.",
+          "Ayer por la mañana estudié en casa.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я была в большом парке.",
+          "Ayer estuve en un parque grande.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я видела мою подругу в городе.",
+          "Ayer vi a mi amiga en la ciudad.",
+          "",
+          ""
+        ],
+        [
+          "Вчера мой брат купил новый дом.",
+          "Ayer mi hermano compró una casa nueva.",
+          "",
+          ""
+        ],
+        [
+          "Вчера моя сестра пришла ко мне домой.",
+          "Ayer mi hermana vino a mi casa.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я говорила с моим отцом.",
+          "Ayer hablé con mi padre.",
+          "",
+          ""
+        ],
+        [
+          "Вчера вечером я ходила в магазин.",
+          "Ayer por la tarde fui a la tienda.",
+          "",
+          ""
+        ],
+        [
+          "Вчера у меня не было времени работать.",
+          "Ayer no tuve tiempo para trabajar.",
+          "",
+          ""
+        ],
+        [
+          "Вчера был хороший день для моей семьи.",
+          "Ayer fue un buen día para mi familia.",
+          "",
+          ""
+        ],
+        [
+          "Вчера моя мать работала ночью.",
+          "Ayer mi madre trabajó por la noche.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я видела красивый старый дом.",
+          "Ayer vi una casa vieja y bonita.",
+          "",
+          ""
+        ],
+        [
+          "Вчера мой друг был у меня дома.",
+          "Ayer mi amigo estuvo en mi casa.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я не смогла поговорить с сестрой.",
+          "Ayer no pude hablar con mi hermana.",
+          "",
+          ""
+        ],
+        [
+          "Вчера мы ходили в парк с семьёй.",
+          "Ayer fuimos al parque con la familia.",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь сегодня учиться дома?",
+          "¿Quieres estudiar en casa hoy?",
+          "",
+          ""
+        ],
+        [
+          "Ты можешь сейчас поговорить со мной?",
+          "¿Puedes hablar conmigo ahora?",
+          "",
+          ""
+        ],
+        [
+          "У тебя есть деньги на новый дом?",
+          "¿Tienes dinero para una casa nueva?",
+          "",
+          ""
+        ],
+        [
+          "У тебя сегодня есть время для меня?",
+          "¿Tienes tiempo para mí hoy?",
+          "",
+          ""
+        ],
+        [
+          "Ты живёшь в этом красивом городе?",
+          "¿Vives en esta ciudad bonita?",
+          "",
+          ""
+        ],
+        [
+          "Где ты живёшь?",
+          "¿Dónde vives?",
+          "",
+          ""
+        ],
+        [
+          "Твой брат работает в этом магазине?",
+          "¿Tu hermano trabaja en esta tienda?",
+          "",
+          ""
+        ],
+        [
+          "Ты видишь женщину в парке?",
+          "¿Ves a la mujer en el parque?",
+          "",
+          ""
+        ],
+        [
+          "Где сейчас твоя младшая сестра?",
+          "¿Dónde está ahora tu hermana pequeña?",
+          "",
+          ""
+        ],
+        [
+          "Твоя мать всегда работает утром?",
+          "¿Tu madre siempre trabaja por la mañana?",
+          "",
+          ""
+        ],
+        [
+          "Что ты хочешь делать сегодня?",
+          "¿Qué quieres hacer hoy?",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь купить большой дом?",
+          "¿Quieres comprar una casa grande?",
+          "",
+          ""
+        ],
+        [
+          "Когда ты хочешь прийти ко мне домой?",
+          "¿Cuándo quieres venir a mi casa?",
+          "",
+          ""
+        ],
+        [
+          "У твоей подруги хорошая работа?",
+          "¿Tu amiga tiene un buen trabajo?",
+          "",
+          ""
+        ],
+        [
+          "Почему этот дом такой дорогой?",
+          "¿Por qué esta casa es tan cara?",
+          "",
+          ""
+        ],
+        [
+          "Ты хочешь пойти со мной в парк?",
+          "¿Quieres ir al parque conmigo?",
+          "",
+          ""
+        ],
+        [
+          "Ты вчера работала в магазине?",
+          "¿Ayer trabajaste en la tienda?",
+          "",
+          ""
+        ],
+        [
+          "Ты вчера видела моего брата?",
+          "¿Viste ayer a mi hermano?",
+          "",
+          ""
+        ],
+        [
+          "Что ты делала вчера вечером?",
+          "¿Qué hiciste ayer por la tarde?",
+          "",
+          ""
+        ],
+        [
+          "Ты можешь прийти сегодня вечером?",
+          "¿Puedes venir esta tarde?",
+          "",
+          ""
+        ],
+        [
+          "Я хочу купить большой красивый дом для моей семьи.",
+          "Quiero comprar una casa grande y bonita para mi familia.",
+          "",
+          ""
+        ],
+        [
+          "Мне нужно работать, чтобы иметь деньги на дом.",
+          "Necesito trabajar para tener dinero para una casa.",
+          "",
+          ""
+        ],
+        [
+          "Моя сестра хочет жить в красивом городе и работать там.",
+          "Mi hermana quiere vivir en una ciudad bonita y trabajar allí.",
+          "",
+          ""
+        ],
+        [
+          "Мой брат хочет учиться, но у него нет времени.",
+          "Mi hermano quiere estudiar, pero no tiene tiempo.",
+          "",
+          ""
+        ],
+        [
+          "У моей подруги маленький дом, но большая семья.",
+          "Mi amiga tiene una casa pequeña, pero una familia grande.",
+          "",
+          ""
+        ],
+        [
+          "Сегодня утром я хочу учиться, а вечером работать.",
+          "Hoy quiero estudiar por la mañana y trabajar por la tarde.",
+          "",
+          ""
+        ],
+        [
+          "Мой отец работает в городе, а моя мать работает дома.",
+          "Mi padre trabaja en la ciudad y mi madre trabaja en casa.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я работала в магазине, а сегодня хочу пойти в парк.",
+          "Ayer trabajé en la tienda y hoy quiero ir al parque.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу купить новый дом, но у меня нет денег.",
+          "Quiero comprar una casa nueva, pero no tengo dinero.",
+          "",
+          ""
+        ],
+        [
+          "Мой друг живёт в маленьком городе и работает в большом магазине.",
+          "Mi amigo vive en una ciudad pequeña y trabaja en una tienda grande.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу учиться с друзьями и научиться говорить.",
+          "Quiero estudiar con mis amigos y aprender a hablar.",
+          "",
+          ""
+        ],
+        [
+          "Вчера я видела мою сестру, а сегодня хочу увидеть моего брата.",
+          "Ayer vi a mi hermana y hoy quiero ver a mi hermano.",
+          "",
+          ""
+        ],
+        [
+          "Я не хочу работать ночью, потому что мне нужно учиться утром.",
+          "No quiero trabajar por la noche porque necesito estudiar por la mañana.",
+          "",
+          ""
+        ],
+        [
+          "У моей сестры хорошая работа, красивый дом и большая семья.",
+          "Mi hermana tiene un buen trabajo, una casa bonita y una familia grande.",
+          "",
+          ""
+        ],
+        [
+          "Я хочу жить в красивом городе, иметь хорошую работу и большой дом для моей семьи.",
+          "Quiero vivir en una ciudad bonita, tener un buen trabajo y una casa grande para mi familia.",
+          "",
+          ""
+        ]
+      ],
+      "adverbs": [
+        [
+          "hoy",
+          "сегодня"
+        ],
+        [
+          "ayer",
+          "вчера"
+        ],
+        [
+          "ahora",
+          "сейчас"
+        ],
+        [
+          "aquí",
+          "здесь"
+        ],
+        [
+          "allí",
+          "там"
+        ],
+        [
+          "siempre",
+          "всегда"
         ]
       ]
     },
