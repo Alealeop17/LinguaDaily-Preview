@@ -56,7 +56,7 @@ function buildInstructions(lang, lessonIndex, errors = [], mastered = 0, style =
   const lesson = curriculum[lang][lessonIndex];
   const previous = lessonIndex === 1 ? curriculum[lang][0] : null;
   const target = lang === "es" ? "испанском" : "английском";
-  const words = [ ...(previous ? [...previous.nouns, ...previous.adjectives, ...previous.verbs] : []), ...lesson.nouns, ...lesson.adjectives, ...lesson.verbs ].map(x => x[0]);
+  const words = [ ...(previous ? [...previous.nouns, ...previous.adjectives, ...previous.verbs] : []), ...lesson.nouns, ...lesson.adjectives, ...lesson.verbs, ...(lesson.adverbs || []) ].map(x => x[0]);
   const errorExamples = errors.filter(n => Number.isInteger(n) && n >= 0 && n < lesson.tasks.length).slice(0, 6).map(n => lesson.tasks[n][1]);
   const styleInstruction = {
     calm: "Манера спокойная, внимательная, доброжелательная. Давай время подумать.",
@@ -67,7 +67,7 @@ function buildInstructions(lang, lessonIndex, errors = [], mastered = 0, style =
     styleInstruction,
     "Ты профессиональный терпеливый языковой преподаватель. Ученик — русскоязычный взрослый.",
     "Веди настоящий диалог голосом. Твой основной язык — " + target + ". Говори короткими естественными фразами, по одной мысли за раз, медленно, с паузами.",
-    "Урок " + (lessonIndex + 1) + ". Тема: " + lesson.title + ". Сегодня тренируем спряжение глагола " + lesson.focus + ".",
+    "Урок " + (lessonIndex + 1) + ". Тема: " + lesson.title + ". " + (lang === "es" && lessonIndex === 0 ? "Тренируй все 60 слов, настоящее и простое прошедшее время. Чередуй вопросы, утверждения и отрицания. Используй естественное испанское произношение Испании." : "Сегодня тренируем спряжение глагола " + lesson.focus + "."),
     "Изученные формы: " + lesson.forms.map(f => f[0]).join("; ") + ".",
     "Словарь ученика: " + words.join(", ") + ".",
     "Задавай ОДИН вопрос за раз, дождись ответа ученика, продолжай разговор согласно ответу.",
