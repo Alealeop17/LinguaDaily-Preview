@@ -1,0 +1,602 @@
+[
+  [
+    "Сегодня я хочу учиться дома.",
+    "Hoy quiero estudiar en casa.",
+    "",
+    ""
+  ],
+  [
+    "Я живу в красивом городе.",
+    "Vivo en una ciudad bonita.",
+    "",
+    ""
+  ],
+  [
+    "Мой брат работает в магазине.",
+    "Mi hermano trabaja en una tienda.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра хочет работать здесь.",
+    "Mi hermana quiere trabajar aquí.",
+    "",
+    ""
+  ],
+  [
+    "Сейчас я могу говорить с тобой.",
+    "Ahora puedo hablar contigo.",
+    "",
+    ""
+  ],
+  [
+    "Мне нужны деньги на дом.",
+    "Necesito dinero para una casa.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня у меня есть время для семьи.",
+    "Hoy tengo tiempo para mi familia.",
+    "",
+    ""
+  ],
+  [
+    "У тебя очень красивый дом.",
+    "Tienes una casa muy bonita.",
+    "",
+    ""
+  ],
+  [
+    "Мы хотим учиться вместе дома.",
+    "Queremos estudiar juntos en casa.",
+    "",
+    ""
+  ],
+  [
+    "Мои родители живут в маленьком городе.",
+    "Mis padres viven en una ciudad pequeña.",
+    "",
+    ""
+  ],
+  [
+    "Я вижу мужчину в парке.",
+    "Veo a un hombre en el parque.",
+    "",
+    ""
+  ],
+  [
+    "Я слушаю женщину в магазине.",
+    "Escucho a una mujer en la tienda.",
+    "",
+    ""
+  ],
+  [
+    "Моя мать смотрит на девочку.",
+    "Mi madre mira a la niña.",
+    "",
+    ""
+  ],
+  [
+    "Моя подруга видит мальчика на улице.",
+    "Mi amiga ve a un niño en la calle.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня я иду в парк.",
+    "Hoy voy al parque.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра идёт в новый магазин.",
+    "Mi hermana va a la tienda nueva.",
+    "",
+    ""
+  ],
+  [
+    "Мой брат приходит домой вечером.",
+    "Mi hermano viene a casa por la tarde.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра всегда учится дома.",
+    "Mi hermana siempre estudia en casa.",
+    "",
+    ""
+  ],
+  [
+    "Мой отец работает в большом городе.",
+    "Mi padre trabaja en una ciudad grande.",
+    "",
+    ""
+  ],
+  [
+    "Моя мать сейчас в магазине.",
+    "Mi madre está ahora en la tienda.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу научиться говорить с тобой.",
+    "Quiero aprender a hablar contigo.",
+    "",
+    ""
+  ],
+  [
+    "Мой друг хочет купить дом.",
+    "Mi amigo quiere comprar una casa.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня мы идём в парк.",
+    "Hoy vamos al parque.",
+    "",
+    ""
+  ],
+  [
+    "Моя подруга работает по утрам.",
+    "Mi amiga trabaja por la mañana.",
+    "",
+    ""
+  ],
+  [
+    "Я всегда слушаю мою сестру.",
+    "Siempre escucho a mi hermana.",
+    "",
+    ""
+  ],
+  [
+    "У моей сестры большой красивый дом.",
+    "Mi hermana tiene una casa grande y bonita.",
+    "",
+    ""
+  ],
+  [
+    "Мой друг — хороший человек.",
+    "Mi amigo es una buena persona.",
+    "",
+    ""
+  ],
+  [
+    "У моего отца трудная работа.",
+    "Mi padre tiene un trabajo difícil.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу купить маленький дом.",
+    "Quiero comprar una casa pequeña.",
+    "",
+    ""
+  ],
+  [
+    "Этот магазин новый и большой.",
+    "Esta tienda es nueva y grande.",
+    "",
+    ""
+  ],
+  [
+    "Моя семья живёт на красивой улице.",
+    "Mi familia vive en una calle bonita.",
+    "",
+    ""
+  ],
+  [
+    "У моей подруги хорошая работа.",
+    "Mi amiga tiene un buen trabajo.",
+    "",
+    ""
+  ],
+  [
+    "Этот дом старый, но красивый.",
+    "Esta casa es vieja, pero bonita.",
+    "",
+    ""
+  ],
+  [
+    "Я не хочу покупать дорогой дом.",
+    "No quiero comprar una casa cara.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра хочет купить дешёвый дом.",
+    "Mi hermana quiere comprar una casa barata.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня у меня плохой день.",
+    "Hoy tengo un mal día.",
+    "",
+    ""
+  ],
+  [
+    "Мой брат живёт в новом доме.",
+    "Mi hermano vive en una casa nueva.",
+    "",
+    ""
+  ],
+  [
+    "У моего друга маленькая семья.",
+    "Mi amigo tiene una familia pequeña.",
+    "",
+    ""
+  ],
+  [
+    "Этот парк большой и красивый.",
+    "Este parque es grande y bonito.",
+    "",
+    ""
+  ],
+  [
+    "Я не хочу жить на некрасивой улице.",
+    "No quiero vivir en una calle fea.",
+    "",
+    ""
+  ],
+  [
+    "Моя мать не работает ночью.",
+    "Mi madre no trabaja por la noche.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня я не хочу идти в магазин.",
+    "Hoy no quiero ir a la tienda.",
+    "",
+    ""
+  ],
+  [
+    "Сейчас у меня нет времени учиться.",
+    "Ahora no tengo tiempo para estudiar.",
+    "",
+    ""
+  ],
+  [
+    "Мой брат не хочет работать здесь.",
+    "Mi hermano no quiere trabajar aquí.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра не может прийти сегодня.",
+    "Mi hermana no puede venir hoy.",
+    "",
+    ""
+  ],
+  [
+    "У моего друга нет денег на дом.",
+    "Mi amigo no tiene dinero para una casa.",
+    "",
+    ""
+  ],
+  [
+    "Я не вижу мою подругу в парке.",
+    "No veo a mi amiga en el parque.",
+    "",
+    ""
+  ],
+  [
+    "Моя мать не хочет жить там.",
+    "Mi madre no quiere vivir allí.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня мы не можем пойти в парк.",
+    "Hoy no podemos ir al parque.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу иметь лёгкую работу.",
+    "Quiero tener un trabajo fácil.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я работала в магазине.",
+    "Ayer trabajé en una tienda.",
+    "",
+    ""
+  ],
+  [
+    "Вчера утром я училась дома.",
+    "Ayer por la mañana estudié en casa.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я была в большом парке.",
+    "Ayer estuve en un parque grande.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я видела мою подругу в городе.",
+    "Ayer vi a mi amiga en la ciudad.",
+    "",
+    ""
+  ],
+  [
+    "Вчера мой брат купил новый дом.",
+    "Ayer mi hermano compró una casa nueva.",
+    "",
+    ""
+  ],
+  [
+    "Вчера моя сестра пришла ко мне домой.",
+    "Ayer mi hermana vino a mi casa.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я говорила с моим отцом.",
+    "Ayer hablé con mi padre.",
+    "",
+    ""
+  ],
+  [
+    "Вчера вечером я ходила в магазин.",
+    "Ayer por la tarde fui a la tienda.",
+    "",
+    ""
+  ],
+  [
+    "Вчера у меня не было времени работать.",
+    "Ayer no tuve tiempo para trabajar.",
+    "",
+    ""
+  ],
+  [
+    "Вчера был хороший день для моей семьи.",
+    "Ayer fue un buen día para mi familia.",
+    "",
+    ""
+  ],
+  [
+    "Вчера моя мать работала ночью.",
+    "Ayer mi madre trabajó por la noche.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я видела красивый старый дом.",
+    "Ayer vi una casa vieja y bonita.",
+    "",
+    ""
+  ],
+  [
+    "Вчера мой друг был у меня дома.",
+    "Ayer mi amigo estuvo en mi casa.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я не смогла поговорить с сестрой.",
+    "Ayer no pude hablar con mi hermana.",
+    "",
+    ""
+  ],
+  [
+    "Вчера мы ходили в парк с семьёй.",
+    "Ayer fuimos al parque con la familia.",
+    "",
+    ""
+  ],
+  [
+    "Ты хочешь сегодня учиться дома?",
+    "¿Quieres estudiar en casa hoy?",
+    "",
+    ""
+  ],
+  [
+    "Ты можешь сейчас поговорить со мной?",
+    "¿Puedes hablar conmigo ahora?",
+    "",
+    ""
+  ],
+  [
+    "У тебя есть деньги на новый дом?",
+    "¿Tienes dinero para una casa nueva?",
+    "",
+    ""
+  ],
+  [
+    "У тебя сегодня есть время для меня?",
+    "¿Tienes tiempo para mí hoy?",
+    "",
+    ""
+  ],
+  [
+    "Ты живёшь в этом красивом городе?",
+    "¿Vives en esta ciudad bonita?",
+    "",
+    ""
+  ],
+  [
+    "Где ты живёшь?",
+    "¿Dónde vives?",
+    "",
+    ""
+  ],
+  [
+    "Твой брат работает в этом магазине?",
+    "¿Tu hermano trabaja en esta tienda?",
+    "",
+    ""
+  ],
+  [
+    "Ты видишь женщину в парке?",
+    "¿Ves a la mujer en el parque?",
+    "",
+    ""
+  ],
+  [
+    "Где сейчас твоя младшая сестра?",
+    "¿Dónde está ahora tu hermana pequeña?",
+    "",
+    ""
+  ],
+  [
+    "Твоя мать всегда работает утром?",
+    "¿Tu madre siempre trabaja por la mañana?",
+    "",
+    ""
+  ],
+  [
+    "Что ты хочешь делать сегодня?",
+    "¿Qué quieres hacer hoy?",
+    "",
+    ""
+  ],
+  [
+    "Ты хочешь купить большой дом?",
+    "¿Quieres comprar una casa grande?",
+    "",
+    ""
+  ],
+  [
+    "Когда ты хочешь прийти ко мне домой?",
+    "¿Cuándo quieres venir a mi casa?",
+    "",
+    ""
+  ],
+  [
+    "У твоей подруги хорошая работа?",
+    "¿Tu amiga tiene un buen trabajo?",
+    "",
+    ""
+  ],
+  [
+    "Почему этот дом такой дорогой?",
+    "¿Por qué esta casa es tan cara?",
+    "",
+    ""
+  ],
+  [
+    "Ты хочешь пойти со мной в парк?",
+    "¿Quieres ir al parque conmigo?",
+    "",
+    ""
+  ],
+  [
+    "Ты вчера работала в магазине?",
+    "¿Ayer trabajaste en la tienda?",
+    "",
+    ""
+  ],
+  [
+    "Ты вчера видела моего брата?",
+    "¿Viste ayer a mi hermano?",
+    "",
+    ""
+  ],
+  [
+    "Что ты делала вчера вечером?",
+    "¿Qué hiciste ayer por la tarde?",
+    "",
+    ""
+  ],
+  [
+    "Ты можешь прийти сегодня вечером?",
+    "¿Puedes venir esta tarde?",
+    "",
+    ""
+  ],
+  [
+    "Я хочу купить большой красивый дом для моей семьи.",
+    "Quiero comprar una casa grande y bonita para mi familia.",
+    "",
+    ""
+  ],
+  [
+    "Мне нужно работать, чтобы иметь деньги на дом.",
+    "Necesito trabajar para tener dinero para una casa.",
+    "",
+    ""
+  ],
+  [
+    "Моя сестра хочет жить в красивом городе и работать там.",
+    "Mi hermana quiere vivir en una ciudad bonita y trabajar allí.",
+    "",
+    ""
+  ],
+  [
+    "Мой брат хочет учиться, но у него нет времени.",
+    "Mi hermano quiere estudiar, pero no tiene tiempo.",
+    "",
+    ""
+  ],
+  [
+    "У моей подруги маленький дом, но большая семья.",
+    "Mi amiga tiene una casa pequeña, pero una familia grande.",
+    "",
+    ""
+  ],
+  [
+    "Сегодня утром я хочу учиться, а вечером работать.",
+    "Hoy quiero estudiar por la mañana y trabajar por la tarde.",
+    "",
+    ""
+  ],
+  [
+    "Мой отец работает в городе, а моя мать работает дома.",
+    "Mi padre trabaja en la ciudad y mi madre trabaja en casa.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я работала в магазине, а сегодня хочу пойти в парк.",
+    "Ayer trabajé en la tienda y hoy quiero ir al parque.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу купить новый дом, но у меня нет денег.",
+    "Quiero comprar una casa nueva, pero no tengo dinero.",
+    "",
+    ""
+  ],
+  [
+    "Мой друг живёт в маленьком городе и работает в большом магазине.",
+    "Mi amigo vive en una ciudad pequeña y trabaja en una tienda grande.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу учиться с друзьями и научиться говорить.",
+    "Quiero estudiar con mis amigos y aprender a hablar.",
+    "",
+    ""
+  ],
+  [
+    "Вчера я видела мою сестру, а сегодня хочу увидеть моего брата.",
+    "Ayer vi a mi hermana y hoy quiero ver a mi hermano.",
+    "",
+    ""
+  ],
+  [
+    "Я не хочу работать ночью, потому что мне нужно учиться утром.",
+    "No quiero trabajar por la noche porque necesito estudiar por la mañana.",
+    "",
+    ""
+  ],
+  [
+    "У моей сестры хорошая работа, красивый дом и большая семья.",
+    "Mi hermana tiene un buen trabajo, una casa bonita y una familia grande.",
+    "",
+    ""
+  ],
+  [
+    "Я хочу жить в красивом городе, иметь хорошую работу и большой дом для моей семьи.",
+    "Quiero vivir en una ciudad bonita, tener un buen trabajo y una casa grande para mi familia.",
+    "",
+    ""
+  ]
+]
